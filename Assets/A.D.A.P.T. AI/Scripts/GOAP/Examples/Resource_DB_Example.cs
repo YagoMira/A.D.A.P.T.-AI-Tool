@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Resource_DB_Example : MonoBehaviour
 {
+/*
     public List<Resource> resources = new List<Resource>();
 
     // Start is called before the first frame update
@@ -17,4 +18,5 @@ public class Resource_DB_Example : MonoBehaviour
     {
         return resources;
     }
+*/
 }

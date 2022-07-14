@@ -44,13 +44,16 @@ public class Agent : MonoBehaviour
     public bool goToTarget(Action action) //Allows agent go to the target of a determinate Action (if isInRange/or not in other case)
     {
         float actionLimitRange = 0.0f;
-        foreach (KeyValuePair<string,Resource>p in action.preconditions)
+        /*foreach (KeyValuePair<string,IResource>p in action.preconditions)
         {
+            //TO-FIX!!!!!!!!!!!!!!!!!!!!!!!!!
+            
             if(p.Value.resourceType == ResourceType.Position || p.Value.resourceType == ResourceType.WorldElement)
             {
                 actionLimitRange = p.Value.limit;
             }
-        }
+            
+        }*/
 
         if ((Vector3.Distance(gameObject.transform.position, action.transform.position)) <= actionLimitRange)
         {

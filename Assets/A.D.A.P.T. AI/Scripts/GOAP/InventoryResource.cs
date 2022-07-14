@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : IResource
+public class InventoryResource : IResource
 {
     public string resourceName
     {
@@ -14,17 +14,17 @@ public class Resource : IResource
         get;
         private set;
     }
+    public object type
+    {
+        get;
+        private set;
+    }
+    public object value
+    {
+        get;
+        private set;
+    }
     public int priority
-    {
-        get;
-        private set;
-    }
-    public bool isConsumable
-    {
-        get;
-        private set;
-    }
-    public float value
     {
         get;
         private set;
@@ -34,27 +34,40 @@ public class Resource : IResource
         get;
         private set;
     }
+    public bool isConsumable
+    {
+        get;
+        private set;
+    }
+
+
+    public InventoryResource(string name, ResourceType resourceType, float type, float value, int priority, float limit, bool isConsumable)
+    {
+        this.resourceName = name;
+        this.resourceType = resourceType;
+        this.type = type;
+        this.value = value;
+        this.priority = priority;
+        this.limit = limit;
+        this.isConsumable = isConsumable;
+    }
+
+    /*--FUNCTIONS--*/
+    public new object GetType()
+    {
+        return type;
+    }
 
     public ResourceType GetResourceType()
     {
         return resourceType;
     }
 
-    public Resource(string name, ResourceType resourceType, bool isConsumable, int priority, float value, float limit)
-    {
-        this.resourceName = name;
-        this.resourceType = resourceType;
-        this.isConsumable = isConsumable;
-        this.priority = priority;
-        this.value = value;
-        this.limit = limit;
-    }
-
-    /*--FUNCTIONS FOR CONSUMABLE RESOURCES--*/
-    public void ModifyValue(float newValue)
+    public void ModifyValue(object newValue)
     {
         value = newValue;
     }
+
 
 
 }

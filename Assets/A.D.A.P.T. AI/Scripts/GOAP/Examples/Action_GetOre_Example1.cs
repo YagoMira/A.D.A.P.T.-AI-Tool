@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Action_GetOre_Example1 : Action
 {
+    /*
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +16,5 @@ public class Action_GetOre_Example1 : Action
     {
         
     }
+    */
 }

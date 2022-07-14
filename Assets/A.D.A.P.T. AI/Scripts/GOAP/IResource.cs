@@ -17,12 +17,13 @@ public interface IResource
     //VARIABLES:
     string resourceName { get; } //Name of the resource
     ResourceType resourceType { get; } //Type of resource
-    bool isConsumable { get; } //Check if the current resource is consumable or not
+    object type { get; } //Type of resource as Basic Data Type
+    object value { get; } //Value of resource as Basic Data Type
     int priority { get; } //Priority of the precondition/after effect
-    float value { get; } //We'll use value variable for some situations: [0.0 or 1.0] if WorldElement/Position exists and [0.0 - Inventory_Limit] 
-    float limit { get; } //Limit for inventory objects or for reach some transform position
+
 
     //METHODS:
-    ResourceType GetResourceType(); //Returns type of the current source
-
+    object GetType(); //Returns type of the current resource as Basic Data Type
+    ResourceType GetResourceType(); //Returns type of the current resource
+    void ModifyValue(object newValue); //Allows to change the actual value of the Resource as any Basic Data Type
 }

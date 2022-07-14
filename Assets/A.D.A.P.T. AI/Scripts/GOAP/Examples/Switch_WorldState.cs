@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Switch_WorldState : MonoBehaviour
 {
-
+    /*
     public Text text;
 
     public GameObject switchObject;
@@ -32,4 +32,5 @@ public class Switch_WorldState : MonoBehaviour
     {
         World.Instance.GetWorldState().ModifyStateByKey(switchObject.name, 0);
     }
+    */
 }
