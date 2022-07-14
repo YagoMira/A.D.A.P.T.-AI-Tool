@@ -5,7 +5,7 @@ using UnityEngine;
 public class BasicController : MonoBehaviour
 {
 
-    public float force = 5.0f;
+    public float speed = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +18,16 @@ public class BasicController : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
 
         if (Input.GetKey(KeyCode.A))
-            rb.AddForce(new Vector3(0, 0, -1) * force);
-
+            transform.position += new Vector3(0, 0, -speed) * Time.deltaTime;
+        
         if (Input.GetKey(KeyCode.D))
-            rb.AddForce(new Vector3(0, 0, 1) * force);
+            transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.W))
-            rb.AddForce(Vector3.left * force);
+            transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.S))
-            rb.AddForce(Vector3.right * force);
+            transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
 
     }
 }

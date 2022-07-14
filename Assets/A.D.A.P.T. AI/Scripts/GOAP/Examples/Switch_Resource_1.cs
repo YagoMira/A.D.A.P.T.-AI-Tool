@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Switch_Resource_1 : MonoBehaviour
 {
-
+/*
     public Text text;
 
     public GameObject switchObject;
@@ -37,4 +37,5 @@ public class Switch_Resource_1 : MonoBehaviour
     {
         localList[1].ModifyValue(110);
     }
+*/
 }
