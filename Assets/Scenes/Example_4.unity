@@ -1178,12 +1178,12 @@ MonoBehaviour:
   inRange: 0
   duration: 0
   preconditions_list:
-  - key: 
+  - key: AA
+    selectedType: 0
+    priority: 1
+  - key: AA
     selectedType: 1
     priority: 1
-  - key: 
-    selectedType: 0
-    priority: 2
   effects_list: []
   totalPriority: 0
   running: 0

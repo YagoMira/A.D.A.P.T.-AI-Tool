@@ -16,6 +16,10 @@ namespace ADAPT.UI
         public string agent_button = "TURN INTO AN AGENT!";
         public string agent_exists_text = "This GameObject is already an Agent!";
         #endregion
+
+        #region ACTIONS_UI
+        public string add_precondition_button_text = "Add Precondition";
+        #endregion
     }
 }
 
