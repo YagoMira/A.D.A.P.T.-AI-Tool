@@ -11,24 +11,38 @@ public abstract class Action : MonoBehaviour
     public class ResourceStruct
     {
         public string key;
-        //public ResourceType selectedType;
+        public ResourceType selectedType;
         //public int priority;
-
+        [SerializeField]
         public WorldResource resource;
 
-        public ResourceStruct(string key, WorldResource resource)
+        public ResourceStruct(string key, IResource resource)
         {
             this.key = key;
-            this.resource = (WorldResource)resource;
+            switch(resource.GetResourceType())
+            {
+                case ResourceType.WorldElement:
+                    this.resource = (WorldResource)resource;
+                    break;
+                /*
+                case ResourceType.Position:
+                    this.resource = (PositionResource)resource;
+                    break;
+                case ResourceType.InventoryObject:
+                    this.resource = (InventoryResource)resource;
+                    break;
+                case ResourceType.Status:
+                    this.resource = (StatusResource)resource;
+                    break;
+                    */
+            }        
         }
     }
-
     public string actionName; //Name of the action
     public Animation actionAnimation; //Animation to play when run action
     public GameObject target; //Target to achieve/ go to
     public bool inRange; //Check if the target is in range
     public float duration; //Duration of the actions
-    //[SerializeReference] //Needed for call list into UI
     [SerializeField]
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
     public List<IResource> effects_list; //List of effects/resources to achieve for manipulate in the Editor
@@ -52,6 +66,7 @@ public abstract class Action : MonoBehaviour
         Debug.Log(preconditions_list.Count);
         preconditions_list[0].resource = new WorldResource("New", ResourceType.WorldElement, null, null, 0);
         Debug.Log(preconditions_list[0].resource.GetResourceType().ToString());
+        Debug.Log(preconditions_list[0].resource.ToString());
         /*Debug.Log(preconditions_list.ToArray());
         foreach (var i in preconditions_list)
         {
@@ -60,6 +75,17 @@ public abstract class Action : MonoBehaviour
     }
     public void CheckResources()
     {
+        foreach (var p in preconditions_list)
+        {
+            if (p.selectedType == ResourceType.WorldElement)
+            {
+                Debug.Log("WORLD");
+            }
+            else
+            {
+                Debug.Log("NOPE");
+            }
+        }
             //Store all Editor preconditions into the Dictionary
             /*
                 foreach (var p in preconditions_list)
@@ -138,7 +164,7 @@ public abstract class Action : MonoBehaviour
 
         foreach (KeyValuePair<string, IResource> r in preconditions)
         {
-            totalPriority += r.Value.priority;
+            totalPriority += r.Value.Priority;
         }
 
         return totalPriority;

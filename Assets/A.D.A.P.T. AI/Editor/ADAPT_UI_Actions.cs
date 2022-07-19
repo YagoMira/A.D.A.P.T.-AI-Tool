@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ADAPT.UI
 {
     //Boolean set to true allows CustomEditor for inheritance classes.
-    [CustomEditor(typeof(Action), true)]
+    [CustomEditor(typeof(Action), true), CanEditMultipleObjects]
     public class ADAPT_UI_Actions : Editor //A.D.A.P.T Use "Editor" custom editor for actually exists script, and custom window for actions relationated with the tool management.
     {
         string add_precondition_button_text = "Add Precondition";
@@ -16,7 +16,6 @@ namespace ADAPT.UI
         {
             DrawDefaultInspector();
             DisplayActualProperties();
-
         }
         void AddPrecondition(SerializedProperty list)
         {

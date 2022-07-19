@@ -4,38 +4,92 @@ using UnityEngine;
 
 public class PositionResource : IResource
 {
-    public string resourceName
+    [SerializeField]
+    private string resourceName;
+    public string ResourceName
     {
-        get;
-        private set;
-    }
-    public ResourceType resourceType
-    {
-        get;
-        private set;
-    }
-    public object type
-    {
-        get;
-        private set;
-    }
-    public object value
-    {
-        get;
-        private set;
-    }
-    public int priority
-    {
-        get;
-        private set;
-    }
-    public float limit
-    {
-        get;
-        private set;
+        get
+        {
+            return this.resourceName;
+        }
+        set
+        {
+            this.resourceName = value;
+        }
     }
 
-    public PositionResource(string name, ResourceType resourceType, Transform gameObject, Transform value, int priority, float limit)
+    [SerializeField]
+    private ResourceType resourceType;
+    public ResourceType ResourceType
+    {
+        get
+        {
+            return this.resourceType;
+        }
+        set
+        {
+            this.resourceType = value;
+        }
+    }
+
+    [SerializeField]
+    private object type;
+    public object Type
+    {
+        get
+        {
+            return this.type;
+        }
+        set
+        {
+            this.type = value;
+        }
+    }
+
+    [SerializeField]
+    private object value;
+    public object Value
+    {
+        get
+        {
+            return this.value;
+        }
+        set
+        {
+            this.value = value;
+        }
+    }
+
+    [SerializeField]
+    private int priority;
+    public int Priority
+    {
+        get
+        {
+            return this.priority;
+        }
+        set
+        {
+            this.priority = value;
+        }
+    }
+
+    [SerializeField]
+    private float limit;
+    public float Limit
+    {
+        get
+        {
+            return this.limit;
+        }
+        set
+        {
+            this.limit = value;
+        }
+
+    }
+
+    public PositionResource(string name, ResourceType resourceType, Transform type, Transform value, int priority, float limit)
     {
         this.resourceName = name;
         this.resourceType = resourceType;

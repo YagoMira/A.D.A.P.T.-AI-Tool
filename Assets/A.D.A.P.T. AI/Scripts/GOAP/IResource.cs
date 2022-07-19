@@ -15,11 +15,11 @@ public interface IResource
 {
 
     //VARIABLES:
-    string resourceName { get; } //Name of the resource
-    ResourceType resourceType { get; } //Type of resource
-    object type { get; } //Type of resource as Basic Data Type
-    object value { get; } //Value of resource as Basic Data Type
-    int priority { get; } //Priority of the precondition/after effect
+    string ResourceName { get; } //Name of the resource
+    ResourceType ResourceType { get; } //Type of resource
+    object Type { get; } //Type of resource as Basic Data Type
+    object Value { get; } //Value of resource as Basic Data Type
+    int Priority { get; } //Priority of the precondition/after effect
 
 
     //METHODS:

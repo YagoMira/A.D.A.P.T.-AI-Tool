@@ -4,40 +4,103 @@ using UnityEngine;
 
 public class InventoryResource : IResource
 {
-    public string resourceName
+    [SerializeField]
+    private string resourceName;
+    public string ResourceName
     {
-        get;
-        private set;
+        get
+        {
+            return this.resourceName;
+        }
+        set
+        {
+            this.resourceName = value;
+        }
     }
-    public ResourceType resourceType
+
+    [SerializeField]
+    private ResourceType resourceType;
+    public ResourceType ResourceType
     {
-        get;
-        private set;
+        get
+        {
+            return this.resourceType;
+        }
+        set
+        {
+            this.resourceType = value;
+        }
     }
-    public object type
+
+    [SerializeField]
+    private object type;
+    public object Type
     {
-        get;
-        private set;
+        get
+        {
+            return this.type;
+        }
+        set
+        {
+            this.type = value;
+        }
     }
-    public object value
+
+    [SerializeField]
+    private object value;
+    public object Value
     {
-        get;
-        private set;
+        get
+        {
+            return this.value;
+        }
+        set
+        {
+            this.value = value;
+        }
     }
-    public int priority
+
+    [SerializeField]
+    private int priority;
+    public int Priority
     {
-        get;
-        private set;
+        get
+        {
+            return this.priority;
+        }
+        set
+        {
+            this.priority = value;
+        }
     }
-    public float limit
+
+    [SerializeField]
+    private float limit;
+    public float Limit
     {
-        get;
-        private set;
+        get
+        {
+            return this.limit;
+        }
+        set
+        {
+            this.limit = value;
+        }
+
     }
-    public bool isConsumable
+
+    [SerializeField]
+    private bool isConsumable;
+    public bool IsConsumable
     {
-        get;
-        private set;
+        get
+        {
+            return this.isConsumable;
+        }
+        set
+        {
+            this.isConsumable = value;
+        }
     }
 
 
