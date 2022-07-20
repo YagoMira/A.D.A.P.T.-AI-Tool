@@ -14,12 +14,87 @@ namespace ADAPT.UI
 
         public override void OnInspectorGUI()
         {
-            DrawDefaultInspector();
-            DisplayActualProperties();
+            //DrawDefaultInspector(); //Default selector
+            DisplayDefaultProperties(); //Default selector by custom code
+            //DisplayActualProperties(); //Other properties like buttons, ...
+
+            #region TEST
+            //serializedObject.FindProperty("resourceStruct").hide
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("resourceStruct"));
+            #endregion
+            
         }
         void AddPrecondition(SerializedProperty list)
         {
             list.arraySize++; //Duplicates the last element
+        }
+
+        public static void Show(SerializedProperty list)
+        {
+            int selectedValue;
+
+            EditorGUILayout.PropertyField(list, false);
+            EditorGUI.indentLevel += 1;
+            if (list.isExpanded)
+            {
+                EditorGUILayout.PropertyField(list.FindPropertyRelative("Array.size")); //Print "Size" field in inspector
+                for (int i = 0; i < list.arraySize; i++)
+                {
+                    //PRINT ALL ResourceStruct fields:
+                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i), false);
+                    if(list.GetArrayElementAtIndex(i).isExpanded)
+                    {
+                        EditorGUI.indentLevel += 1;
+                        //Print all ResourceStruct elements:
+                        EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("key"));
+                        EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType"));
+                        selectedValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType").enumValueIndex;
+
+                        switch (selectedValue)
+                        {
+                            case 0: //WorldResource
+                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("w_resource"));
+                                break;
+                            case 1: //PositionResource
+                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("p_resource"));
+                                break;
+                            case 2: //InventoryResource
+                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("i_resource"));
+                                break;
+                            case 3: //StatusResource
+                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("s_resource"));
+                                break;
+                        }
+                        EditorGUI.indentLevel -= 1;
+                    }
+                }
+            }
+            EditorGUI.indentLevel -= 1;
+        }
+
+        void DisplayDefaultProperties()
+        {
+            serializedObject.Update();
+            //Default properties
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("actionName"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("actionAnimation"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("target"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("inRange"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
+            //Lists:
+            ADAPT_UI_Actions.Show(serializedObject.FindProperty("preconditions_list"));
+            ADAPT_UI_Actions.Show(serializedObject.FindProperty("effects_list"));
+            serializedObject.ApplyModifiedProperties();
+            /*EditorGUILayout.PropertyField(serializedObject.FindProperty("preconditions_list"));
+            SerializedProperty arrayProp = serializedObject.FindProperty("preconditions_list");
+            for (int i = 0; i < arrayProp.arraySize; i++)
+            {
+                // This will display an Inspector Field for each array item (layout this as desired)
+                SerializedProperty value = arrayProp.GetArrayElementAtIndex(i);
+                EditorGUILayout.PropertyField(value);
+            }*/
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("totalPriority"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("running"));
         }
 
         void DisplayActualProperties() //Allows to display Action's properties

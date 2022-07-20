@@ -1048,6 +1048,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6958649252607183060, guid: f949ab3a74f4f054892cc2c0078bf837,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6958649252607183070, guid: f949ab3a74f4f054892cc2c0078bf837,
         type: 3}
       propertyPath: m_RootOrder
@@ -1177,7 +1182,28 @@ MonoBehaviour:
   target: {fileID: 0}
   inRange: 0
   duration: 0
-  preconditions_list: []
+  preconditions_list:
+  - key: 
+    selectedType: 
+    w_resource:
+      resourceName: 
+      resourceType: 0
+      priority: 0
+    p_resource:
+      resourceName: 
+      resourceType: 0
+      priority: 0
+      limit: 0
+    i_resource:
+      resourceName: 
+      resourceType: 0
+      priority: 0
+      limit: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceType: 0
+      priority: 0
   totalPriority: 0
   running: 0
 --- !u!114 &9058546125902222027

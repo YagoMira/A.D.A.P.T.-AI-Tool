@@ -13,39 +13,67 @@ public abstract class Action : MonoBehaviour
         public string key;
         public ResourceType selectedType;
         //public int priority;
+        //[SerializeField]
+        //public IResource resource;
         [SerializeField]
-        public WorldResource resource;
+        public WorldResource w_resource;
 
-        public ResourceStruct(string key, IResource resource)
+        [SerializeField]
+        public PositionResource p_resource;
+
+        [SerializeField]
+        public InventoryResource i_resource;
+
+        [SerializeField]
+        public StatusResource s_resource;
+
+        public ResourceStruct(string key, WorldResource resource)
         {
             this.key = key;
-            switch(resource.GetResourceType())
-            {
-                case ResourceType.WorldElement:
-                    this.resource = (WorldResource)resource;
-                    break;
-                /*
-                case ResourceType.Position:
-                    this.resource = (PositionResource)resource;
-                    break;
-                case ResourceType.InventoryObject:
-                    this.resource = (InventoryResource)resource;
-                    break;
-                case ResourceType.Status:
-                    this.resource = (StatusResource)resource;
-                    break;
-                    */
-            }        
+            this.w_resource = resource;
+            this.p_resource = null;
+            this.i_resource = null;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, PositionResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = resource;
+            this.i_resource = null;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, InventoryResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = null;
+            this.i_resource = resource;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, StatusResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = null;
+            this.i_resource = null;
+            this.s_resource = resource;
         }
     }
+
+    //[SerializeField]
+    //private ResourceStruct resourceStruct; //Allows inspector with Custom Editor
+
     public string actionName; //Name of the action
     public Animation actionAnimation; //Animation to play when run action
     public GameObject target; //Target to achieve/ go to
     public bool inRange; //Check if the target is in range
     public float duration; //Duration of the actions
-    [SerializeField]
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
-    public List<IResource> effects_list; //List of effects/resources to achieve for manipulate in the Editor
+    public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, IResource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, IResource> effects; //List of effects/resources to achieve
     public int totalPriority; //Sumatory of the different precondition's priorities 
@@ -55,7 +83,7 @@ public abstract class Action : MonoBehaviour
     void Awake()
     {
         //preconditions_list = new List<IResource>();
-        effects_list = new List<IResource>();
+        //effects_list = new List<IResource>();
         preconditions = new Dictionary<string, IResource>();
         effects = new Dictionary<string, IResource>();
         CheckResources();
@@ -63,10 +91,12 @@ public abstract class Action : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(preconditions_list.Count);
-        preconditions_list[0].resource = new WorldResource("New", ResourceType.WorldElement, null, null, 0);
+        //Debug.Log(preconditions_list.Count);
+        //preconditions_list.Add(new ResourceStruct("W-1", new WorldResource("New", null, null, 0)));
+        //Debug.Log(preconditions_list[0].w_resource.GetType());
+        /*preconditions_list[0].resource = new WorldResource("New", ResourceType.WorldElement, null, null, 0);
         Debug.Log(preconditions_list[0].resource.GetResourceType().ToString());
-        Debug.Log(preconditions_list[0].resource.ToString());
+        Debug.Log(preconditions_list[0].resource.ToString());*/
         /*Debug.Log(preconditions_list.ToArray());
         foreach (var i in preconditions_list)
         {
@@ -75,59 +105,82 @@ public abstract class Action : MonoBehaviour
     }
     public void CheckResources()
     {
-        foreach (var p in preconditions_list)
+
+
+        /////SWITCH
+        /// this.key = key;
+        /*
+        switch (resource.GetResourceType())
         {
-            if (p.selectedType == ResourceType.WorldElement)
-            {
-                Debug.Log("WORLD");
-            }
-            else
-            {
-                Debug.Log("NOPE");
-            }
+            case ResourceType.WorldElement:
+                this.resource = (WorldResource)resource;
+                break;
+
+                case ResourceType.Position:
+                    this.resource = (PositionResource)resource;
+                    break;
+                case ResourceType.InventoryObject:
+                    this.resource = (InventoryResource)resource;
+                    break;
+                case ResourceType.Status:
+                    this.resource = (StatusResource)resource;
+                    break;
+                    
         }
-            //Store all Editor preconditions into the Dictionary
-            /*
-                foreach (var p in preconditions_list)
-                {
-                    if (p.selectedType == ResourceType.WorldElement)
+        */
+                /* foreach (var p in preconditions_list)
+                 {
+                     if (p.selectedType == ResourceType.WorldElement)
+                     {
+                         Debug.Log("WORLD");
+                     }
+                     else
+                     {
+                         Debug.Log("NOPE");
+                     }
+                 }*/
+                //Store all Editor preconditions into the Dictionary
+                /*
+                    foreach (var p in preconditions_list)
                     {
-                        preconditions[p.key] = new WorldResource(p.key, p.selectedType, null, null, p.priority);
+                        if (p.selectedType == ResourceType.WorldElement)
+                        {
+                            preconditions[p.key] = new WorldResource(p.key, p.selectedType, null, null, p.priority);
+                        }
+                        else if (p.selectedType == ResourceType.Position)
+                        {
+                            preconditions[p.key] = new PositionResource(p.key, p.selectedType, null, null, p.priority, 0.0f);
+                        }
+                        else if (p.selectedType == ResourceType.InventoryObject)
+                        {
+                            preconditions[p.key] = new InventoryResource(p.key, p.selectedType, 0.0f, 0.0f, p.priority, 0.0f, false);
+                        }
+                        else if (p.selectedType == ResourceType.Status)
+                        {
+                            preconditions[p.key] = new StatusResource(p.key, p.selectedType, false, false, p.priority);
+                        }
                     }
-                    else if (p.selectedType == ResourceType.Position)
+                    //Store all Editor effects into the Dictionary
+                    foreach (var e in effects_list)
                     {
-                        preconditions[p.key] = new PositionResource(p.key, p.selectedType, null, null, p.priority, 0.0f);
+                        if (e.selectedType == ResourceType.WorldElement)
+                        {
+                            preconditions[e.key] = new WorldResource(e.key, e.selectedType, null, null, e.priority);
+                        }
+                        else if (e.selectedType == ResourceType.Position)
+                        {
+                            preconditions[e.key] = new PositionResource(e.key, e.selectedType, null, null, e.priority, 0.0f);
+                        }
+                        else if (e.selectedType == ResourceType.InventoryObject)
+                        {
+                            preconditions[e.key] = new InventoryResource(e.key, e.selectedType, 0.0f, 0.0f, e.priority, 0.0f, false);
+                        }
+                        else if (e.selectedType == ResourceType.Status)
+                        {
+                            preconditions[e.key] = new StatusResource(e.key, e.selectedType, false, false, e.priority);
+                        }
                     }
-                    else if (p.selectedType == ResourceType.InventoryObject)
-                    {
-                        preconditions[p.key] = new InventoryResource(p.key, p.selectedType, 0.0f, 0.0f, p.priority, 0.0f, false);
-                    }
-                    else if (p.selectedType == ResourceType.Status)
-                    {
-                        preconditions[p.key] = new StatusResource(p.key, p.selectedType, false, false, p.priority);
-                    }
-                }
-                //Store all Editor effects into the Dictionary
-                foreach (var e in effects_list)
-                {
-                    if (e.selectedType == ResourceType.WorldElement)
-                    {
-                        preconditions[e.key] = new WorldResource(e.key, e.selectedType, null, null, e.priority);
-                    }
-                    else if (e.selectedType == ResourceType.Position)
-                    {
-                        preconditions[e.key] = new PositionResource(e.key, e.selectedType, null, null, e.priority, 0.0f);
-                    }
-                    else if (e.selectedType == ResourceType.InventoryObject)
-                    {
-                        preconditions[e.key] = new InventoryResource(e.key, e.selectedType, 0.0f, 0.0f, e.priority, 0.0f, false);
-                    }
-                    else if (e.selectedType == ResourceType.Status)
-                    {
-                        preconditions[e.key] = new StatusResource(e.key, e.selectedType, false, false, e.priority);
-                    }
-                }
-            */
+                */
         }
 
     public void AddPrecondition(string key, IResource resource)

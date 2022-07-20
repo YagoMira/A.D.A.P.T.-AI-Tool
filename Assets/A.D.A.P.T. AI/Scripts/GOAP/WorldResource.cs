@@ -20,17 +20,18 @@ public class WorldResource: IResource
         }
     }
 
+    [ReadOnly]
     [SerializeField]
-    private ResourceType resourceType;
-    public ResourceType ResourceType
+    private string resourceEnumType;
+    public string ResourceEnumType
     {
         get
         {
-            return this.resourceType;
+            return this.resourceEnumType;
         }
         set
         {
-            this.resourceType = value;
+            this.resourceEnumType = value;
         }
     }
 
@@ -78,10 +79,10 @@ public class WorldResource: IResource
 
     public WorldResource() { }
 
-    public WorldResource(string name, ResourceType resourceType, GameObject type, GameObject value, int priority)
+    public WorldResource(string name, GameObject type, GameObject value, int priority)
     {
         this.resourceName = name;
-        this.resourceType = resourceType;
+        this.resourceEnumType = ResourceType.WorldElement.ToString();
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -93,9 +94,9 @@ public class WorldResource: IResource
         return type;
     }
 
-    public ResourceType GetResourceType()
+    public string GetResourceType()
     {
-        return resourceType;
+        return resourceEnumType;
     }
 
     public void ModifyValue(object newValue)

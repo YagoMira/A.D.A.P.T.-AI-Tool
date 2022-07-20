@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[Serializable]
 public class InventoryResource : IResource
 {
     [SerializeField]
@@ -18,17 +21,18 @@ public class InventoryResource : IResource
         }
     }
 
+    [ReadOnly]
     [SerializeField]
-    private ResourceType resourceType;
-    public ResourceType ResourceType
+    private string resourceEnumType;
+    public string ResourceEnumType
     {
         get
         {
-            return this.resourceType;
+            return this.resourceEnumType;
         }
         set
         {
-            this.resourceType = value;
+            this.resourceEnumType = value;
         }
     }
 
@@ -107,7 +111,7 @@ public class InventoryResource : IResource
     public InventoryResource(string name, ResourceType resourceType, float type, float value, int priority, float limit, bool isConsumable)
     {
         this.resourceName = name;
-        this.resourceType = resourceType;
+        this.resourceEnumType = ResourceType.InventoryObject.ToString();
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -121,9 +125,9 @@ public class InventoryResource : IResource
         return type;
     }
 
-    public ResourceType GetResourceType()
+    public string GetResourceType()
     {
-        return resourceType;
+        return resourceEnumType;
     }
 
     public void ModifyValue(object newValue)

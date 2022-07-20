@@ -8,7 +8,7 @@ namespace ADAPT.UI
 {
     public class ADAPT_UI_Resources_Edit : EditorWindow
     {
-        public int value;
+        /*public int value;
         Action action;
         Action.ResourceStruct str;
         // Start is called before the first frame update
@@ -28,6 +28,6 @@ namespace ADAPT.UI
         void Update()
         {
             Debug.Log("VALOOR: " + value);
-        }
+        }*/
     }
 }
