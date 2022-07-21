@@ -1183,26 +1183,69 @@ MonoBehaviour:
   inRange: 0
   duration: 0
   preconditions_list:
-  - key: 
-    selectedType: 
+  - key: Precondicion-1
+    selectedType: 0
     w_resource:
-      resourceName: 
-      resourceType: 0
+      resourceName: A-1
+      resourceEnumType: 
       priority: 0
     p_resource:
       resourceName: 
-      resourceType: 0
+      resourceEnumType: 
       priority: 0
       limit: 0
     i_resource:
       resourceName: 
-      resourceType: 0
+      resourceEnumType: 
       priority: 0
       limit: 0
       isConsumable: 0
     s_resource:
       resourceName: 
-      resourceType: 0
+      resourceEnumType: 
+      priority: 0
+  - key: Precondicion-2(SE INICIA VACIA)
+    selectedType: 1
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+    p_resource:
+      resourceName: A-2
+      resourceEnumType: 
+      priority: 0
+      limit: 0
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      limit: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+  effects_list:
+  - key: Efecto-1
+    selectedType: 0
+    w_resource:
+      resourceName: B-1
+      resourceEnumType: 
+      priority: 0
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      limit: 0
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      limit: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
       priority: 0
   totalPriority: 0
   running: 0
@@ -1224,6 +1267,7 @@ MonoBehaviour:
   inRange: 0
   duration: 0
   preconditions_list: []
+  effects_list: []
   totalPriority: 0
   running: 0
 --- !u!33 &9058546125902222028
