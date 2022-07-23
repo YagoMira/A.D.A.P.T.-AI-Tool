@@ -15,15 +15,15 @@ public interface IResource
 {
 
     //VARIABLES:
-    string resourceName { get; } //Name of the resource
-    ResourceType resourceType { get; } //Type of resource
-    object type { get; } //Type of resource as Basic Data Type
-    object value { get; } //Value of resource as Basic Data Type
-    int priority { get; } //Priority of the precondition/after effect
+    string ResourceName { get; } //Name of the resource
+    string ResourceEnumType { get; } //Type of resource (ENUM)
+    object Type { get; } //Type of resource as Basic Data Type
+    object Value { get; } //Value of resource as Basic Data Type
+    int Priority { get; } //Priority of the precondition/after effect
 
 
     //METHODS:
     object GetType(); //Returns type of the current resource as Basic Data Type
-    ResourceType GetResourceType(); //Returns type of the current resource
+    string GetResourceType(); //Returns type of the current resource
     void ModifyValue(object newValue); //Allows to change the actual value of the Resource as any Basic Data Type
 }

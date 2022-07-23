@@ -1,40 +1,89 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[Serializable]
 public class StatusResource : IResource
 {
-    public string resourceName
+    [SerializeField]
+    private string resourceName;
+    public string ResourceName
     {
-        get;
-        private set;
+        get
+        {
+            return this.resourceName;
+        }
+        set
+        {
+            this.resourceName = value;
+        }
     }
-    public ResourceType resourceType
+
+    [ReadOnly]
+    [SerializeField]
+    private string resourceEnumType;
+    public string ResourceEnumType
     {
-        get;
-        private set;
+        get
+        {
+            return this.resourceEnumType;
+        }
+        set
+        {
+            this.resourceEnumType = value;
+        }
     }
-    public object type
+
+    [SerializeField]
+    private object type;
+    public object Type
     {
-        get;
-        private set;
+        get
+        {
+            return this.type;
+        }
+        set
+        {
+            this.type = value;
+        }
     }
-    public object value
+
+    [SerializeField]
+    private object value;
+    public object Value
     {
-        get;
-        private set;
+        get
+        {
+            return this.value;
+        }
+        set
+        {
+            this.value = value;
+        }
     }
-    public int priority
+
+    [SerializeField]
+    private int priority;
+    public int Priority
     {
-        get;
-        private set;
+        get
+        {
+            return this.priority;
+        }
+        set
+        {
+            this.priority = value;
+        }
     }
+
 
 
     public StatusResource(string name, ResourceType resourceType, bool type, bool value, int priority)
     {
         this.resourceName = name;
-        this.resourceType = resourceType;
+        this.resourceEnumType = ResourceType.Status.ToString();
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -46,9 +95,9 @@ public class StatusResource : IResource
         return type;
     }
 
-    public ResourceType GetResourceType()
+    public string GetResourceType()
     {
-        return resourceType;
+        return resourceEnumType;
     }
 
     public void ModifyValue(object newValue)

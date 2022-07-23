@@ -1,40 +1,88 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldResource : IResource
+[Serializable]
+public class WorldResource: IResource
 {
-    public string resourceName
+    [SerializeField]
+    private string resourceName;
+    public string ResourceName
     {
-        get;
-        private set;
-    }
-    public ResourceType resourceType
-    {
-        get;
-        private set;
-    }
-    public object type
-    {
-        get;
-        private set;
-    }
-    public object value
-    {
-        get;
-        private set;
-    }
-    public int priority
-    {
-        get;
-        private set;
+        get
+        {
+            return this.resourceName;
+        }
+        set
+        {
+            this.resourceName = value;
+        }
     }
 
+    [ReadOnly]
+    [SerializeField]
+    private string resourceEnumType;
+    public string ResourceEnumType
+    {
+        get
+        {
+            return this.resourceEnumType;
+        }
+        set
+        {
+            this.resourceEnumType = value;
+        }
+    }
 
-    public WorldResource(string name, ResourceType resourceType, GameObject type, GameObject value, int priority)
+    [SerializeField]
+    private object type;
+    public object Type
+    {
+        get
+        {
+            return this.type;
+        }
+        set
+        {
+            this.type = value;
+        }
+    }
+
+    [SerializeField]
+    private object value;
+    public object Value
+    {
+        get
+        {
+            return this.value;
+        }
+        set
+        {
+            this.value = value;
+        }
+    }
+
+    [SerializeField]
+    private int priority;
+    public int Priority
+    {
+        get
+        {
+            return this.priority;
+        }
+        set
+        {
+            this.priority = value;
+        }
+    }
+
+    public WorldResource() { }
+
+    public WorldResource(string name, GameObject type, GameObject value, int priority)
     {
         this.resourceName = name;
-        this.resourceType = resourceType;
+        this.resourceEnumType = ResourceType.WorldElement.ToString();
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -46,9 +94,9 @@ public class WorldResource : IResource
         return type;
     }
 
-    public ResourceType GetResourceType()
+    public string GetResourceType()
     {
-        return resourceType;
+        return resourceEnumType;
     }
 
     public void ModifyValue(object newValue)

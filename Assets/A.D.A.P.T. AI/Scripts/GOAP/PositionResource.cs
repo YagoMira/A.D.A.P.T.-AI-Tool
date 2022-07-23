@@ -1,44 +1,101 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class PositionResource : IResource
 {
-    public string resourceName
+    [SerializeField]
+    private string resourceName;
+    public string ResourceName
     {
-        get;
-        private set;
-    }
-    public ResourceType resourceType
-    {
-        get;
-        private set;
-    }
-    public object type
-    {
-        get;
-        private set;
-    }
-    public object value
-    {
-        get;
-        private set;
-    }
-    public int priority
-    {
-        get;
-        private set;
-    }
-    public float limit
-    {
-        get;
-        private set;
+        get
+        {
+            return this.resourceName;
+        }
+        set
+        {
+            this.resourceName = value;
+        }
     }
 
-    public PositionResource(string name, ResourceType resourceType, Transform gameObject, Transform value, int priority, float limit)
+    [ReadOnly]
+    [SerializeField]
+    private string resourceEnumType;
+    public string ResourceEnumType
+    {
+        get
+        {
+            return this.resourceEnumType;
+        }
+        set
+        {
+            this.resourceEnumType = value;
+        }
+    }
+
+    [SerializeField]
+    private object type;
+    public object Type
+    {
+        get
+        {
+            return this.type;
+        }
+        set
+        {
+            this.type = value;
+        }
+    }
+
+    [SerializeField]
+    private object value;
+    public object Value
+    {
+        get
+        {
+            return this.value;
+        }
+        set
+        {
+            this.value = value;
+        }
+    }
+
+    [SerializeField]
+    private int priority;
+    public int Priority
+    {
+        get
+        {
+            return this.priority;
+        }
+        set
+        {
+            this.priority = value;
+        }
+    }
+
+    [SerializeField]
+    private float limit;
+    public float Limit
+    {
+        get
+        {
+            return this.limit;
+        }
+        set
+        {
+            this.limit = value;
+        }
+
+    }
+
+    public PositionResource(string name, Transform type, Transform value, int priority, float limit)
     {
         this.resourceName = name;
-        this.resourceType = resourceType;
+        this.resourceEnumType = ResourceType.Position.ToString();
         this.type = type;
         this.value = value;
         this.priority = priority;
@@ -51,9 +108,9 @@ public class PositionResource : IResource
         return type;
     }
 
-    public ResourceType GetResourceType()
+    public string GetResourceType()
     {
-        return resourceType;
+        return resourceEnumType;
     }
 
     public void ModifyValue(object newValue)

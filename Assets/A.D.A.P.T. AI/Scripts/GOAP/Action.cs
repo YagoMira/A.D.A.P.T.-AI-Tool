@@ -7,21 +7,69 @@ using UnityEngine;
 
 public abstract class Action : MonoBehaviour
 {
+    #region Resource Struct
     [Serializable]
     public class ResourceStruct
     {
         public string key;
         public ResourceType selectedType;
-        public int priority;
+
+        [SerializeField]
+        public WorldResource w_resource;
+
+        [SerializeField]
+        public PositionResource p_resource;
+
+        [SerializeField]
+        public InventoryResource i_resource;
+
+        [SerializeField]
+        public StatusResource s_resource;
+
+        public ResourceStruct(string key, WorldResource resource)
+        {
+            this.key = key;
+            this.w_resource = resource;
+            this.p_resource = null;
+            this.i_resource = null;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, PositionResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = resource;
+            this.i_resource = null;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, InventoryResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = null;
+            this.i_resource = resource;
+            this.s_resource = null;
+        }
+
+        public ResourceStruct(string key, StatusResource resource)
+        {
+            this.key = key;
+            this.w_resource = null;
+            this.p_resource = null;
+            this.i_resource = null;
+            this.s_resource = resource;
+        }
     }
+    #endregion
+
     public string actionName; //Name of the action
     public Animation actionAnimation; //Animation to play when run action
     public GameObject target; //Target to achieve/ go to
     public bool inRange; //Check if the target is in range
-    public float duration; //Duration of the action
-    [SerializeField]
+    public float duration; //Duration of the actions
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
-    [SerializeField]
     public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, IResource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, IResource> effects; //List of effects/resources to achieve
@@ -31,56 +79,19 @@ public abstract class Action : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //preconditions_list = new List<ResourceStruct>();
+        //effects_list = new List<ResourceStruct>();
         preconditions = new Dictionary<string, IResource>();
         effects = new Dictionary<string, IResource>();
-        CheckResources();
     }
 
-
-    public void CheckResources()
+    void Start()
     {
-        //Store all Editor preconditions into the Dictionary
-        foreach (var p in preconditions_list)
-        {
-            if (p.selectedType == ResourceType.WorldElement)
-            {
-                preconditions[p.key] = new WorldResource(p.key, p.selectedType, null, null, p.priority);
-            }
-            else if (p.selectedType == ResourceType.Position)
-            {
-                preconditions[p.key] = new PositionResource(p.key, p.selectedType, null, null, p.priority, 0.0f);
-            }
-            else if (p.selectedType == ResourceType.InventoryObject)
-            {
-                preconditions[p.key] = new InventoryResource(p.key, p.selectedType, 0.0f, 0.0f, p.priority, 0.0f, false);
-            }
-            else if (p.selectedType == ResourceType.Status)
-            {
-                preconditions[p.key] = new StatusResource(p.key, p.selectedType, false, false, p.priority);
-            }
-        }
-        //Store all Editor effects into the Dictionary
-        foreach (var e in effects_list)
-        {
-            if (e.selectedType == ResourceType.WorldElement)
-            {
-                preconditions[e.key] = new WorldResource(e.key, e.selectedType, null, null, e.priority);
-            }
-            else if (e.selectedType == ResourceType.Position)
-            {
-                preconditions[e.key] = new PositionResource(e.key, e.selectedType, null, null, e.priority, 0.0f);
-            }
-            else if (e.selectedType == ResourceType.InventoryObject)
-            {
-                preconditions[e.key] = new InventoryResource(e.key, e.selectedType, 0.0f, 0.0f, e.priority, 0.0f, false);
-            }
-            else if (e.selectedType == ResourceType.Status)
-            {
-                preconditions[e.key] = new StatusResource(e.key, e.selectedType, false, false, e.priority);
-            }
-        }
+        Debug_Vars(); //Allows developer to do some tests.
     }
 
+
+    #region GOAP Functions
     public void AddPrecondition(string key, IResource resource)
     {
         preconditions.Add(key, resource);
@@ -115,7 +126,7 @@ public abstract class Action : MonoBehaviour
 
         foreach (KeyValuePair<string, IResource> r in preconditions)
         {
-            totalPriority += r.Value.priority;
+            totalPriority += r.Value.Priority;
         }
 
         return totalPriority;
@@ -139,5 +150,18 @@ public abstract class Action : MonoBehaviour
     public void setInRange(bool inRange)
     {
         this.inRange = inRange;
+    }
+    #endregion
+
+    public void Debug_Vars()
+    {
+        foreach (var i in preconditions_list)
+        {
+            Debug.Log("Index - Preconditions: " + i + " - " + i.w_resource.ResourceName + " - " + i.p_resource.ResourceName + " - " + i.i_resource.ResourceName + " - " + i.s_resource.ResourceName);
+        }
+        foreach (var j in effects_list)
+        {
+            Debug.Log("Index - Effects: " + j + " - " + j.w_resource.ResourceName + " - " + j.p_resource.ResourceName + " - " + j.i_resource.ResourceName + " - " + j.s_resource.ResourceName);
+        }
     }
 }
