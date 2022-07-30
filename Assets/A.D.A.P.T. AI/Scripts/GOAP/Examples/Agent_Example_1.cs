@@ -11,6 +11,7 @@ public class Agent_Example_1 : Agent
     public Text goalsText;
     public Text actionsText;
 
+    /*
     new void Start() //Create new Start and call Action class start
     {
         base.Start(); //Call main class
@@ -49,6 +50,6 @@ public class Agent_Example_1 : Agent
         }
 
     }
-
+    */
   
 }
