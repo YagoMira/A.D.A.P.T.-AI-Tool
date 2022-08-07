@@ -29,7 +29,7 @@ public class Switch_Planner : MonoBehaviour
     {
         agent = other.GetComponent<Agent_Example_1>();
         agent.SetCurrentAction(agent.actions[1]);
-        text.text = agent.goToTarget(agent.actions[0]).ToString();
+        //text.text = agent.goToTarget(agent.actions[0]).ToString();
         modifyCurrentAction.text = agent.GetCurrentAction().actionName;
         actionEffectText.gameObject.SetActive(true);
     }

@@ -12,16 +12,39 @@
       <engine:VisualElement name="ImageHolder">
           <!-- 1 -->
       </engine:VisualElement>
-      <engine:VisualElement name="DescriptionPanel">
-        <engine:Label name="DescriptionLabel"/>
-        <engine:VisualElement name="AgentSelectionHolder" style="display:none">
-          <engine:Label name="AgentSelectionLabel"/>
-          <editor:ObjectField name="SelectedObjectHolder"/>
+      <engine:VisualElement name="SubContainer_Agents">
+        <engine:VisualElement name="TitlePanel">
+          <engine:Label name="AgentsLabel"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="DescriptionPanel">
+          <engine:Label name="DescriptionLabel"/>
+          <engine:VisualElement name="AgentSelectionHolder" style="display:none">
+            <engine:Label name="AgentSelectionLabel"/>
+            <editor:ObjectField name="SelectedObjectHolder"/>
+          </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="ButtonPanel">
+          <engine:Button name="AgentButton"/>
+          <engine:Label name="AgentExistsLabel"/>
         </engine:VisualElement>
       </engine:VisualElement>
-      <engine:VisualElement name="ButtonPanel">
-        <engine:Button name="AgentButton"/>
-        <engine:Label name="AgentExistsLabel"/>
+      <!---->
+    <engine:VisualElement name="SubContainer_Actions">
+        <engine:VisualElement name="TitlePanel">
+          <engine:Label name="ActionsLabel"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="DescriptionPanel">
+          <engine:Label name="DescriptionActionLabel"/>
+          <engine:VisualElement name="ActionNameContainer" style="display:none">
+            <engine:Label name="ActionNameLabel"/>
+            <engine:TextField name="ActionName"/>
+          </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="ButtonPanel">
+          <engine:Button name="ActionButton"/>
+          <engine:Label name="ActionExistsLabel"/>
+          <engine:Label name="ActionFileExistsLabel"/>
+        </engine:VisualElement>
       </engine:VisualElement>
     </engine:VisualElement>
   </engine:VisualElement>

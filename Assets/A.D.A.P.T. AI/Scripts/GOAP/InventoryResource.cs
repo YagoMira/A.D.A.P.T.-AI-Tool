@@ -8,7 +8,8 @@ using UnityEngine;
 public class InventoryResource : Resource
 {
     [SerializeField]
-    public float limit;
+    public float resource_value;
+
     [SerializeField]
     public bool isConsumable;
 
@@ -24,6 +25,12 @@ public class InventoryResource : Resource
         this.limit = limit;
         this.isConsumable = isConsumable;
     }
+
+    public void ModifyValue(float newValue) //Allows to change the actual value of the Resource as any Basic Data Type
+    {
+        this.value = newValue;
+    }
+
 
 
 }

@@ -11,7 +11,8 @@ public class WorldResource_Example_1 : MonoBehaviour
         GameObject type = null;
         GameObject value = null;
         int priority = 1;
-        WorldResource worldResource_Example_1 = new WorldResource(name, type, value, priority);
+        float limit = 10.0f;
+        WorldResource worldResource_Example_1 = new WorldResource(name, type, value, priority, limit);
     }
 
 }

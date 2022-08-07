@@ -110,7 +110,11 @@ namespace ADAPT.UI
             EditorGUI.indentLevel += 1;
             if (list.isExpanded)
             {
+                
+                GUI.enabled = false; //Allows Size as "ReadOnly" property.
                 EditorGUILayout.PropertyField(list.FindPropertyRelative("Array.size")); //Print "Size" field in inspector
+                GUI.enabled = true; //Allows Size as "ReadOnly" property.
+
                 for (int i = 0; i < list.arraySize; i++)
                 {
                     //PRINT ALL ResourceStruct fields:

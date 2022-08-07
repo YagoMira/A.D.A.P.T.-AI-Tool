@@ -44,8 +44,11 @@ public class Planner //: MonoBehaviour
         foreach (Action a in actions)
         {
             //If we can run the actions, by default: true.
-            //Maybe should check if can achieve goal by go to...
-            usableActions.Add(a);
+            //Check if can achieve goal by go to...
+            if(a.CheckDistance() != false)
+            {
+                usableActions.Add(a);
+            }
         }
 
         sucess = BuildGraph(start, leaves, usableActions, goal); //Should be there becase usableActions foreach!!!.

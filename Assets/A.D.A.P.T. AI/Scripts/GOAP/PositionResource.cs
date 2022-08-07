@@ -8,7 +8,7 @@ public class PositionResource : Resource
 {
 
     [SerializeField]
-    public float limit;
+    public Transform resource_value;
 
     public PositionResource() { }
 
@@ -20,6 +20,11 @@ public class PositionResource : Resource
         this.value = value;
         this.priority = priority;
         this.limit = limit;
+    }
+
+    public void ModifyValue(Transform newValue) //Allows to change the actual value of the Resource as any Basic Data Type
+    {
+        this.value = newValue;
     }
 
 }
