@@ -110,7 +110,11 @@ namespace ADAPT.UI
             EditorGUI.indentLevel += 1;
             if (list.isExpanded)
             {
+                
+                GUI.enabled = false; //Allows Size as "ReadOnly" property.
                 EditorGUILayout.PropertyField(list.FindPropertyRelative("Array.size")); //Print "Size" field in inspector
+                GUI.enabled = true; //Allows Size as "ReadOnly" property.
+
                 for (int i = 0; i < list.arraySize; i++)
                 {
                     //PRINT ALL ResourceStruct fields:
@@ -155,8 +159,17 @@ namespace ADAPT.UI
             serializedObject.Update();
             //Default properties
             EditorGUILayout.PropertyField(serializedObject.FindProperty("actionName"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("running"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("finished"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("actionAnimation"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("target"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("hasTarget")); //Bool to check if the actual Action will have some target.
+            if(a.hasTarget) //In case of have some target...
+            {
+                EditorGUI.indentLevel += 1;
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("target"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("stopDistance"));
+                EditorGUI.indentLevel -= 1;
+            }
             EditorGUILayout.PropertyField(serializedObject.FindProperty("inRange"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
             //Lists:
@@ -164,7 +177,6 @@ namespace ADAPT.UI
             ADAPT_UI_Actions.Show(serializedObject.FindProperty("effects_list"), a);
             //More Default properties:
             EditorGUILayout.PropertyField(serializedObject.FindProperty("totalPriority"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("running"));
             serializedObject.ApplyModifiedProperties();
         }
 

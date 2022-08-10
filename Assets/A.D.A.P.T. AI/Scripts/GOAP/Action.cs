@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,13 +31,25 @@ public abstract class Action : MonoBehaviour
         {
             this.key = key;
             if(resource.resourceEnumType == ResourceType.WorldElement.ToString())
+            {
                 this.w_resource = (WorldResource)resource;
+                this.selectedType = ResourceType.WorldElement;
+            }
             else if (resource.resourceEnumType == ResourceType.Position.ToString())
+            {
                 this.p_resource = (PositionResource)resource;
+                this.selectedType = ResourceType.Position;
+            }
             else if (resource.resourceEnumType == ResourceType.InventoryObject.ToString())
+            {
                 this.i_resource = (InventoryResource)resource;
+                this.selectedType = ResourceType.InventoryObject;
+            }
             else if (resource.resourceEnumType == ResourceType.Status.ToString())
+            {
                 this.s_resource = (StatusResource)resource;
+                this.selectedType = ResourceType.Status;
+            }
         }
 
         private void ResetResources() //Function for reset all resources
@@ -51,8 +64,13 @@ public abstract class Action : MonoBehaviour
     #endregion
 
     public string actionName; //Name of the action
+    public bool running; //Action running or not
+    public bool finished; //Action FINISHED or not
     public Animation actionAnimation; //Animation to play when run action
+    public bool hasTarget; //In case of actual Action has target to achieve (some world position), diplay target variables in the inspector.
     public GameObject target; //Target to achieve/ go to
+    public float stopDistance; //Distance for stop Navmesh from the actual target.
+    [ReadOnly]
     public bool inRange; //Check if the target is in range
     public float duration; //Duration of the actions
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
@@ -60,23 +78,24 @@ public abstract class Action : MonoBehaviour
     public Dictionary<string, Resource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, Resource> effects; //List of effects/resources to achieve
     public int totalPriority; //Sumatory of the different precondition's priorities 
-    public bool running; //Action running or not
 
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable() //Start.
     {
         //preconditions_list = new List<ResourceStruct>();
         //effects_list = new List<ResourceStruct>();
         preconditions = new Dictionary<string, Resource>();
         effects = new Dictionary<string, Resource>();
-        PerformData(); 
+        PerformData();
+        totalPriority = CalculateTotalPriority();
+
     }
 
-    void Start()
+
+    void Update()
     {
         //Debug_Vars(); //Allows developer to do some tests.
-        //totalPriority = CalculateTotalPriority();
-        
+        //CheckDistance();
     }
 
     void PerformData() //Store public preconditions and effects list into preconditions and effects dictionaries
@@ -110,18 +129,26 @@ public abstract class Action : MonoBehaviour
 
                 if (index == 0)
                 {
+                    resource.w_resource.ModifyValue(resource.w_resource.resource_value);
+                    resource.w_resource.SetResourceType(resource.selectedType);
                     return resource.w_resource;
                 }
                 else if(index == 1)
                 {
+                    resource.p_resource.ModifyValue(resource.p_resource.resource_value);
+                    resource.p_resource.SetResourceType(resource.selectedType);
                     return resource.p_resource;
                 }
                 else if(index == 2)
                 {
+                    resource.i_resource.ModifyValue(resource.i_resource.resource_value);
+                    resource.i_resource.SetResourceType(resource.selectedType);
                     return resource.i_resource;
                 }
                 else if(index == 3)
                 {
+                    resource.s_resource.ModifyValue(resource.s_resource.resource_value);
+                    resource.s_resource.SetResourceType(resource.selectedType);
                     return resource.s_resource;
                 }
                 else
@@ -172,6 +199,11 @@ public abstract class Action : MonoBehaviour
             totalPriority += r.Value.priority;
         }
 
+        foreach (KeyValuePair<string, Resource> e in effects)
+        {
+            totalPriority += e.Value.priority;
+        }
+
         return totalPriority;
     }
 
@@ -198,13 +230,115 @@ public abstract class Action : MonoBehaviour
 
     public void Debug_Vars()
     {
+        /*
         foreach (var i in preconditions_list)
         {
-            Debug.Log("Index - Preconditions: " + i + " - " + i.w_resource.resourceName + " - " + i.p_resource.resourceName + " - " + i.i_resource.resourceName + " - " + i.s_resource.resourceName);
+            //Debug.Log("Index - Preconditions: " + i + " - " + i.w_resource.resourceName + " - " + i.p_resource.resourceName + " - " + i.i_resource.resourceName + " - " + i.s_resource.resourceName);
+            //Debug.Log("Index: " + i + " - Resource:" + i.w_resource.value.name);
         }
+        
         foreach (var j in effects_list)
         {
             Debug.Log("Index - Effects: " + j + " - " + j.w_resource.resourceName + " - " + j.p_resource.resourceName + " - " + j.i_resource.resourceName + " - " + j.s_resource.resourceName);
+        } 
+        foreach (KeyValuePair<string,Resource> r in preconditions)
+        {
+            Debug.Log("RESOURCE-VALUE-P: " + r.Value.GetResourceType());
         }
+        foreach (KeyValuePair<string, Resource> r in effects)
+        {
+            Debug.Log("RESOURCE-VALUE-E: " + r.Value.GetResourceType());
+        }
+        */
+    }
+
+    public bool CheckPreconditions() //Function for check if actual precondition asserts all actual world resources, in case of not...Dont add it to the plan.
+    {
+        float actionLimitRange = 0.0f;
+        GameObject resource_position_gameobject = null;
+        Transform resource_position_transform = null;
+        float distance;
+        int element = 0; //Var used for check if all elements in the preconditions array are checked.
+        bool target_exists = false; //Target exists as precondition.
+        bool assertPreconditions = false; //Helps to know if preconditions are completed or not.
+
+        foreach (KeyValuePair<string, Resource> r in preconditions)
+        {
+            if ((r.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (r.Value.resourceEnumType == ResourceType.Position.ToString()))
+            {
+                actionLimitRange = r.Value.limit;
+                element++;
+
+                if (r.Value.value.ToString() != "null") 
+                {
+                    if(r.Value.resourceEnumType == ResourceType.WorldElement.ToString())
+                    {
+                        resource_position_gameobject = (GameObject)r.Value.value;
+                        distance = (Vector3.Distance(gameObject.transform.position, resource_position_gameobject.transform.position));
+                    }
+                    else
+                    {
+                        resource_position_transform = (Transform)r.Value.value;
+                        distance = (Vector3.Distance(gameObject.transform.position, resource_position_transform.transform.position));
+
+                    }
+
+                    if (target.Equals(resource_position_gameobject) || target.transform.position.Equals(resource_position_transform) && target != null) //IF NOT FIND ANY PRECONDITION WITH VALUE AS TARGET, THEN CANNOT RUN ACTION!.
+                    {
+                        target_exists = true;
+                    }
+
+                    if (element == preconditions.Count()) //Last element, then check if some precondicion with actual target exists.
+                    {
+                        if(target_exists != true)
+                        {
+                            Debug.Log("<color=red>ADD SOME PRECONDITION AS World/Position Resource from TARGET!</color>");
+
+                            /***IN CASE OF NEED CHANGE SOME TARGET IN EXECUTION TIME***/
+                            //ReRun();
+                            /***IN CASE OF NEED CHANGE SOME TARGET IN EXECUTION TIME***/
+                        }
+                    }
+
+                    if (distance <= actionLimitRange)
+                    {
+                        setInRange(true);
+                        assertPreconditions = true;
+                    }
+                    else //Can't run action because distance range
+                    {
+                        setInRange(false);
+                        assertPreconditions = false;
+                    }
+                }
+                else //In case of value of world/position resource don't have value assigned.
+                {
+                    Debug.Log("NULL VALUE\n");
+                    if(target != null)
+                        r.Value.value = target; //Assign target in case of don't find some resource.
+                }
+
+            }
+            else //For the other resources (Status or Inventory).
+            {
+                element++;
+
+                //***********************************************
+                //FUNCTION FOR CHECK INVENTORY RESOURCES!!!!!!!!!
+                //***********************************************
+                assertPreconditions = true; //This values depends on if other resources asserts conditios or not.
+            }
+
+
+        }
+
+        return assertPreconditions;
+    }
+
+    public void ReRun() //CALL THIS CLASS ONLY IF YOU NEED DO CHANGES IN EXECUTION TIME
+    {
+        finished = false;
+        preconditions = new Dictionary<string, Resource>();
+        PerformData();
     }
 }

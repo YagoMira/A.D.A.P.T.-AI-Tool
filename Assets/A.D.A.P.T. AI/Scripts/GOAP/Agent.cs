@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Agent : MonoBehaviour
 {
@@ -10,7 +11,13 @@ public class Agent : MonoBehaviour
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
     public Action currentAction; //Current running Action
     public string currentGoal; //Current running Goal
-    Planner planner; //Planer for get the actual action sequence
+    public Planner planner; //Planer for get the actual action sequence
+    public NavMeshAgent agent;
+    public bool onIdle; //If is TRUE then in case of Agent don't have a plan, stays on position. Otherwise (FALSE), goes around the world with random positions.
+
+    //***OTHER PARAMS***
+    float rdmDistance = 100f; //Radius to get a random direction for navmesh agent. 
+    public AgentStates states;
 
     public void Start()
     {
@@ -20,12 +27,22 @@ public class Agent : MonoBehaviour
         {
             goals.Add(r.resourceName, r);
         }
+
+
+        //Add Agent States
+        if (states == null)
+        {
+            states = gameObject.AddComponent<AgentStates>();
+        }
+        ///
+
+        agent = gameObject.AddComponent<NavMeshAgent>();
     }
 
-    public void LateUpdate()
+    /*public void LateUpdate()
     {
         DebugPlanner();
-    }
+    }*/
 
     public Action GetCurrentAction()
     {
@@ -58,47 +75,59 @@ public class Agent : MonoBehaviour
         currentGoal = null;
     }
 
-    public bool goToTarget(Action action) //Allows agent go to the target of a determinate Action (if isInRange/or not in other case)
+    public void IdleState()
     {
-        float actionLimitRange = 0.0f;
-        /*foreach (KeyValuePair<string,IResource>p in action.preconditions)
+        //Call this function when (Planner == null)
+        if(onIdle == true) //Then stays on position.
         {
-            //TO-FIX!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            if(p.Value.resourceType == ResourceType.Position || p.Value.resourceType == ResourceType.WorldElement)
-            {
-                actionLimitRange = p.Value.limit;
-            }
-            
-        }*/
-
-        if ((Vector3.Distance(gameObject.transform.position, action.transform.position)) <= actionLimitRange)
-        {
-            action.setInRange(true);
-            return true;
+            //Play Idle animation.
+            agent.SetDestination(this.transform.position);
         }
-        else
+        else //Go around the map.
         {
-            action.setInRange(false);
-            return false;
+            agent.SetDestination(RandomNavigation());
         }
     }
 
-    public void DebugPlanner()
+    public Vector3 RandomNavigation() //Allows agents to move around the map randomly.
+    {
+        Vector3 randomDirection, destination;
+        NavMeshHit hit;
+
+        destination = Vector3.zero;
+
+        randomDirection = Random.insideUnitSphere * rdmDistance;
+        randomDirection += transform.position;
+
+        if (NavMesh.SamplePosition(randomDirection, out hit, rdmDistance, 1))
+        {
+            destination = hit.position;
+        }
+
+        return destination;
+    }
+
+    /*public void DebugPlanner()
     {
         //Debug.Log("EY");
 
         Dictionary<string, Resource> test = new Dictionary<string, Resource>();
 
-        /*foreach (KeyValuePair<string,Resource> r in goals)
-        {
-            Debug.Log("RESOURCE IN GOAL: " + r.Value.resourceName);
-        }*/
+        //foreach (KeyValuePair<string,Resource> r in goals)
+        //{
+        //   Debug.Log("RESOURCE IN GOAL: " + r.Value.resourceName);
+        //}
 
-        test.Add("noPoisoned", new StatusResource("noPoisoned", false, false, 5));
+        //test.Add("noPoisoned", new StatusResource("noPoisoned", false, false, 5));
+        test.Add("isNear", new WorldResource("isNear", actions[0].target, actions[0].target, 5, 50.0f));
+        //Debug.Log(actions[0].target.name);
         //Debug.Log("GOALS: " + goals.ContainsKey("isPoisoned"));
         planner = new Planner();
-        planner.plan(actions, test, goals); //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
-    }
+        if(planner.Plan(actions, test, goals) == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
+        {
+            IdleState();
+        }
+
+    }*/
 
 }

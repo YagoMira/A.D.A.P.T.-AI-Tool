@@ -16,18 +16,23 @@ public abstract class Resource
 
     //VARIABLES:
     public string resourceName; //Name of the resource
+    [ReadOnly]
     public string resourceEnumType; //Type of resource (ENUM)
     public object type; //Type of resource as Basic Data Type
     public object value; //Value of resource as Basic Data Type
     public int priority; //Priority of the precondition/after effect
-
+    public float limit; //Maximum distance to target or limit capacity into inventory
 
     //METHODS:
-    public object GetType() //Returns type of the current resource as Basic Data Type
+    public object GetResourceType() //Returns type of the current resource as Basic Data Type
     {
-        return type;
+        return value.GetType();
     }
-    public string GetResourceType() //Returns type of the current resource
+    public void SetResourceType(ResourceType resourceType) //Returns type of the current resource
+    {
+        resourceEnumType = resourceType.ToString();
+    }
+    public string GetEnumResourceType() //Returns type of the current resource
     {
         return resourceEnumType;
     }
