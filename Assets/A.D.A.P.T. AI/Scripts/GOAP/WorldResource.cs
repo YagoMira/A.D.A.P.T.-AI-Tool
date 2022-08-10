@@ -19,6 +19,7 @@ public class WorldResource: Resource
         this.resourceEnumType = ResourceType.WorldElement.ToString();
         this.type = type;
         this.value = value;
+        this.resource_value = value;
         this.priority = priority;
         this.limit = limit;
     }

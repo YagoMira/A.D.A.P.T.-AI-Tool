@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class GoTo_Action : Action
 {
     string a_name = "GoTo";
+    Agent agent;
+    NavMeshAgent actual_agent;
 
     void Awake()
     {
@@ -33,29 +35,50 @@ public class GoTo_Action : Action
         //Add preconditions and effects and appears in inspector
         preconditions_list.Add(GoTo_preconditions);
         effects_list.Add(GoTo_effects);
+
+        //GetComponents
+        agent = gameObject.GetComponent<Agent>();
     }
 
     private void Update()
     {
-        Agent agent = gameObject.GetComponent<Agent>();
         agent.onIdle = false;
-        Perform();
+        if(finished != true) //While the Action is not finished
+        {
+            PerformAction();
+        }
     }
 
-    void Perform()
+
+    void PerformAction()
     {
-        NavMeshAgent actual_agent;
         actual_agent = gameObject.GetComponent<NavMeshAgent>();
+        //Debug.Log("<color=red>LLAMA!</color>");
 
-        if(gameObject.transform.position != target.transform.position)
+        if (target!= null && hasTarget) //TARGET EXISTS
         {
+            actual_agent.stoppingDistance = stopDistance;
             actual_agent.SetDestination(target.transform.position);
-            Debug.Log("NO COMPLETED\n");
-        }
-        else
-        {
-            Debug.Log("COMPLETED\n");
         }
 
+        //Check if Agent NavMesh reach the actual target position
+        if (!actual_agent.pathPending)
+        {
+            if (actual_agent.remainingDistance <= actual_agent.stoppingDistance)
+            {
+                if (!actual_agent.hasPath || actual_agent.velocity.sqrMagnitude == 0f)
+                {
+                    //Debug.Log("COMPLETED\n");
+                    running = false;
+                    finished = true;
+                }
+            }
+            else
+            {
+                //Debug.Log("NO COMPLETED\n");
+                running = true;
+                finished = false;
+            }
+        }
     }
 }

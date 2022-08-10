@@ -18,6 +18,7 @@ public class StatusResource : Resource
         this.resourceEnumType = ResourceType.Status.ToString();
         this.type = type;
         this.value = value;
+        this.resource_value = value;
         this.priority = priority;
         this.limit = 0.0f;
     }

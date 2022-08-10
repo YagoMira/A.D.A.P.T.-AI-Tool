@@ -11,13 +11,13 @@ public class Agent : MonoBehaviour
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
     public Action currentAction; //Current running Action
     public string currentGoal; //Current running Goal
-    Planner planner; //Planer for get the actual action sequence
-    NavMeshAgent agent;
+    public Planner planner; //Planer for get the actual action sequence
+    public NavMeshAgent agent;
     public bool onIdle; //If is TRUE then in case of Agent don't have a plan, stays on position. Otherwise (FALSE), goes around the world with random positions.
 
     //***OTHER PARAMS***
-    float rad = 100f; //Radius to get a random direction for navmesh agent. 
-
+    float rdmDistance = 100f; //Radius to get a random direction for navmesh agent. 
+    public AgentStates states;
 
     public void Start()
     {
@@ -28,13 +28,21 @@ public class Agent : MonoBehaviour
             goals.Add(r.resourceName, r);
         }
 
+
+        //Add Agent States
+        if (states == null)
+        {
+            states = gameObject.AddComponent<AgentStates>();
+        }
+        ///
+
         agent = gameObject.AddComponent<NavMeshAgent>();
     }
 
-    public void LateUpdate()
+    /*public void LateUpdate()
     {
         DebugPlanner();
-    }
+    }*/
 
     public Action GetCurrentAction()
     {
@@ -88,10 +96,10 @@ public class Agent : MonoBehaviour
 
         destination = Vector3.zero;
 
-        randomDirection = Random.insideUnitSphere * rad;
+        randomDirection = Random.insideUnitSphere * rdmDistance;
         randomDirection += transform.position;
 
-        if (NavMesh.SamplePosition(randomDirection, out hit, rad, 1))
+        if (NavMesh.SamplePosition(randomDirection, out hit, rdmDistance, 1))
         {
             destination = hit.position;
         }
@@ -99,29 +107,27 @@ public class Agent : MonoBehaviour
         return destination;
     }
 
-    public void TargetNavigation() { }//Moves agent to the current action target (WorldResource)
-
-    public void DebugPlanner()
+    /*public void DebugPlanner()
     {
         //Debug.Log("EY");
 
         Dictionary<string, Resource> test = new Dictionary<string, Resource>();
 
-        /*foreach (KeyValuePair<string,Resource> r in goals)
-        {
-            Debug.Log("RESOURCE IN GOAL: " + r.Value.resourceName);
-        }*/
+        //foreach (KeyValuePair<string,Resource> r in goals)
+        //{
+        //   Debug.Log("RESOURCE IN GOAL: " + r.Value.resourceName);
+        //}
 
         //test.Add("noPoisoned", new StatusResource("noPoisoned", false, false, 5));
         test.Add("isNear", new WorldResource("isNear", actions[0].target, actions[0].target, 5, 50.0f));
-        Debug.Log(actions[0].target.name);
+        //Debug.Log(actions[0].target.name);
         //Debug.Log("GOALS: " + goals.ContainsKey("isPoisoned"));
         planner = new Planner();
-        if(planner.plan(actions, test, goals) == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
+        if(planner.Plan(actions, test, goals) == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
         {
             IdleState();
         }
 
-    }
+    }*/
 
 }

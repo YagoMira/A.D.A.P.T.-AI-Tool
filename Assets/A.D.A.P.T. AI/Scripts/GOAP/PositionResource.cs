@@ -18,6 +18,7 @@ public class PositionResource : Resource
         this.resourceEnumType = ResourceType.Position.ToString();
         this.type = type;
         this.value = value;
+        this.resource_value = value;
         this.priority = priority;
         this.limit = limit;
     }

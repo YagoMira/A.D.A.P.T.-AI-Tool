@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -63,20 +64,23 @@ public abstract class Action : MonoBehaviour
     #endregion
 
     public string actionName; //Name of the action
+    public bool running; //Action running or not
+    public bool finished; //Action FINISHED or not
     public Animation actionAnimation; //Animation to play when run action
+    public bool hasTarget; //In case of actual Action has target to achieve (some world position), diplay target variables in the inspector.
     public GameObject target; //Target to achieve/ go to
+    public float stopDistance; //Distance for stop Navmesh from the actual target.
     [ReadOnly]
-    public bool inRange = true; //Check if the target is in range
+    public bool inRange; //Check if the target is in range
     public float duration; //Duration of the actions
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
     public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, Resource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, Resource> effects; //List of effects/resources to achieve
     public int totalPriority; //Sumatory of the different precondition's priorities 
-    public bool running; //Action running or not
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable() //Start.
     {
         //preconditions_list = new List<ResourceStruct>();
         //effects_list = new List<ResourceStruct>();
@@ -84,8 +88,9 @@ public abstract class Action : MonoBehaviour
         effects = new Dictionary<string, Resource>();
         PerformData();
         totalPriority = CalculateTotalPriority();
-       
+
     }
+
 
     void Update()
     {
@@ -247,19 +252,24 @@ public abstract class Action : MonoBehaviour
         */
     }
 
-    public bool CheckDistance() //Check if the actual distance of World and Position resources can be achieved by the agent
+    public bool CheckPreconditions() //Function for check if actual precondition asserts all actual world resources, in case of not...Dont add it to the plan.
     {
         float actionLimitRange = 0.0f;
-        GameObject resource_position_gameobject;
-        Transform resource_position_transform;
+        GameObject resource_position_gameobject = null;
+        Transform resource_position_transform = null;
         float distance;
+        int element = 0; //Var used for check if all elements in the preconditions array are checked.
+        bool target_exists = false; //Target exists as precondition.
+        bool assertPreconditions = false; //Helps to know if preconditions are completed or not.
 
         foreach (KeyValuePair<string, Resource> r in preconditions)
         {
-            if((r.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (r.Value.resourceEnumType == ResourceType.Position.ToString()))
+            if ((r.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (r.Value.resourceEnumType == ResourceType.Position.ToString()))
             {
                 actionLimitRange = r.Value.limit;
-                if (r.Value.value != null) 
+                element++;
+
+                if (r.Value.value.ToString() != "null") 
                 {
                     if(r.Value.resourceEnumType == ResourceType.WorldElement.ToString())
                     {
@@ -273,28 +283,62 @@ public abstract class Action : MonoBehaviour
 
                     }
 
+                    if (target.Equals(resource_position_gameobject) || target.transform.position.Equals(resource_position_transform) && target != null) //IF NOT FIND ANY PRECONDITION WITH VALUE AS TARGET, THEN CANNOT RUN ACTION!.
+                    {
+                        target_exists = true;
+                    }
+
+                    if (element == preconditions.Count()) //Last element, then check if some precondicion with actual target exists.
+                    {
+                        if(target_exists != true)
+                        {
+                            Debug.Log("<color=red>ADD SOME PRECONDITION AS World/Position Resource from TARGET!</color>");
+
+                            /***IN CASE OF NEED CHANGE SOME TARGET IN EXECUTION TIME***/
+                            //ReRun();
+                            /***IN CASE OF NEED CHANGE SOME TARGET IN EXECUTION TIME***/
+                        }
+                    }
+
                     if (distance <= actionLimitRange)
                     {
                         setInRange(true);
+                        assertPreconditions = true;
                     }
-                    else //Can't run action
+                    else //Can't run action because distance range
                     {
                         setInRange(false);
+                        assertPreconditions = false;
                     }
                 }
                 else //In case of value of world/position resource don't have value assigned.
                 {
                     Debug.Log("NULL VALUE\n");
-                    r.Value.value = target; //Assign target in case of don't find some resource.
+                    if(target != null)
+                        r.Value.value = target; //Assign target in case of don't find some resource.
                 }
+
             }
             else //For the other resources (Status or Inventory).
             {
-                setInRange(true);
+                element++;
+
+                //***********************************************
+                //FUNCTION FOR CHECK INVENTORY RESOURCES!!!!!!!!!
+                //***********************************************
+                assertPreconditions = true; //This values depends on if other resources asserts conditios or not.
             }
+
+
         }
 
-        Debug.Log("IN RANGE: " + inRange);
-        return inRange;
+        return assertPreconditions;
+    }
+
+    public void ReRun() //CALL THIS CLASS ONLY IF YOU NEED DO CHANGES IN EXECUTION TIME
+    {
+        finished = false;
+        preconditions = new Dictionary<string, Resource>();
+        PerformData();
     }
 }
