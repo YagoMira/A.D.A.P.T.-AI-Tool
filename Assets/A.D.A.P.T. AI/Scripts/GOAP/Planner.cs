@@ -7,6 +7,8 @@ public class Planner //: MonoBehaviour
     //CONSIDER: Action - NODE. Preconditions - EDGE.
 
     public const int MAX_PRIORITY = 100;
+    public string goal_to_achieve;
+
     //Nodes for the graph
     public class Node
     {
@@ -26,7 +28,8 @@ public class Planner //: MonoBehaviour
 
     //Get a plan for a set of {Actions, Actual Resources, Goals} an actual Agent.
     //Sequence of actions can fulfill the goal.
-    public Queue<Action> Plan(List<Action> actions, Dictionary<string, object> states, Dictionary<string, Resource> goal)
+    //public Queue<Action> Plan(List<Action> actions, Dictionary<string, object> states, Dictionary<string, Resource> goal)
+    public Queue<Action> Plan(List<Action> actions, Dictionary<string, object> states, Dictionary<string, Agent.Goal> goal)
     {
         /*** PARAMETERS **/
         List<Action> usableActions = new List<Action>(); //For use clean actions without modifications.
@@ -89,6 +92,9 @@ public class Planner //: MonoBehaviour
             queue.Enqueue(a); //In the end of queue...
         }
 
+        //Add Goals as Actions in case of have some.
+        //...
+
         Debug.Log("PLAN ::: " + " | Number of actions: " + queue.Count);
         foreach(Action a in queue)
         {
@@ -101,22 +107,45 @@ public class Planner //: MonoBehaviour
     }
 
     //Check if any path can assert some solution.
-    private bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Dictionary<string, Resource> goal)
+    private bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Dictionary<string, Agent.Goal> goal)
     {
         bool foundPath = false; //Bool equals true in case of find some solution.
         //Dictionary<string, object> currentState = new Dictionary<string, object>(parent.state);
+        Dictionary<string, Resource> received_goals = new Dictionary<string, Resource>();
+
+        foreach(KeyValuePair<string, Agent.Goal> g in goal)
+        {
+            if (g.Value.goal_precondition.selectedType.ToString() == ResourceType.WorldElement.ToString())
+            {
+                received_goals.Add(g.Value.goal_precondition.w_resource.resourceName, g.Value.goal_precondition.w_resource);
+            }
+            else if (g.Value.goal_precondition.selectedType.ToString() == ResourceType.Position.ToString())
+            {
+                received_goals.Add(g.Value.goal_precondition.p_resource.resourceName, g.Value.goal_precondition.p_resource);
+            }
+            else if (g.Value.goal_precondition.selectedType.ToString() == ResourceType.InventoryObject.ToString())
+            {
+                received_goals.Add(g.Value.goal_precondition.i_resource.resourceName, g.Value.goal_precondition.i_resource);
+            }
+            else if (g.Value.goal_precondition.selectedType.ToString() == ResourceType.Status.ToString())
+            {
+                received_goals.Add(g.Value.goal_precondition.s_resource.resourceName, g.Value.goal_precondition.s_resource);
+            }
+        }
 
         foreach (Action a in usableActions) // ||| While not encontrado NODO_FINAL or lista_abiertos.isEmpty()
         {
             //Compare the preconditions of actions with parent conditions.
-            if (InState(a.preconditions, parent.state))
+            if (InState(a.preconditions, parent.state, false))
             {
-
-                Dictionary<string, object> currentState = applyEffects(parent.state, a.effects);
+                Dictionary<string, object> currentState = new Dictionary<string, object>();
+                // Dictionary<string, object> currentState = applyEffects(parent.state, a.effects);
+                foreach (KeyValuePair<string, Resource> effect in a.effects)
+                    currentState.Add(effect.Key, effect.Value.value);
 
                 Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
 
-                if (InState(goal, currentState))
+                if (InState(received_goals, currentState, true))
                 {
                     //In case of find a solution...
                     leaves.Add(node);
@@ -137,31 +166,43 @@ public class Planner //: MonoBehaviour
     }
 
     //Compare if items are in the 'state' dictionary.
-    private bool InState(Dictionary<string, Resource> resources, Dictionary<string, object> states)
+    private bool InState(Dictionary<string, Resource> resources, Dictionary<string, object> states, bool receiveGoal) //ReceiveGoal: in case of receive goals as parameter.
     {
-        bool allMatch = true;
+        bool match = false, allMatch = true;
         foreach (KeyValuePair<string, Resource> resource in resources)
         {
-            bool match = false;
             foreach (KeyValuePair<string, object> state in states)
             {
                  if ((state.Key).Equals(resource.Key))
                  {
-                    if (state.Value.Equals(resource.Value.value) || ((resource.Value.resourceEnumType == ResourceType.InventoryObject.ToString()) && ((float)state.Value >= (float)resource.Value.value)))
+                    if ((resource.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (resource.Value.resourceEnumType == ResourceType.Position.ToString()))
                     {
                         match = true;
+
+                        if(receiveGoal == true)
+                            goal_to_achieve = resource.Key;
+
                         break;
                     }
-                    else if((resource.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (resource.Value.resourceEnumType == ResourceType.Position.ToString()))
+                    else
                     {
-                        match = true;
-                        break;
+                        if (state.Value.Equals(resource.Value.value) || ((resource.Value.resourceEnumType == ResourceType.InventoryObject.ToString()) && ((float)state.Value >= (float)resource.Value.value)))
+                        {
+                            match = true;
+
+                            if (receiveGoal == true)
+                                goal_to_achieve = resource.Key;
+
+                            break;
+                        }
                     }
-                 }
+                }
             }
-            if (!match)
-                allMatch = false;
         }
+
+        if (!match)
+            allMatch = false;
+
         return allMatch;
     }
 

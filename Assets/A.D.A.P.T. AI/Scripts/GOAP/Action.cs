@@ -341,4 +341,6 @@ public abstract class Action : MonoBehaviour
         preconditions = new Dictionary<string, Resource>();
         PerformData();
     }
+
+    public abstract void PerformAction();
 }

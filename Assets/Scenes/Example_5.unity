@@ -179,11 +179,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentName: Agent_1
+  goals: []
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
   agent: {fileID: 0}
   onIdle: 0
+  rdmDistance: 100
   states: {fileID: 0}
 --- !u!136 &204839454
 CapsuleCollider:
@@ -1313,11 +1315,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentName: Agent_1
+  goals: []
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
   agent: {fileID: 0}
   onIdle: 0
+  rdmDistance: 100
   states: {fileID: 0}
 --- !u!136 &1678074918
 CapsuleCollider:

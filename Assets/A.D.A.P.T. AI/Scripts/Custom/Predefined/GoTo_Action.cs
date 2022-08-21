@@ -42,41 +42,47 @@ public class GoTo_Action : Action
 
     private void Update()
     {
-        agent.onIdle = false;
-        if(finished != true) //While the Action is not finished
-        {
-            PerformAction();
-        }
+        /*
+            agent.onIdle = false;
+            if(finished != true) //While the Action is not finished
+            {
+                PerformAction();
+            }
+        */
     }
 
-
-    void PerformAction()
+    public override void PerformAction()
     {
+        //CHECK UPDATE-LATEUPDATE WITH AGENT CLASS
+
         actual_agent = gameObject.GetComponent<NavMeshAgent>();
         //Debug.Log("<color=red>LLAMA!</color>");
 
-        if (target!= null && hasTarget) //TARGET EXISTS
+        if (target != null && hasTarget) //TARGET EXISTS
         {
             actual_agent.stoppingDistance = stopDistance;
             actual_agent.SetDestination(target.transform.position);
         }
 
         //Check if Agent NavMesh reach the actual target position
-        if (!actual_agent.pathPending)
+        if (!actual_agent.pathPending && target != null)
         {
             if (actual_agent.remainingDistance <= actual_agent.stoppingDistance)
             {
                 if (!actual_agent.hasPath || actual_agent.velocity.sqrMagnitude == 0f)
                 {
                     //Debug.Log("COMPLETED\n");
-                    running = false;
+                    //running = false;"
+                    //Debug.Log("<color=red>LLAMA!-1 </color> D1: " + actual_agent.remainingDistance + " D2: " + actual_agent.stoppingDistance);
                     finished = true;
+
                 }
             }
             else
             {
                 //Debug.Log("NO COMPLETED\n");
-                running = true;
+                //running = true;
+                //Debug.Log("<color=red>LLAMA!-2</color>");
                 finished = false;
             }
         }

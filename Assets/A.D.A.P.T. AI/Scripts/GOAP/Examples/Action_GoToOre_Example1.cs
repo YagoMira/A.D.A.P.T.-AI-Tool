@@ -18,4 +18,5 @@ public class Action_GoToOre_Example1 : Action
         
     }
     */
+    public override void PerformAction() { }
 }
