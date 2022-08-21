@@ -77,7 +77,9 @@ public abstract class Action : MonoBehaviour
     public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, Resource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, Resource> effects; //List of effects/resources to achieve
-    public int totalPriority; //Sumatory of the different precondition's priorities 
+    public int totalPriority; //Sumatory of the different resources's priorities 
+    public int totalCost; //Sumatory of the different resources's cost 
+    int modNumber = 10; //Number used to calculate cost (ex. In case of have 60 items, cost of 6 - Division by 10 is the default).
 
     // Start is called before the first frame update
     void OnEnable() //Start.
@@ -88,7 +90,8 @@ public abstract class Action : MonoBehaviour
         effects = new Dictionary<string, Resource>();
         PerformData();
         totalPriority = CalculateTotalPriority();
-
+        CalculateCost();
+        totalCost = CalculateTotalCost();
     }
 
 
@@ -106,6 +109,9 @@ public abstract class Action : MonoBehaviour
             {
                 preconditions.Add(r_p.key, CheckResource(r_p));
             }
+
+            preconditions = preconditions.OrderByDescending(x => x.Value.priority).ToDictionary(x => x.Key, x => x.Value); //Order Preconditions by priority
+            
         }
 
         if (effects_list != null)
@@ -114,6 +120,8 @@ public abstract class Action : MonoBehaviour
             {
                 effects.Add(r_e.key, CheckResource(r_e));
             }
+
+            effects = effects.OrderByDescending(x => x.Value.priority).ToDictionary(x => x.Key, x => x.Value); //Order Effects by priority
         }
     }
 
@@ -205,6 +213,83 @@ public abstract class Action : MonoBehaviour
         }
 
         return totalPriority;
+    }
+
+    public int CalculateTotalCost()
+    {
+        int totalCost = 0;
+
+        foreach (KeyValuePair<string, Resource> r in preconditions)
+        {
+            totalCost += r.Value.cost;
+        }
+
+        foreach (KeyValuePair<string, Resource> e in effects)
+        {
+            totalCost += e.Value.cost;
+        }
+
+        return totalCost;
+    }
+
+    public void CalculateCost() //Allows to calculate cost in fuction of distance, inventory items, ...
+    {
+        foreach (KeyValuePair<string, Resource> r in preconditions)
+        {
+            r.Value.cost = SubCalculateCost(r.Value);
+        }
+
+        foreach (KeyValuePair<string, Resource> e in effects)
+        {
+            e.Value.cost = SubCalculateCost(e.Value);
+        }
+    }
+
+    public int SubCalculateCost(Resource resource) //Auxiliar function for retrieve the cost in relation of received Resource
+    {
+        int totalCost = 0;
+
+        if (resource.resourceEnumType == ResourceType.WorldElement.ToString() || resource.resourceEnumType == ResourceType.Position.ToString()) //In case of World/Position Resource
+        {
+            int distance = 0;
+            int increaseMod = modNumber; //In case of high number to compare with (Big distances or high inventory object amount).
+
+
+            if (resource.resourceEnumType == ResourceType.WorldElement.ToString())
+                distance = (int) Vector3.Distance(gameObject.transform.position, ((GameObject)resource.value).transform.position);
+            else if(resource.resourceEnumType == ResourceType.Position.ToString())
+                distance = (int)Vector3.Distance(gameObject.transform.position, ((Transform)resource.value).transform.position);
+
+            while ((distance / modNumber) > modNumber) //In case of high number to compare with (Big distances or high inventory object amount).
+            {
+                increaseMod = increaseMod * modNumber;
+            }
+
+            distance = distance / increaseMod; //Mod 10 by default
+            totalCost = distance;
+        }
+        else if (resource.resourceEnumType == ResourceType.InventoryObject.ToString()) //In case of Inventory Resource
+        {
+            int items = 0;
+            int increaseMod = modNumber; //In case of high number to compare with (Big distances or high inventory object amount).
+
+            items = (int)((float)resource.value / modNumber); //Mod 10 by default
+
+            while (items > modNumber) //In case of high number to compare with (Big distances or high inventory object amount).
+            {
+                increaseMod = increaseMod * modNumber;
+                items = (int)((float)resource.value / increaseMod);
+            }
+
+            totalCost = items;
+        }
+        else if (resource.resourceEnumType == ResourceType.Status.ToString()) //In case of Status Resource
+        {
+            if((bool)resource.value == true)
+                totalCost = 1; //Add a extra cost of 1 in case of need some variable as true.
+        }
+
+        return totalCost;
     }
 
     public Dictionary<string, Resource> GetAllPreconditions()
@@ -322,10 +407,6 @@ public abstract class Action : MonoBehaviour
             else //For the other resources (Status or Inventory).
             {
                 element++;
-
-                //***********************************************
-                //FUNCTION FOR CHECK INVENTORY RESOURCES!!!!!!!!!
-                //***********************************************
                 assertPreconditions = true; //This values depends on if other resources asserts conditios or not.
             }
 

@@ -106,6 +106,25 @@ public class ADAPT_UI_Goals : PropertyDrawer
                 contentPosition.width = position.width - 33;
                 EditorGUI.PropertyField(contentPosition, property.FindPropertyRelative("goal_Action"), new GUIContent("goal_Action"));
 
+                switch (selectedType.enumValueIndex)
+                {
+                    case 0:
+                        contentPosition.y += 21;
+                        EditorGUI.PropertyField(contentPosition, w_resource.FindPropertyRelative("cost"), new GUIContent("cost"));
+                        break;
+                    case 1:
+                        contentPosition.y += 21;
+                        EditorGUI.PropertyField(contentPosition, p_resource.FindPropertyRelative("cost"), new GUIContent("cost"));
+                        break;
+                    case 2:
+                        contentPosition.y += 21;
+                        EditorGUI.PropertyField(contentPosition, i_resource.FindPropertyRelative("cost"), new GUIContent("cost"));
+                        break;
+                    case 3:
+                        contentPosition.y += 21;
+                        EditorGUI.PropertyField(contentPosition, s_resource.FindPropertyRelative("cost"), new GUIContent("cost"));
+                        break;
+                }
             }
                 
         }
@@ -120,7 +139,7 @@ public class ADAPT_UI_Goals : PropertyDrawer
         }  
         else if (property.isExpanded && property.FindPropertyRelative("hasAction").boolValue == true && !property.FindPropertyRelative("goal_precondition").isExpanded)
         {
-            return 120;
+            return 142;
         }
         else if(property.isExpanded && property.FindPropertyRelative("goal_precondition").isExpanded && property.FindPropertyRelative("hasAction").boolValue == false)
         {
@@ -132,9 +151,9 @@ public class ADAPT_UI_Goals : PropertyDrawer
         else if (property.isExpanded && property.FindPropertyRelative("hasAction").boolValue == true && property.FindPropertyRelative("goal_precondition").isExpanded)
         {
             if(property.isExpanded && property.FindPropertyRelative("goal_precondition").FindPropertyRelative("selectedType").enumValueIndex == 2)
-                return 25 * 10;
+                return 26 * 10;
             else
-                return 23 * 10;
+                return 25 * 10;
         }
         else if(!property.isExpanded)
         {

@@ -46,6 +46,7 @@ public class Agent : MonoBehaviour
 
     //***OTHER PARAMS***
     public float rdmDistance = 100f; //Radius to get a random direction for navmesh agent. 
+    [HideInInspector]
     public AgentStates states;
 
     public void Start()
@@ -58,8 +59,11 @@ public class Agent : MonoBehaviour
             if (g.hasAction == true)
             {
                 Type action = g.goal_Action.GetType();
-                if((gameObject.GetComponent(action.ToString()) as Action) == null) //In case of Goal-Action is actually attached to Agent
+                if ((gameObject.GetComponent(action.ToString()) as Action) == null) //In case of Goal-Action is actually attached to Agent
+                {
                     gameObject.AddComponent(action);
+                    g.goal_Action = gameObject.GetComponent(action.ToString()) as Action; //In case of inspector bug of action_goal
+                }
             }
 
             //Truncate data to dictionary.
@@ -117,7 +121,7 @@ public class Agent : MonoBehaviour
                 agent.isStopped = true;
                 agent.ResetPath(); 
             }
-            else if (actionsToRun != null)
+            else if (actionsToRun == null)
             {
                 IdleState();
             }

@@ -177,6 +177,7 @@ namespace ADAPT.UI
             ADAPT_UI_Actions.Show(serializedObject.FindProperty("effects_list"), a);
             //More Default properties:
             EditorGUILayout.PropertyField(serializedObject.FindProperty("totalPriority"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("totalCost"));
             serializedObject.ApplyModifiedProperties();
         }
 

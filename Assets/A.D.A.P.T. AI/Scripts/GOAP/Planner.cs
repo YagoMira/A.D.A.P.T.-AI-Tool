@@ -143,7 +143,8 @@ public class Planner //: MonoBehaviour
                 foreach (KeyValuePair<string, Resource> effect in a.effects)
                     currentState.Add(effect.Key, effect.Value.value);
 
-                Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
+                //Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
+                Node node = new Node(parent, ((a.totalPriority - a.totalCost) <= 0) ? 1 : a.totalPriority - a.totalCost, currentState, a); //Total Priority less TotalCost of Actions (get individual ones of preconditions and effects)
 
                 if (InState(received_goals, currentState, true))
                 {

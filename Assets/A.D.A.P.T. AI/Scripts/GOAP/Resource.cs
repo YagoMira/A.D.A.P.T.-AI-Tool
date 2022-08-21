@@ -21,6 +21,8 @@ public abstract class Resource
     public object type; //Type of resource as Basic Data Type
     public object value; //Value of resource as Basic Data Type
     public int priority; //Priority of the precondition/after effect
+    [ReadOnly]
+    public int cost; //Cost of the actual Resource, implies increase or decrease the actual priority in relation of distances, number of inventory elements, ...
     public float limit; //Maximum distance to target or limit capacity into inventory
 
     //METHODS:
