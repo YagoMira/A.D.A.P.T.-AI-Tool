@@ -17,7 +17,10 @@ public class Action_GetOre_Example1 : Action
 
     void LateUpdate()
     {
-        states = agent.states;
+        states = agent.agent_states;
+        //global_states = agent.global_states;
+        global_states.ModifyInventoryItem("ORO", 10f);
+        global_states.ModifyInventoryItem("I-1", 15f);
         //Mining(); 
     }
 

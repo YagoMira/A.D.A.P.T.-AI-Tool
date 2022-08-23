@@ -27,6 +27,7 @@ public class Action_Goal_1 : Action
     public override void PerformAction()
     {
         Debug.Log("LET'S, GOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        gameObject.transform.Translate(new Vector3(0, 20f, 0) * Time.deltaTime);
         finished = true;
     }
 }

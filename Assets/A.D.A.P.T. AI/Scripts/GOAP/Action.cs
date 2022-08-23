@@ -81,6 +81,8 @@ public abstract class Action : MonoBehaviour
     public int totalCost; //Sumatory of the different resources's cost 
     int modNumber = 10; //Number used to calculate cost (ex. In case of have 60 items, cost of 6 - Division by 10 is the default).
 
+    protected AgentStates global_states = GlobalStates.GetGlobalStatesInstance.GetGlobalStates(); //Call it in this class for do easy to modify globlal states with custom actions.
+
     // Start is called before the first frame update
     void OnEnable() //Start.
     {
@@ -399,7 +401,7 @@ public abstract class Action : MonoBehaviour
                 else //In case of value of world/position resource don't have value assigned.
                 {
                     Debug.Log("NULL VALUE\n");
-                    if(target != null)
+                    if (target != null)
                         r.Value.value = target; //Assign target in case of don't find some resource.
                 }
 

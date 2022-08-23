@@ -47,7 +47,13 @@ public class Agent : MonoBehaviour
     //***OTHER PARAMS***
     public float rdmDistance = 100f; //Radius to get a random direction for navmesh agent. 
     [HideInInspector]
-    public AgentStates states;
+    public AgentStates agent_states;
+    [HideInInspector]
+    protected AgentStates global_states = GlobalStates.GetGlobalStatesInstance.GetGlobalStates(); //Any agent get a reference to the global states (Is more easy to call it in the specific Agent classes).
+    //**PLANNER PARAM**
+    int runnedActions = 0; //Calculate the amount of runned actions at time.
+    bool plannerEnded = false;  //In case of achieve a goal and finish the planner.
+    float restart = 2f; //Use this parameter to set the actual amount of wait to planner restart. (CAUTION!: Set the value: > 0).
 
     public void Start()
     {
@@ -71,9 +77,9 @@ public class Agent : MonoBehaviour
         }
 
         //Add Agent States
-        if (states == null)
+        if (agent_states == null)
         {
-            states = gameObject.AddComponent<AgentStates>();
+            agent_states = gameObject.AddComponent<AgentStates>();
         }
         ///
 
@@ -82,13 +88,249 @@ public class Agent : MonoBehaviour
 
     public void LateUpdate()
     {
+        //if(plannerEnded != true)
         PerformPlanner();
     }
 
     public void PerformPlanner()
     {
-        Dictionary<string, object> worldStates = new Dictionary<string, object>();
+        Dictionary<string, object> worldStates; //Initialice and ADD all states to the current dictionary.
 
+        //**LIMITED ACTIONS TO RUN BEFORE RESTART THE PLANNER** (Can change the value if you want).
+        int runneableActions = 2; //Change this value to set the number of actions to run before restart the planner.
+        bool planFinished = false;  //In case of finish all actions to run.
+
+        //RUN PLANNER.
+        if (planner == null || actionsToRun == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
+        {
+            worldStates = new Dictionary<string, object>();
+            GetAllStates(worldStates, agent_states);
+            GetAllStates(worldStates, global_states);
+            runnedActions = 0; //Used for count the actual number of perfomed actions.
+
+            planner = new Planner();
+            actionsToRun = planner.Plan(actions, worldStates, goals_list);
+            //maxActions = actionsToRun.Count; //Save maximum number of actions to perform
+
+            /*foreach(KeyValuePair<string, object> s in worldStates)
+            {
+                Debug.Log("AGENT: " + agentName + " STATE: " + s.Key + " -/V: " + s.Value);
+            }*/
+
+            if (agent.pathPending && actionsToRun != null) //Reset all navigation paths for prevent any destination bug.
+            {
+                agent.isStopped = true;
+                agent.ResetPath(); 
+            }
+            else if (actionsToRun == null)
+            {
+                IdleState();
+            }
+        }
+
+        if (actionsToRun != null) //Set the actual Action running.
+        {
+            //if (actionsToRun.Count <= 1 && currentAction.finished == true) //Check if actual currentAction is finished for prevent any early Dequeue
+            if (actionsToRun.Count <= 1) //If last action
+            {
+                if(actionsToRun.Count != 0)
+                    currentAction = actionsToRun.Peek(); //Get last action has current one.
+               
+                if(currentAction.finished == true) //In case of last action is finished
+                {
+                    //If last action is an action_goal
+                    if(goals_list[currentGoal].hasAction == true)
+                    {
+                        if(currentAction.name == goals_list[currentGoal].goal_Action.name)
+                        {
+                            if (actionsToRun.Count != 0)
+                                actionsToRun.Dequeue();
+                            Debug.Log("<color=red>FINISHED PLANNER-ByGoal!!</color>");
+                            planFinished = true;
+                        }
+                        else //Last action is not an action_goal but have one, add it!.
+                        {
+                            Type goal_action = goals_list[currentGoal].goal_Action.GetType(); //Get the actual goal-action from Agent to perform
+                            Action finish_action = gameObject.GetComponent(goal_action.ToString()) as Action;
+                            if (actionsToRun.Count != 0)
+                                actionsToRun.Dequeue();
+                            actionsToRun.Enqueue(finish_action); //Add goal action to the queue.
+                        }
+                    }
+                    else //Other case, is normal action and planner is finished.
+                    {
+                        if (actionsToRun.Count != 0)
+                            actionsToRun.Dequeue();
+                        Debug.Log("<color=red>FINISHED PLANNER!!</color>");
+                        planFinished = true;
+                    }
+                }
+                /*if(currentAction.finished == true) //In case of last action is finished, perform GOAL ACTION.
+                {
+                    if(currentGoal != null || !currentGoal.Equals("")) //In case of not empty goal
+                    {
+                        foreach(KeyValuePair<string, Goal> g in goals_list)
+                        {
+                            if(g.Key == currentGoal)
+                            {
+                                if(g.Value.hasAction == true) //In case of have some Action to perform
+                                {
+                                    Type goal_action = g.Value.goal_Action.GetType(); //Get the actual goal-action from Agent to perform
+                                    //currentAction = gameObject.GetComponent(goal_action.ToString()) as Action;
+                                    Action finish_action = gameObject.GetComponent(goal_action.ToString()) as Action;
+                                    actionsToRun.Dequeue();
+                                    actionsToRun.Enqueue(finish_action); //Add goal action to the queue.
+                                }  
+                            }
+                        }     
+                    }
+                    runnedActions++;
+                }*/
+
+           }
+           else if(actionsToRun.Count > 1)
+           {
+               //Check if action is finished or not.!!!!
+               if(currentAction == null)
+               { 
+                   currentAction = actionsToRun.Dequeue();
+               }
+               else
+               {
+                   if(currentAction == currentAction.finished)
+                   {
+                        currentAction = actionsToRun.Dequeue();
+                   }
+               }
+                
+               //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
+           }
+
+            if (currentAction.finished != true) //Run the actual Action
+            {
+                currentAction.running = true;
+            }
+            /*****************CHECK***********************/
+            else //In case of the actual action is finished but the effects are not achieved...Restart planner.
+            {
+                runnedActions++;
+                currentAction.running = false; //Set running to false only if action is finished.
+
+
+                foreach (KeyValuePair<string, Resource> eff in currentAction.effects)
+                {
+                    if(RestartPlanner(eff) == true)
+                    {
+                        planFinished = false;
+                    }
+                    else //In case of achieve the states-effects, check if should restar.
+                    {
+                        if (actionsToRun.Count != 0)
+                        {
+                            if (runnedActions >= runneableActions) //Check if actually the limit of actions is achieve
+                            {
+
+                                //Restart the planner.
+                                Debug.Log("<color=yellow>RESTART...</color>");
+                                StartCoroutine(RestartPlanner_Wait());
+                                //currentAction.finished = false;
+                                //planner = null;
+                            }
+                        }
+                    }
+                }
+            }
+            /******************************************************/
+
+            if(planner != null)
+            {
+                //Current Goal to achieve
+                currentGoal = planner.goal_to_achieve;
+            }
+
+        }
+        else
+        {
+            actionsToRun = null;
+            currentAction = null;
+        }
+
+        if(currentAction != null) //This line of code is indepent of other ones for possible bugs.
+        {
+            if (currentAction.running && currentAction.finished != true) //In case of some Action is running.
+            {
+                currentAction.PerformAction();
+            }
+        }
+
+        if(actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVE THE GOAL
+        {
+            Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color>");
+            plannerEnded = true;
+        }
+
+        //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
+        //Debug.Log("RUNNEDACTIONS: " + runnedActions + " - " + " ACTUAL ACTIONS: " + actionsToRun.Count);
+
+    }
+
+    IEnumerator RestartPlanner_Wait() //Use this function for programmatically restart the planner when achieve an amount of runned actions.
+    {
+        yield return new WaitForSeconds(restart);
+        planner = null;
+    }
+
+    public bool RestartPlanner(KeyValuePair<string, Resource> e) //In case of actual state dont achieve any of the effects, restart planner until some of state's value is equals some effect's value.
+    {
+        //World and Position states are setter finished by the user.!!!
+        if (global_states.inventory.ContainsKey(e.Key) || global_states.status.ContainsKey(e.Key))
+        {
+            if(global_states.inventory.ContainsKey(e.Key)) //Lines are writted like this for prevent possible dictionary bugs.
+            {
+                if (global_states.inventory[e.Key] < (float)e.Value.value)
+                {
+                    planner = null;
+                    currentAction.finished = false;
+                    return true;
+                }
+            }
+            else if (global_states.status.ContainsKey(e.Key))
+            {
+                if (global_states.status[e.Key] != (bool)e.Value.value)
+                {
+                    planner = null;
+                    currentAction.finished = false;
+                    return true;
+                }
+            }
+        }
+        else if (agent_states.inventory.ContainsKey(e.Key) || agent_states.status.ContainsKey(e.Key)) //Lines are writted like this for prevent possible dictionary bugs.
+        {
+            if (agent_states.inventory.ContainsKey(e.Key)) //Lines are writted like this for prevent possible dictionary bugs.
+            {
+                if (agent_states.inventory[e.Key] < (float)e.Value.value)
+                {
+                    planner = null;
+                    currentAction.finished = false;
+                    return true;
+                }
+            }
+            else if (agent_states.status.ContainsKey(e.Key))
+            {
+                if (agent_states.status[e.Key] != (bool)e.Value.value)
+                {
+                    planner = null;
+                    currentAction.finished = false;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public void GetAllStates(Dictionary<string, object> worldStates, AgentStates states) //Use this function for get all states (individual and global ones).
+    {
         foreach (string worldItem in states.worldElements)
         {
             worldStates.Add(worldItem, null);
@@ -104,86 +346,6 @@ public class Agent : MonoBehaviour
         foreach (KeyValuePair<string, bool> statusItem in states.status)
         {
             worldStates.Add(statusItem.Key, statusItem.Value);
-        }
-
-        //LIMITED ACTIONS TO RUN IN THE PLANNER, HERE.!!!...
-        //...
-
-        //RUN PLANNER.
-        if (planner == null || actionsToRun == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
-        {
-
-            planner = new Planner();
-            actionsToRun = planner.Plan(actions, worldStates, goals_list);
-
-            if (agent.pathPending && actionsToRun != null) //Reset all navigation paths for prevent any destination bug.
-            {
-                agent.isStopped = true;
-                agent.ResetPath(); 
-            }
-            else if (actionsToRun == null)
-            {
-                IdleState();
-            }
-        }
-
-        if (actionsToRun != null) //Set the actual Action running.
-        {
-           if(actionsToRun.Count <= 1)
-           {
-               currentAction = actionsToRun.Peek();
-               
-                if(currentAction.finished == true) //In case of last action is finished, perform GOAL ACTION.
-                {
-                    if(currentGoal != null || !currentGoal.Equals("")) //In case of not empty goal
-                    {
-                        foreach(KeyValuePair<string, Goal> g in goals_list)
-                        {
-                            if(g.Key == currentGoal)
-                            {
-                                if(g.Value.hasAction == true) //In case of have some Action to perform
-                                {
-                                    Type goal_action = g.Value.goal_Action.GetType(); //Get the actual goal-action from Agent to perform
-                                    currentAction = gameObject.GetComponent(goal_action.ToString()) as Action;
-                                }
-                                    
-                            }
-                        }
-                    }
-                }
-           }
-           else
-           {
-               //Check if action is finished or not.!!!!
-               if(currentAction == null)
-               { 
-                   currentAction = actionsToRun.Dequeue();
-               }
-               else
-               {
-                   if(currentAction == currentAction.finished)
-                       currentAction = actionsToRun.Dequeue();
-
-               }
-
-                Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
-           }
-
-            if (currentAction.finished != true) //Run the actual Action
-                currentAction.running = true;  
-
-            //Current Goal to achieve
-            currentGoal = planner.goal_to_achieve;
-        }
-        else
-        {
-            actionsToRun = null;
-            currentAction = null;
-        }
-
-        if(currentAction.running && currentAction != null && currentAction.finished != true) //In case of some Action is running.
-        {
-            currentAction.PerformAction();
         }
     }
 
