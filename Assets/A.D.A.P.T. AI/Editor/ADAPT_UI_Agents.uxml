@@ -22,10 +22,15 @@
             <engine:Label name="AgentSelectionLabel"/>
             <editor:ObjectField name="SelectedObjectHolder"/>
           </engine:VisualElement>
+          <engine:VisualElement name="AgentNameContainer" style="display:none">
+            <engine:Label name="AgentNameLabel"/>
+            <engine:TextField name="AgentName"/>
+          </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="ButtonPanel">
           <engine:Button name="AgentButton"/>
           <engine:Label name="AgentExistsLabel"/>
+          <engine:Label name="AgentScriptExistsLabel"/>
         </engine:VisualElement>
       </engine:VisualElement>
       <!---->

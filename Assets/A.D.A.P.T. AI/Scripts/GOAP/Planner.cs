@@ -146,6 +146,12 @@ public class Planner //: MonoBehaviour
                 //Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
                 Node node = new Node(parent, ((a.totalPriority - a.totalCost) <= 0) ? 1 : a.totalPriority - a.totalCost, currentState, a); //Total Priority less TotalCost of Actions (get individual ones of preconditions and effects)
 
+                if (node.priority > MAX_PRIORITY) //In case of some node has more priority than the maximum, set this.
+                {
+                    node.priority = MAX_PRIORITY;
+                }
+
+
                 if (InState(received_goals, currentState, true))
                 {
                     //In case of find a solution...

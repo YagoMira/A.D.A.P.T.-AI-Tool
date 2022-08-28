@@ -77,7 +77,9 @@ public abstract class Action : MonoBehaviour
     public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, Resource> preconditions; //List of preconditions/resources to achieve
     public Dictionary<string, Resource> effects; //List of effects/resources to achieve
+    [ReadOnly]
     public int totalPriority; //Sumatory of the different resources's priorities 
+    [ReadOnly]
     public int totalCost; //Sumatory of the different resources's cost 
     int modNumber = 10; //Number used to calculate cost (ex. In case of have 60 items, cost of 6 - Division by 10 is the default).
 
@@ -94,8 +96,13 @@ public abstract class Action : MonoBehaviour
         totalPriority = CalculateTotalPriority();
         CalculateCost();
         totalCost = CalculateTotalCost();
-    }
 
+       if(actionName == null || actionName == "") //In case of null name add one random name.
+        { 
+            Debug.Log("<color=red>AGENT: </color> " + this.gameObject.GetComponent<MonoBehaviour>() + " <color=red>HAS AN ACTION WITHOUT AN ACTION NAME, MUST BE ADDED!.</color>");
+            actionName = "Action" + GenerateRandomName(5);
+        }
+    }
 
     void Update()
     {
@@ -105,11 +112,38 @@ public abstract class Action : MonoBehaviour
 
     void PerformData() //Store public preconditions and effects list into preconditions and effects dictionaries
     {
+        int counter_pred = 0, counter_eff = 0; //Used for count the number of foreach iterations.
+
         if (preconditions_list != null)
         {
             foreach (ResourceStruct r_p in preconditions_list)
             {
+                if(r_p.key == null || r_p.key == "") //In case of actual resource doesn't have a name.
+                {
+                    Debug.Log("<color=red>RESOURCE(PRECONDITION): </color> " + counter_pred + " <color=red> DOESN'T HAVE A NAME, RANDOM NAME WILL BE ADDED!.</color>");
+
+                    r_p.key = GenerateRandomName(7);
+
+                    if(r_p.w_resource.resourceName == "" || (r_p.w_resource.resourceName == null))
+                    {
+                        r_p.w_resource.resourceName = r_p.key;
+                    }
+                    else if (r_p.p_resource.resourceName == "" || (r_p.p_resource.resourceName == null))
+                    {
+                        r_p.p_resource.resourceName = r_p.key;
+                    }
+                    else if (r_p.i_resource.resourceName == "" || (r_p.i_resource.resourceName == null))
+                    {
+                        r_p.i_resource.resourceName = r_p.key;
+                    }
+                    else if (r_p.s_resource.resourceName == "" || (r_p.s_resource.resourceName == null))
+                    {
+                        r_p.s_resource.resourceName = r_p.key;
+                    }
+                }
+
                 preconditions.Add(r_p.key, CheckResource(r_p));
+                counter_pred++;
             }
 
             preconditions = preconditions.OrderByDescending(x => x.Value.priority).ToDictionary(x => x.Key, x => x.Value); //Order Preconditions by priority
@@ -120,11 +154,49 @@ public abstract class Action : MonoBehaviour
         {
             foreach (ResourceStruct r_e in effects_list)
             {
+                if (r_e.key == null || r_e.key == "") //In case of actual resource doesn't have a name.
+                {
+                    Debug.Log("<color=red>RESOURCE(EFFECT): </color> " + counter_eff + " <color=red> DOESN'T HAVE A NAME, RANDOM NAME WILL BE ADDED!.</color>");
+
+                    r_e.key = GenerateRandomName(7);
+
+                    if (r_e.w_resource.resourceName == "" || (r_e.w_resource.resourceName == null))
+                    {
+                        r_e.w_resource.resourceName = r_e.key;
+                    }
+                    else if (r_e.p_resource.resourceName == "" || (r_e.p_resource.resourceName == null))
+                    {
+                        r_e.p_resource.resourceName = r_e.key;
+                    }
+                    else if (r_e.i_resource.resourceName == "" || (r_e.i_resource.resourceName == null))
+                    {
+                        r_e.i_resource.resourceName = r_e.key;
+                    }
+                    else if (r_e.s_resource.resourceName == "" || (r_e.s_resource.resourceName == null))
+                    {
+                        r_e.s_resource.resourceName = r_e.key;
+                    }
+                }
+
                 effects.Add(r_e.key, CheckResource(r_e));
+                counter_eff++;
             }
 
             effects = effects.OrderByDescending(x => x.Value.priority).ToDictionary(x => x.Key, x => x.Value); //Order Effects by priority
         }
+    }
+
+    public string GenerateRandomName(int size) //Generates random string name for actions, resources, ...
+    {
+        string result = "";
+        const string chars = "0123456789abcdefghijklmnopqrstuvwxyz"; //Used for create random names.
+
+        for (int i = 0; i < 7; i++)
+        {
+            result += chars[UnityEngine.Random.Range(0, chars.Length)];
+        }
+
+        return result;
     }
 
     Resource CheckResource (ResourceStruct resource) //Allows to check if the actual resource has only the specific type
@@ -258,9 +330,36 @@ public abstract class Action : MonoBehaviour
 
 
             if (resource.resourceEnumType == ResourceType.WorldElement.ToString())
-                distance = (int) Vector3.Distance(gameObject.transform.position, ((GameObject)resource.value).transform.position);
+            {
+                if ((GameObject) resource.value != null)
+                {
+                    distance = (int)Vector3.Distance(gameObject.transform.position, ((GameObject)resource.value).transform.position);
+                }
+                else
+                {
+                    Debug.Log("<color=red>RESOURCE: </color>" + resource.resourceName + " <color=red> DOESN'T HAVE AN ASSIGNED VALUE, DEFAULT TARGET WILL BE ADDED AS ONE!.</color>");
+                    resource.value = target;
+                    ((WorldResource)resource).resource_value = target;
+                    distance = (int)Vector3.Distance(gameObject.transform.position, ((GameObject)resource.value).transform.position);
+                }
+                
+            } 
             else if(resource.resourceEnumType == ResourceType.Position.ToString())
-                distance = (int)Vector3.Distance(gameObject.transform.position, ((Transform)resource.value).transform.position);
+            {
+                if ((Transform)resource.value != null)
+                {
+                    distance = (int)Vector3.Distance(gameObject.transform.position, ((Transform)resource.value).transform.position);
+                }
+                else
+                {
+                    Debug.Log("<color=red>RESOURCE: </color>" + resource.resourceName + " <color=red> DOESN'T HAVE AN ASSIGNED VALUE, DEFAULT TARGET WILL BE ADDED AS ONE!.</color>");
+                    resource.value = target.transform;
+                    ((PositionResource)resource).resource_value = target.transform;
+                    distance = (int)Vector3.Distance(gameObject.transform.position, ((Transform)resource.value).transform.position);
+                }
+                
+            }
+                
 
             while ((distance / modNumber) > modNumber) //In case of high number to compare with (Big distances or high inventory object amount).
             {
@@ -400,22 +499,50 @@ public abstract class Action : MonoBehaviour
                 }
                 else //In case of value of world/position resource don't have value assigned.
                 {
-                    Debug.Log("NULL VALUE\n");
+                    Debug.Log(r.Key + " :<color=red> TARGET VALUE IS NULL!. Action Target will be assigned.</color>\n");
                     if (target != null)
                         r.Value.value = target; //Assign target in case of don't find some resource.
                 }
 
+            }
+            else if (r.Value.resourceEnumType == ResourceType.InventoryObject.ToString()) //In case of inventory item
+            {
+                element++;
+                if(r.Value.limit <= (float)r.Value.value) //Check if value is less than limit of inventory items.
+                {
+                    Debug.Log("<color=red>Inventory </color> " + r.Key + " <color=red> in </color> " + actionName + " <color=red> is full!.(Reduce value or increase limit.).</color>");
+                    assertPreconditions = false;
+                }
+
+                CheckEffectsResources(); //Call this function for check if inventory maximum is surpassed.
             }
             else //For the other resources (Status or Inventory).
             {
                 element++;
                 assertPreconditions = true; //This values depends on if other resources asserts conditios or not.
             }
+        }
 
-
+        if(target == null && hasTarget == true)
+        {
+            Debug.Log(actionName + " :<color=red> TARGET VALUE IS NULL!. For use 'hasTarget' bool you should assign one gameobject as target.</color>\n");
         }
 
         return assertPreconditions;
+    }
+
+    public void CheckEffectsResources() //Check if inventory values is less than limit into the effects dictionary.
+    {
+        foreach (KeyValuePair<string, Resource> e in effects)
+        {
+            if (e.Value.resourceEnumType == ResourceType.InventoryObject.ToString()) //In case of inventory item
+            {
+                if (e.Value.limit <= (float)e.Value.value) //Check if value is less than limit of inventory items.
+                {
+                    Debug.Log("<color=red>Inventory </color> " + e.Key + " <color=red> in </color> " + actionName + "(Effects) <color=red> is full!.(Reduce value or increase limit.).</color>");
+                }
+            }
+        }
     }
 
     public void ReRun() //CALL THIS CLASS ONLY IF YOU NEED DO CHANGES IN EXECUTION TIME

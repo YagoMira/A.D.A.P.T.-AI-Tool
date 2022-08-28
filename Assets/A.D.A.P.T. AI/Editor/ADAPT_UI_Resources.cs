@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ADAPT.UI
 {
-    public class ADAPT_UI_Resources : MonoBehaviour
+    public class ADAPT_UI_Resources
     {
         #region PATHS
         public string logo_path = "Logo_ADAPT";
@@ -16,6 +16,8 @@ namespace ADAPT.UI
         public string selected_gameobject_text = "Selected GameObject: ";
         public string agent_button = "TURN INTO AN AGENT!";
         public string agent_exists_text = "This GameObject is already an Agent!";
+        public string agent_script_exists_text = "This Agent already exists! or is being imported by Unity, WAIT!.";
+        public string agent_name_text = "Name for the NEW Agent: ";
         #endregion
 
         #region ACTIONS_UI

@@ -123,31 +123,52 @@ namespace ADAPT.UI
                     {
                         EditorGUI.indentLevel += 1;
                         //Print all ResourceStruct elements:
-                        EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("key"));
-                        EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType"));
-                        selectedValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType").enumValueIndex;
-
-                        switch (selectedValue)
-                        {
-                            case 0: //WorldResource
-                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("w_resource"));
-                                SetElementsToNull(list.name, a, i, 0);
-                                break;
-                            case 1: //PositionResource
-                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("p_resource"));
-                                SetElementsToNull(list.name, a, i, 1);
-                                break;
-                            case 2: //InventoryResource
-                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("i_resource"));
-                                SetElementsToNull(list.name, a, i, 2);
-                                break;
-                            case 3: //StatusResource
-                                EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("s_resource"));
-                                SetElementsToNull(list.name, a, i, 3);
-                                break;
-                        }
+                            EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("key"));
+                            EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType"));
+                            selectedValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("selectedType").enumValueIndex;
+                            switch (selectedValue)
+                            {
+                                case 0: //WorldResource
+                                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("w_resource"));
+                                    SetElementsToNull(list.name, a, i, 0);
+                                    break;
+                                case 1: //PositionResource
+                                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("p_resource"));
+                                    SetElementsToNull(list.name, a, i, 1);
+                                    break;
+                                case 2: //InventoryResource
+                                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("i_resource"));
+                                    SetElementsToNull(list.name, a, i, 2);
+                                    break;
+                                case 3: //StatusResource
+                                    EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("s_resource"));
+                                    SetElementsToNull(list.name, a, i, 3);
+                                    break;
+                            }
                         EditorGUI.indentLevel -= 1;
                     }
+
+                    //Print delete buttons
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    Color oldColor = GUI.backgroundColor;
+                    GUI.backgroundColor = Color.red;
+                    int fontSize = GUI.skin.font.fontSize;
+                    GUI.skin.button.fontSize = 7;
+                    if (GUILayout.Button("Delete", GUILayout.MaxWidth(45), GUILayout.MaxHeight(12)))
+                    {
+                        //Debug.Log(i.ToString());
+                        //Debug.Log(list.displayName);
+                        int oldSize = list.arraySize;
+                        list.DeleteArrayElementAtIndex(i);
+                        if (list.arraySize == oldSize)
+                        {
+                            list.DeleteArrayElementAtIndex(i);
+                        }
+                    }
+                    GUILayout.EndHorizontal();
+                    GUI.backgroundColor = oldColor;
+                    GUI.skin.button.fontSize = fontSize;
                 }
             }
             EditorGUI.indentLevel -= 1;
@@ -189,13 +210,14 @@ namespace ADAPT.UI
             #region Buttons
             GUI.backgroundColor = Color.cyan; //Color for buttons
 
+            GUILayout.Space(15);
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button(add_precondition_button_text, GUILayout.Width(250)))
+            if (GUILayout.Button(add_precondition_button_text, GUILayout.MinWidth(50), GUILayout.MaxWidth(250)))
             {
                 AddNewElement(preconditions_list_aux.name);
             }
-            if (GUILayout.Button(add_effect_button_text, GUILayout.Width(250)))
+            if (GUILayout.Button(add_effect_button_text, GUILayout.MinWidth(50), GUILayout.MaxWidth(250)))
             {
                 AddNewElement(effects_list_aux.name);
             }

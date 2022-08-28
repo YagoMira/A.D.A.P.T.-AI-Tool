@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Agent : MonoBehaviour
+public abstract class Agent : MonoBehaviour
 {
     [Serializable]
     public class Goal
@@ -37,10 +37,13 @@ public class Agent : MonoBehaviour
     //public Dictionary<string, Goal> goals = new Dictionary<string, Goal>(); //Set of multiple agent's goals: <Name, Priority>
 
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
+    [ReadOnly]
     public Action currentAction; //Current running Action
+    [ReadOnly]
     public string currentGoal; //Current running Goal
     public Planner planner; //Planer for get the actual action sequence
     Queue<Action> actionsToRun; //Queue of Action
+    [HideInInspector]
     public NavMeshAgent agent;
     public bool onIdle; //If is TRUE then in case of Agent don't have a plan, stays on position. Otherwise (FALSE), goes around the world with random positions.
 
@@ -145,7 +148,8 @@ public class Agent : MonoBehaviour
                         {
                             if (actionsToRun.Count != 0)
                                 actionsToRun.Dequeue();
-                            Debug.Log("<color=red>FINISHED PLANNER-ByGoal!!</color>");
+                            currentAction = gameObject.GetComponent(goals_list[currentGoal].goal_Action.GetType().ToString()) as Action;
+                            //Debug.Log("<color=red>FINISHED PLANNER-ByGoal!!</color>");
                             planFinished = true;
                         }
                         else //Last action is not an action_goal but have one, add it!.
@@ -161,7 +165,7 @@ public class Agent : MonoBehaviour
                     {
                         if (actionsToRun.Count != 0)
                             actionsToRun.Dequeue();
-                        Debug.Log("<color=red>FINISHED PLANNER!!</color>");
+                        //Debug.Log("<color=red>FINISHED PLANNER!!</color>");
                         planFinished = true;
                     }
                 }
@@ -248,6 +252,18 @@ public class Agent : MonoBehaviour
                 currentGoal = planner.goal_to_achieve;
             }
 
+            /******************************************************/
+            if (actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVE THE GOAL
+            {
+                Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color>");
+                plannerEnded = true;
+                if (plannerEnded == true) //Restart planner when achieve goal
+                {
+                    planner = null;
+                    currentAction = null;
+                }
+            }
+            /******************************************************/
         }
         else
         {
@@ -263,11 +279,7 @@ public class Agent : MonoBehaviour
             }
         }
 
-        if(actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVE THE GOAL
-        {
-            Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color>");
-            plannerEnded = true;
-        }
+        
 
         //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
         //Debug.Log("RUNNEDACTIONS: " + runnedActions + " - " + " ACTUAL ACTIONS: " + actionsToRun.Count);

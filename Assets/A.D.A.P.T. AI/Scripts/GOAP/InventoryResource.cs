@@ -21,6 +21,7 @@ public class InventoryResource : Resource
         this.resourceEnumType = ResourceType.InventoryObject.ToString();
         this.type = type;
         this.value = value;
+        this.resource_value = value;
         this.priority = priority;
         this.limit = limit;
         this.isConsumable = isConsumable;
