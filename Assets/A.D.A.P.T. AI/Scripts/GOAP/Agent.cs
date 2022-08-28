@@ -57,6 +57,13 @@ public abstract class Agent : MonoBehaviour
     int runnedActions = 0; //Calculate the amount of runned actions at time.
     bool plannerEnded = false;  //In case of achieve a goal and finish the planner.
     float restart = 2f; //Use this parameter to set the actual amount of wait to planner restart. (CAUTION!: Set the value: > 0).
+    //**ANIMATOR PARAM**
+    public bool hasAnimations; //TRUE IF ANY ACTION WILL HAVE SOME ANIMATION TO RUN!.
+    Animator agentAnimator;
+    AnimatorOverrideController animatorOverrided; //Need it for change animation on states.
+    public AnimationClip onSiteIdle; //Animation to play on idle (on site) action
+    public AnimationClip onWalkingIdle; //Animation to play on idle (walking) action
+    public float transitionTime = 0.2f; //Transition time between states in to the animator.
 
     public void Start()
     {
@@ -87,12 +94,34 @@ public abstract class Agent : MonoBehaviour
         ///
 
         agent = gameObject.AddComponent<NavMeshAgent>();
+
+        if(hasAnimations == true) //In case of has idle animations or any in the actions.
+        {
+            agentAnimator = gameObject.GetComponent<Animator>();
+            animatorOverrided = new AnimatorOverrideController(agentAnimator.runtimeAnimatorController);
+            agentAnimator.runtimeAnimatorController = animatorOverrided;
+        }
     }
 
     public void LateUpdate()
     {
         //if(plannerEnded != true)
         PerformPlanner();
+    }
+
+    public void PlayAnimation(AnimationClip anim) //Play the action animation
+    {
+        if(anim.Equals(onSiteIdle) || anim.Equals(onWalkingIdle))
+            animatorOverrided["Idle"] = anim; //DON'T CHANGE Idle on Animator!.
+        else
+            animatorOverrided["T-Pose"] = anim; //DON'T CHANGE T-Pose on Animator!.
+        //agentAnimator.CrossFade("runnableaction", 0.1f, 0); //Maybe need it (¿?).
+    }
+
+    public void RestartAnimator() //Restart animator when finish and achieve some goal.
+    {
+        agentAnimator.Rebind();
+        agentAnimator.Update(0f);
     }
 
     public void PerformPlanner()
@@ -111,8 +140,21 @@ public abstract class Agent : MonoBehaviour
             GetAllStates(worldStates, global_states);
             runnedActions = 0; //Used for count the actual number of perfomed actions.
 
+            //In case of previous planner don't restart the values of the components attached to agent.
+            /*if (plannerEnded == true)
+            {
+                foreach (Action a in actionsToRun)
+                {
+                    a.finished = false;
+                    plannerEnded = false; //Restart planner.
+                }
+            }*/
+
             planner = new Planner();
             actionsToRun = planner.Plan(actions, worldStates, goals_list);
+
+            
+
             //maxActions = actionsToRun.Count; //Save maximum number of actions to perform
 
             /*foreach(KeyValuePair<string, object> s in worldStates)
@@ -213,13 +255,16 @@ public abstract class Agent : MonoBehaviour
             if (currentAction.finished != true) //Run the actual Action
             {
                 currentAction.running = true;
+                if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states
+                    agentAnimator.SetBool("running", currentAction.running);
             }
             /*****************CHECK***********************/
             else //In case of the actual action is finished but the effects are not achieved...Restart planner.
             {
                 runnedActions++;
                 currentAction.running = false; //Set running to false only if action is finished.
-
+                 if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states
+                    agentAnimator.SetBool("running", currentAction.running);
 
                 foreach (KeyValuePair<string, Resource> eff in currentAction.effects)
                 {
@@ -261,6 +306,8 @@ public abstract class Agent : MonoBehaviour
                 {
                     planner = null;
                     currentAction = null;
+                    //if (agentAnimator != null)
+                        //RestartAnimator(); //Restart the animator and enter in the first state other time.
                 }
             }
             /******************************************************/
@@ -276,10 +323,12 @@ public abstract class Agent : MonoBehaviour
             if (currentAction.running && currentAction.finished != true) //In case of some Action is running.
             {
                 currentAction.PerformAction();
+                if (currentAction.actionAnimation != null && agentAnimator != null) //Play animation if have one.
+                {                  
+                    PlayAnimation(currentAction.actionAnimation);
+                }
             }
         }
-
-        
 
         //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
         //Debug.Log("RUNNEDACTIONS: " + runnedActions + " - " + " ACTUAL ACTIONS: " + actionsToRun.Count);
@@ -400,10 +449,12 @@ public abstract class Agent : MonoBehaviour
             //Play Idle animation...
             agent.isStopped = true;
             agent.ResetPath();
+            PlayAnimation(onSiteIdle); //Play on site idle animation.
         }
         else //Go around the map.
         {
             agent.SetDestination(RandomNavigation());
+            PlayAnimation(onWalkingIdle); //Play waliking idle animation.
         }
     }
 

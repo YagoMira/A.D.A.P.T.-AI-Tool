@@ -15,6 +15,8 @@ namespace ADAPT.UI
 
         public override void OnInspectorGUI()
         {
+            Agent a = target as Agent;
+
             adapt_resources = new ADAPT_UI_Resources();
             //Import Logo from path
             adapt_logo = Resources.Load<Texture2D>(adapt_resources.logo_path);
@@ -32,7 +34,19 @@ namespace ADAPT.UI
             Rect rect = EditorGUILayout.GetControlRect(false, 1);
             EditorGUI.DrawRect(rect, new Color(0.5f, 0.5f, 0.5f, 1));
             GUILayout.Space(25);
-            DrawDefaultInspector(); //Default selector
+            //DrawDefaultInspector(); //Default selector
+            //Exclude the Animation variables and draw the rest:
+            DrawPropertiesExcluding(serializedObject, new string[] { "hasAnimations", "onSiteIdle", "onWalkingIdle", "transitionTime"});
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("hasAnimations"));
+            if (a.hasAnimations) //In case of have some animation...
+            {
+                EditorGUI.indentLevel += 1;
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("transitionTime"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onSiteIdle"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onWalkingIdle"));
+                EditorGUI.indentLevel -= 1;
+            }
+            serializedObject.ApplyModifiedProperties();
             GUILayout.EndVertical();
 
         }

@@ -66,13 +66,13 @@ public abstract class Action : MonoBehaviour
     public string actionName; //Name of the action
     public bool running; //Action running or not
     public bool finished; //Action FINISHED or not
-    public Animation actionAnimation; //Animation to play when run action
+    public AnimationClip actionAnimation; //Animation to play when run action
+    public float duration; //Duration of the actions
     public bool hasTarget; //In case of actual Action has target to achieve (some world position), diplay target variables in the inspector.
     public GameObject target; //Target to achieve/ go to
     public float stopDistance; //Distance for stop Navmesh from the actual target.
     [ReadOnly]
     public bool inRange; //Check if the target is in range
-    public float duration; //Duration of the actions
     public List<ResourceStruct> preconditions_list; //List of preconditions/resources to achieve for manipulate in the Editor
     public List<ResourceStruct> effects_list; //List of effects/resources to achieve for manipulate in the Editor
     public Dictionary<string, Resource> preconditions; //List of preconditions/resources to achieve
@@ -98,10 +98,24 @@ public abstract class Action : MonoBehaviour
         totalCost = CalculateTotalCost();
 
        if(actionName == null || actionName == "") //In case of null name add one random name.
-        { 
+       { 
             Debug.Log("<color=red>AGENT: </color> " + this.gameObject.GetComponent<MonoBehaviour>() + " <color=red>HAS AN ACTION WITHOUT AN ACTION NAME, MUST BE ADDED!.</color>");
             actionName = "Action" + GenerateRandomName(5);
-        }
+       }
+
+       if(actionAnimation != null) //In case of have some animation.
+       {
+            if (duration != 0) //If duration has been modified by user.
+            {
+                if (actionAnimation.averageDuration < duration) //If duration of animation is less than inspector value, then loop animation.
+                    actionAnimation.wrapMode = WrapMode.Loop;
+            }
+            else
+            {
+                duration = actionAnimation.averageDuration;
+                actionAnimation.wrapMode = WrapMode.Default;
+            }
+       }
     }
 
     void Update()
@@ -110,7 +124,7 @@ public abstract class Action : MonoBehaviour
         //CheckDistance();
     }
 
-    void PerformData() //Store public preconditions and effects list into preconditions and effects dictionaries
+    void PerformData() //Store public preconditions and effects list into preconditions and effects dictionaries.
     {
         int counter_pred = 0, counter_eff = 0; //Used for count the number of foreach iterations.
 

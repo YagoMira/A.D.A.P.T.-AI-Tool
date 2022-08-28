@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: eff64ac72599a6d4484b3193b0cb80a0, type: 2}
 --- !u!1 &192721483
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,11 +160,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 0
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  duration: 0
   preconditions_list:
   - key: minedGold
     selectedType: 2
@@ -309,11 +309,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 0
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  duration: 0
   preconditions_list:
   - key: Example_1
     selectedType: 3
@@ -489,11 +489,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 1
   target: {fileID: 1180510315}
   stopDistance: 5
   inRange: 0
-  duration: 0
   preconditions_list:
   - key: minedGold
     selectedType: 2
@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentName: Miner_1
+  agentName: 
   goals: []
   actions: []
   currentAction: {fileID: 0}
@@ -581,6 +581,10 @@ MonoBehaviour:
   onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
 --- !u!136 &192721488
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -654,7 +658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &287584065
 GameObject:
@@ -744,10 +748,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287584065}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.56307006, y: 6.115791, z: -0.96062994}
+  m_LocalPosition: {x: -0.80780864, y: -1.7877965, z: -0.9668962}
   m_LocalScale: {x: 6.4987097, y: 6.4987097, z: 6.4987097}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1386232911}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &290743706
@@ -830,6 +834,257 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290743706}
   m_CullTransparentMesh: 0
+--- !u!1001 &702649014
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 814773270}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_Name
+      value: Y Bot
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+    - {fileID: 2223639932434330405, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+--- !u!1 &814773266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 814773270}
+  - component: {fileID: 814773269}
+  - component: {fileID: 814773268}
+  - component: {fileID: 814773267}
+  m_Layer: 0
+  m_Name: AI_MINER (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!95 &814773267
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814773266}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8fe5d6cf6f1518c41b2c31b9523c24a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &814773268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814773266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e280d51f7c0084d854795544edc326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoToMine
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 7400000, guid: 821d02076b1097542a2890b3b7ac7022, type: 2}
+  duration: 0
+  hasTarget: 1
+  target: {fileID: 1180510315}
+  stopDistance: 5
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 50
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  effects_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &814773269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814773266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: 
+  goals: []
+  actions: []
+  currentAction: {fileID: 0}
+  currentGoal: 
+  agent: {fileID: 0}
+  onIdle: 1
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 1
+  onSiteIdle: {fileID: 7400000, guid: adda235b30575b44c90adce3c21bdbd2, type: 2}
+  onWalkingIdle: {fileID: 7400000, guid: 821d02076b1097542a2890b3b7ac7022, type: 2}
+  transitionTime: 0.1
+--- !u!4 &814773270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814773266}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7928467, y: 6.22, z: -14.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1922694143}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &858640519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
@@ -926,7 +1181,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1142384329
 GameObject:
@@ -970,6 +1225,10 @@ MonoBehaviour:
   onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
 --- !u!114 &1142384331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,11 +1245,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 0
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  duration: 0
   preconditions_list: []
   effects_list: []
   totalPriority: 0
@@ -1067,7 +1326,7 @@ Transform:
   m_LocalScale: {x: 1.05, y: 3.03, z: 1.21}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1150031905
 GameObject:
@@ -1186,7 +1445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1180510316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1260,7 +1519,7 @@ Transform:
   m_Children:
   - {fileID: 1150031906}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238631639
 GameObject:
@@ -1349,11 +1608,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238631639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.73538, y: 6.608119, z: -0.8919358}
+  m_LocalPosition: {x: -32.980118, y: -1.2954683, z: -0.89820206}
   m_LocalScale: {x: 1, y: 1, z: 66.30005}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1386232911}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248418826
 GameObject:
@@ -1373,7 +1632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!111 &1248418827
 Animation:
   m_ObjectHideFlags: 0
@@ -1400,10 +1659,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.24483424, y: 6.17, z: -0.016602159}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 858640519}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1248418829
 Animator:
@@ -1526,12 +1784,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271718404}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.83537674, y: 6.608119, z: -32.491936}
+  m_LocalPosition: {x: -1.0801153, y: -1.2954683, z: -32.498203}
   m_LocalScale: {x: 1, y: 1, z: 66.30006}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1386232911}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1386232910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386232911}
+  m_Layer: 0
+  m_Name: Scene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1386232911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386232910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.24473858, y: 7.9035873, z: 0.0062662065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 287584069}
+  - {fileID: 1238631643}
+  - {fileID: 1708723975}
+  - {fileID: 1875008491}
+  - {fileID: 1271718408}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1498037539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,14 +1906,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!1001 &1555205058
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1248418828}
+    m_TransformParent: {fileID: 1694630690}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
         type: 3}
@@ -1701,6 +1994,502 @@ PrefabInstance:
     - {fileID: 5866666021909216657, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
     - {fileID: 2223639932434330405, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+--- !u!1 &1694630685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1694630690}
+  - component: {fileID: 1694630689}
+  - component: {fileID: 1694630688}
+  - component: {fileID: 1694630687}
+  - component: {fileID: 1694630686}
+  - component: {fileID: 1694630691}
+  m_Layer: 0
+  m_Name: AI_MINER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1694630686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9085ec80a3f064daceeef0886c442c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ObtainOre
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 7400000, guid: 5f60465a89c89864aa75f09e25adce31, type: 2}
+  duration: 3
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 30
+      cost: 0
+      limit: 500
+      resource_value: 100
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1694630687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac38822c748f23e44a34f93dc7f29b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ExampleAction_2
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 1
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1694630688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e280d51f7c0084d854795544edc326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoToMine
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 7400000, guid: 821d02076b1097542a2890b3b7ac7022, type: 2}
+  duration: 0
+  hasTarget: 1
+  target: {fileID: 1180510315}
+  stopDistance: 5
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 50
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  effects_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1694630689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: 
+  goals: []
+  actions: []
+  currentAction: {fileID: 0}
+  currentGoal: 
+  agent: {fileID: 0}
+  onIdle: 0
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 1
+  onSiteIdle: {fileID: 7400000, guid: adda235b30575b44c90adce3c21bdbd2, type: 2}
+  onWalkingIdle: {fileID: 7400000, guid: e39a1daa2d3c30e46b15793ee41d1049, type: 2}
+  transitionTime: 0.1
+--- !u!4 &1694630690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7928467, y: 6.22, z: -14.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 858640519}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1694630691
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694630685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8fe5d6cf6f1518c41b2c31b9523c24a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1708723971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,11 +2577,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708723971}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.364622, y: 6.608119, z: -0.8919358}
+  m_LocalPosition: {x: 31.119884, y: -1.2954683, z: -0.89820206}
   m_LocalScale: {x: 1, y: 1, z: 66.30005}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1386232911}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1875008487
 GameObject:
@@ -1881,9 +2670,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875008487}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.83537674, y: 6.608119, z: 31.108065}
+  m_LocalPosition: {x: -1.0801153, y: -1.2954683, z: 31.101799}
   m_LocalScale: {x: 1, y: 1, z: 66.30006}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1386232911}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &1922694143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+    type: 3}
+  m_PrefabInstance: {fileID: 702649014}
+  m_PrefabAsset: {fileID: 0}

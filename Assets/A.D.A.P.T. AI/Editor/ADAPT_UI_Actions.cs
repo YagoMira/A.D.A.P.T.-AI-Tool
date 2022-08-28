@@ -183,6 +183,7 @@ namespace ADAPT.UI
             EditorGUILayout.PropertyField(serializedObject.FindProperty("running"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("finished"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("actionAnimation"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("hasTarget")); //Bool to check if the actual Action will have some target.
             if(a.hasTarget) //In case of have some target...
             {
@@ -192,7 +193,6 @@ namespace ADAPT.UI
                 EditorGUI.indentLevel -= 1;
             }
             EditorGUILayout.PropertyField(serializedObject.FindProperty("inRange"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
             //Lists:
             ADAPT_UI_Actions.Show(serializedObject.FindProperty(preconditions_list_string), a);
             ADAPT_UI_Actions.Show(serializedObject.FindProperty("effects_list"), a);
