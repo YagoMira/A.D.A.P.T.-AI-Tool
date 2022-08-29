@@ -12,11 +12,11 @@ public class PositionResource : Resource
 
     public PositionResource() { }
 
-    public PositionResource(string name, Transform type, Transform value, int priority, float limit)
+    public PositionResource(string name, Transform value, int priority, float limit)
     {
         this.resourceName = name;
         this.resourceEnumType = ResourceType.Position.ToString();
-        this.type = type;
+        this.type = value.GetType();
         this.value = value;
         this.resource_value = value;
         this.priority = priority;

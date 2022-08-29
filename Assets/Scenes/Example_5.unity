@@ -648,11 +648,11 @@ MonoBehaviour:
   running: 1
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 0
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  duration: 0
   preconditions_list:
   - key: noPoisoned
     selectedType: 3
@@ -830,11 +830,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 0
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  duration: 0
   preconditions_list:
   - key: I-1
     selectedType: 2
@@ -922,6 +922,10 @@ MonoBehaviour:
   onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
 --- !u!136 &1155495269
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1440,6 +1444,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 265625945491857206, guid: c3650dd5e9cceea41928dd11adcf24f5,
+        type: 3}
+      propertyPath: hasAnimations
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 265625945491857207, guid: c3650dd5e9cceea41928dd11adcf24f5,
         type: 3}
       propertyPath: target
@@ -1511,6 +1520,10 @@ MonoBehaviour:
   onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
 --- !u!114 &3284933615111047037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,11 +1540,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 1
   target: {fileID: 1235906979}
   stopDistance: 5
   inRange: 1
-  duration: 0
   preconditions_list: []
   effects_list: []
   totalPriority: 0
@@ -1632,6 +1645,10 @@ MonoBehaviour:
   onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
 --- !u!114 &4579164715949456433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,11 +1665,11 @@ MonoBehaviour:
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
+  duration: 0
   hasTarget: 1
   target: {fileID: 1235906979}
   stopDistance: 5
   inRange: 1
-  duration: 0
   preconditions_list: []
   effects_list: []
   totalPriority: 0

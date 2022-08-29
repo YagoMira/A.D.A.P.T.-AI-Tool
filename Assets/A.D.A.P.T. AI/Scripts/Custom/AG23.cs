@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 public class AG23 : Action 
@@ -12,7 +13,7 @@ void Awake()
 actionName = a_name;
 agent = gameObject.GetComponent<Agent>();
 //WARNING MESSAGE!
-Debug.Log(" <color=blue> Action: </color> " + actionName + " <color=blue> has preconditions / effects added by code,</ color > <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>");
+Debug.Log("<color=blue> Action: </color> " + actionName + " <color=blue> has preconditions / effects added by code,</ color > <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>");
 /************/
 
 /************/

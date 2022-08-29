@@ -16,7 +16,7 @@ public class Miner_1_Example : Agent
 
     public void AddGoals() //Allows to add desired goals via code.
     {
-        InventoryResource goal_2_resource = (new InventoryResource("minedGold", 100.0f, 100.0f, 30, 500, false));
+        InventoryResource goal_2_resource = (new InventoryResource("minedGold", 100.0f, 30, 500, false));
         goals.Add(new Goal(goal_2_resource, false));
     }
 

@@ -13,6 +13,33 @@ namespace ADAPT.UI
         protected Texture2D adapt_logo;
         protected ADAPT_UI_Resources adapt_resources;
 
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            Agent a = target as Agent;
+
+            if (state == PlayModeStateChange.EnteredPlayMode || state == PlayModeStateChange.ExitingPlayMode)
+            {
+                if (EditorWindow.HasOpenInstances<ADAPT_UI_ActionTree>())
+                {
+                    ADAPT_UI_ActionTree window_actionTree = (ADAPT_UI_ActionTree)EditorWindow.GetWindow(typeof(ADAPT_UI_ActionTree), false);
+                    ADAPT_UI_ActionTree.SetAgent(window_actionTree, a);
+                    ADAPT_UI_ActionTree.SetAllAgentActions(a);
+                    //window_actionTree.Repaint()
+                }
+            }
+        }
+
+        private void OnEnable()
+        {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+
         public override void OnInspectorGUI()
         {
             Agent a = target as Agent;
@@ -49,6 +76,21 @@ namespace ADAPT.UI
             serializedObject.ApplyModifiedProperties();
             GUILayout.EndVertical();
 
+            GUILayout.Space(20);
+
+            /******ACTION TREE UI******/
+            GUILayout.BeginHorizontal();
+            GUI.backgroundColor = new Color(0f, 255f, 255f); //Color for button
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Show Action Tree", GUILayout.MinWidth(50), GUILayout.MaxWidth(150))) //On Click, open the Action tree window.
+            {
+                ADAPT_UI_ActionTree window_actionTree = (ADAPT_UI_ActionTree)EditorWindow.GetWindow(typeof(ADAPT_UI_ActionTree), false);
+                ADAPT_UI_ActionTree.SetAgent(window_actionTree, a);
+                window_actionTree.Show();
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            /******ACTION TREE UI******/
         }
     }
 

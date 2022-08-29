@@ -27,8 +27,8 @@ public class GoTo_Action : Action
         */
 
         //Assign values across Inspector and not appears in it.
-        ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, target, 5, 50.0f));
-        ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, true, 5));
+        ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, 5, 50.0f));
+        ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, 5));
 
         actionName = a_name;
 

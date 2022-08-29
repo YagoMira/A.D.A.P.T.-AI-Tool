@@ -42,7 +42,10 @@ public abstract class Agent : MonoBehaviour
     [ReadOnly]
     public string currentGoal; //Current running Goal
     public Planner planner; //Planer for get the actual action sequence
-    Queue<Action> actionsToRun; //Queue of Action
+    [HideInInspector]
+    public Queue<Action> actionsToRun; //Queue of Action
+    [HideInInspector]
+    public List<Action> receivedActions; //List of actionsToRun
     [HideInInspector]
     public NavMeshAgent agent;
     public bool onIdle; //If is TRUE then in case of Agent don't have a plan, stays on position. Otherwise (FALSE), goes around the world with random positions.
@@ -111,10 +114,14 @@ public abstract class Agent : MonoBehaviour
 
     public void PlayAnimation(AnimationClip anim) //Play the action animation
     {
-        if(anim.Equals(onSiteIdle) || anim.Equals(onWalkingIdle))
-            animatorOverrided["Idle"] = anim; //DON'T CHANGE Idle on Animator!.
-        else
-            animatorOverrided["T-Pose"] = anim; //DON'T CHANGE T-Pose on Animator!.
+        if(agentAnimator != null)
+        {
+            if (anim.Equals(onSiteIdle) || anim.Equals(onWalkingIdle))
+                animatorOverrided["Idle"] = anim; //DON'T CHANGE Idle on Animator!.
+            else
+                animatorOverrided["T-Pose"] = anim; //DON'T CHANGE T-Pose on Animator!.
+        }
+        
         //agentAnimator.CrossFade("runnableaction", 0.1f, 0); //Maybe need it (¿?).
     }
 
@@ -136,6 +143,8 @@ public abstract class Agent : MonoBehaviour
         if (planner == null || actionsToRun == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
         {
             worldStates = new Dictionary<string, object>();
+            receivedActions = new List<Action>();
+
             GetAllStates(worldStates, agent_states);
             GetAllStates(worldStates, global_states);
             runnedActions = 0; //Used for count the actual number of perfomed actions.
@@ -153,6 +162,10 @@ public abstract class Agent : MonoBehaviour
             planner = new Planner();
             actionsToRun = planner.Plan(actions, worldStates, goals_list);
 
+            foreach(Action a in actionsToRun) //Store Actions into permanent list.
+            {
+                receivedActions.Add(a);
+            }
             
 
             //maxActions = actionsToRun.Count; //Save maximum number of actions to perform
