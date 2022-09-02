@@ -22,7 +22,7 @@
 
 #SubContainer_Agents
 {
-    height: 50%;
+    height: 65%;
     width: 100%;
     position: relative;
     right: 0;
@@ -62,6 +62,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-basis: 13%;
 }
 #TitlePanel 
 {
@@ -83,14 +84,21 @@
 {
 	font-size: 15px;
 }
+#AgentSelectionHolder
+{
+	padding-top: 1%;
+}
 #AgentSelectionLabel
 {
-	font-size: 20px;
+	font-size: 10px;
 	padding: 2%;
+	font-style: bold-and-italic;
 }
 #SelectedObjectHolder
 {
-	font-size: 19px;
+	font-size: 15px;
+	margin-bottom: 4px;
+	min-width: 170;
 }
 #ButtonPanel 
 {
@@ -101,6 +109,7 @@
 	flex: 1;
 	justify-content: center;
 	align-items: center;
+	flex-basis: 12%;
 }
 #AgentButton 
 {
@@ -109,6 +118,11 @@
 	font-size: 15px;
 }
 #AgentExistsLabel
+{
+	padding-top: 2%;
+	text-color: red;
+}
+#AgentScriptExistsLabel
 {
 	padding-top: 2%;
 	text-color: red;
@@ -142,12 +156,26 @@
 }
 #ActionExistsLabel
 {
-	padding-top: 2%;
+	padding-top: 1%;
 	text-color: red;
 }
 #ActionFileExistsLabel
 {
 	font-size: 11px;
-	padding-top: 2%;
+	padding-top: 1%;
 	text-color: red;
+}
+#AgentName
+{
+	min-width: 170;
+}
+#AgentNameLabel
+{
+	font-size: 12px;
+	font-style: bold;
+	padding: 1%;
+}
+#AgentNameContainer
+{
+	padding: 2%;
 }

@@ -15,12 +15,13 @@ public class InventoryResource : Resource
 
     public InventoryResource() { }
 
-    public InventoryResource(string name, float type, float value, int priority, float limit, bool isConsumable)
+    public InventoryResource(string name, float value, int priority, float limit, bool isConsumable)
     {
         this.resourceName = name;
         this.resourceEnumType = ResourceType.InventoryObject.ToString();
-        this.type = type;
+        this.type = value.GetType();
         this.value = value;
+        this.resource_value = value;
         this.priority = priority;
         this.limit = limit;
         this.isConsumable = isConsumable;

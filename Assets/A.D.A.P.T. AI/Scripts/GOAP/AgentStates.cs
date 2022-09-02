@@ -60,6 +60,24 @@ public class AgentStates : MonoBehaviour
        
     }
 
+    public void IncreaseInventoryItem(string name, float newValue) //Modify an actual inventory item of the collection (Increase Value).
+    {
+        if (inventory.ContainsKey(name))
+        {
+            inventory[name] += newValue;
+        }
+
+    }
+
+    public void DecreaseInventoryItem(string name, float newValue) //Modify an actual inventory item of the collection (Decrease Value).
+    {
+        if (inventory.ContainsKey(name))
+        {
+            inventory[name] -= newValue;
+        }
+
+    }
+
     public void ModifyStatusItem(string name, bool newValue) //Modify an actual status item of the collection.
     {
         if (status.ContainsKey(name))
@@ -68,20 +86,4 @@ public class AgentStates : MonoBehaviour
         }
     }
 
-    /*
-    public void GetAllInventoryItems()
-    {
-
-    }
-
-    public void GetAllStatusItem()
-    {
-
-    }
-
-    public X GetActualValueOfIndexItemInList()
-    {
-
-    }
-    */
 }

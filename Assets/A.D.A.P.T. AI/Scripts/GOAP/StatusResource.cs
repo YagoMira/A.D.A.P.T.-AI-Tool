@@ -12,11 +12,11 @@ public class StatusResource : Resource
 
     public StatusResource() { }
 
-    public StatusResource(string name, bool type, bool value, int priority)
+    public StatusResource(string name, bool value, int priority)
     {
         this.resourceName = name;
         this.resourceEnumType = ResourceType.Status.ToString();
-        this.type = type;
+        this.type = value.GetType();
         this.value = value;
         this.resource_value = value;
         this.priority = priority;

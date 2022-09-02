@@ -4,79 +4,36 @@ using UnityEngine;
 
 public class Agent_1_Example : Agent
 {
-    // Start is called before the first frame update
-    void Awake()
-    {
-        //goals_list.Add(new StatusResource("isPoisoned", true, true, 5));
-        //WORLD/POSITION: goals_list.Add(new StatusResource("onPosition", true, true, 5));
-        goals_list.Add(new InventoryResource("mine", 5.0f, 5.0f, 5, 100, false));
-    }
 
-    new void Start()
+    new void Start() //DON'T MODIFY ANY LINE OF THIS FUNCTION!!!
     {
+        AddGoals();
         /************/
         base.Start(); //DON'T DELETE THIS LINE!!!
         /************/
         ManageStates();
     }
 
+    public void AddGoals() //Allows to add desired goals via code.
+    {
+        StatusResource goal_1_resource = (new StatusResource("onPosition", true, 5));
+        goals.Add(new Goal(goal_1_resource, true, new Action_Goal_1()));
+        InventoryResource goal_2_resource = (new InventoryResource("mine", 5.0f, 5, 100, false));
+        goals.Add(new Goal(goal_2_resource, false));
+
+    }
+
     public void ManageStates()
     {
-        states.AddWorldItem("isNear");
-        states.AddInventoryItem("I-1", 0f);
-        states.AddInventoryItem("I-2", 0f);
-        states.AddInventoryItem("mine", 0f);
-        states.ModifyInventoryItem("I-1", 15f);
+        agent_states.AddWorldItem("isNear");
+        //agent_states.AddInventoryItem("I-1", 0f); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!
+        global_states.AddInventoryItem("I-1", 0f);
+        agent_states.AddInventoryItem("I-2", 0f);
+        agent_states.AddInventoryItem("mine", 0f);
+        //agent_states.ModifyInventoryItem("I-1", 15f); //CHECK !!!
+        //GlobalStates.GetGlobalStatesInstance.GetGlobalStates().AddInventoryItem("ORO", 0f);
+        //global_states.ModifyInventoryItem("ORO", 10f);
+        //Debug.Log("ORO:??? " + global_states.inventory["ORO"]);
     }
 
-    public void LateUpdate()
-    {
-        DebugPlanner();
-    }
-
-    public void DebugPlanner()
-    {
-        //Dictionary<string, Resource> test = new Dictionary<string, Resource>();
-        Dictionary<string, object> worldStates = new Dictionary<string, object>();
-
-        foreach (string worldItem in states.worldElements)
-        {
-            worldStates.Add(worldItem, null);
-
-        }
-
-        foreach (string positionItem in states.positions)
-        {
-            worldStates.Add(positionItem, null);
-
-        }
-        foreach (KeyValuePair<string, float> inventoryItem in states.inventory)
-        {
-            worldStates.Add(inventoryItem.Key, inventoryItem.Value);
-            
-        }
-        foreach(KeyValuePair<string, bool> statusItem in states.status)
-        {
-            worldStates.Add(statusItem.Key, statusItem.Value);
-        }
-        //WORLD/POSITION: test.Add("isNear", new WorldResource("isNear", actions[0].target, actions[0].target, 5, 50.0f));
-        //STATES::::
-        //test.Add("I-1", new InventoryResource("I-1", 5.0f, 5.0f, 5, 100, false));
-
-        planner = new Planner();
-        if (planner.Plan(actions, worldStates, goals) == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
-        {
-            IdleState();
-        }
-
-    }
-
-    //////
-    /*
-     * -COMPROBAR QUE LAS ACTION/RESOURCES FUNCIONAN PARA: World/Position Y Status.
-     * -AÑADIR DEBUGPLANNER A ACTION.
-     * -PODER AÑADIR GOALS POR INTERFAZ.
-     * -CONTROLAR .PLAN NULL O NO Y CURRENT ACTION (ACTION FINIHED REMOVED, ...).
-     * 
-    */
 }

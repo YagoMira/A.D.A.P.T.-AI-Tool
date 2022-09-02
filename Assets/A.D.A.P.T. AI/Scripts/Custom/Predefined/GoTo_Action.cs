@@ -27,8 +27,8 @@ public class GoTo_Action : Action
         */
 
         //Assign values across Inspector and not appears in it.
-        ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, target, 5, 50.0f));
-        ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, true, 5));
+        ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, 5, 50.0f));
+        ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, 5));
 
         actionName = a_name;
 
@@ -38,45 +38,54 @@ public class GoTo_Action : Action
 
         //GetComponents
         agent = gameObject.GetComponent<Agent>();
+
+        //WARNING MESSAGE!.
+        Debug.Log("<color=blue> Action: </color>" + actionName + "<color=blue> has preconditions/effects added by code,</color> <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>");
     }
 
     private void Update()
     {
-        agent.onIdle = false;
-        if(finished != true) //While the Action is not finished
-        {
-            PerformAction();
-        }
+        /*
+            agent.onIdle = false;
+            if(finished != true) //While the Action is not finished
+            {
+                PerformAction();
+            }
+        */
     }
 
-
-    void PerformAction()
+    public override void PerformAction()
     {
+        //CHECK UPDATE-LATEUPDATE WITH AGENT CLASS
+
         actual_agent = gameObject.GetComponent<NavMeshAgent>();
         //Debug.Log("<color=red>LLAMA!</color>");
 
-        if (target!= null && hasTarget) //TARGET EXISTS
+        if (target != null && hasTarget) //TARGET EXISTS
         {
             actual_agent.stoppingDistance = stopDistance;
             actual_agent.SetDestination(target.transform.position);
         }
 
         //Check if Agent NavMesh reach the actual target position
-        if (!actual_agent.pathPending)
+        if (!actual_agent.pathPending && target != null)
         {
             if (actual_agent.remainingDistance <= actual_agent.stoppingDistance)
             {
                 if (!actual_agent.hasPath || actual_agent.velocity.sqrMagnitude == 0f)
                 {
                     //Debug.Log("COMPLETED\n");
-                    running = false;
+                    //running = false;"
+                    //Debug.Log("<color=red>LLAMA!-1 </color> D1: " + actual_agent.remainingDistance + " D2: " + actual_agent.stoppingDistance);
                     finished = true;
+
                 }
             }
             else
             {
                 //Debug.Log("NO COMPLETED\n");
-                running = true;
+                //running = true;
+                //Debug.Log("<color=red>LLAMA!-2</color>");
                 finished = false;
             }
         }
