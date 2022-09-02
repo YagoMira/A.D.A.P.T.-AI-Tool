@@ -130,7 +130,6 @@ public class ADAPT_UI_Goals : PropertyDrawer
         }
     }
 
-
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         if (property.isExpanded && property.FindPropertyRelative("hasAction").boolValue == false && !property.FindPropertyRelative("goal_precondition").isExpanded)

@@ -118,12 +118,6 @@ public abstract class Action : MonoBehaviour
        }
     }
 
-    void Update()
-    {
-        //Debug_Vars(); //Allows developer to do some tests.
-        //CheckDistance();
-    }
-
     void PerformData() //Store public preconditions and effects list into preconditions and effects dictionaries.
     {
         int counter_pred = 0, counter_eff = 0; //Used for count the number of foreach iterations.
@@ -427,30 +421,6 @@ public abstract class Action : MonoBehaviour
         this.inRange = inRange;
     }
     #endregion
-
-    public void Debug_Vars()
-    {
-        /*
-        foreach (var i in preconditions_list)
-        {
-            //Debug.Log("Index - Preconditions: " + i + " - " + i.w_resource.resourceName + " - " + i.p_resource.resourceName + " - " + i.i_resource.resourceName + " - " + i.s_resource.resourceName);
-            //Debug.Log("Index: " + i + " - Resource:" + i.w_resource.value.name);
-        }
-        
-        foreach (var j in effects_list)
-        {
-            Debug.Log("Index - Effects: " + j + " - " + j.w_resource.resourceName + " - " + j.p_resource.resourceName + " - " + j.i_resource.resourceName + " - " + j.s_resource.resourceName);
-        } 
-        foreach (KeyValuePair<string,Resource> r in preconditions)
-        {
-            Debug.Log("RESOURCE-VALUE-P: " + r.Value.GetResourceType());
-        }
-        foreach (KeyValuePair<string, Resource> r in effects)
-        {
-            Debug.Log("RESOURCE-VALUE-E: " + r.Value.GetResourceType());
-        }
-        */
-    }
 
     public bool CheckPreconditions() //Function for check if actual precondition asserts all actual world resources, in case of not...Dont add it to the plan.
     {

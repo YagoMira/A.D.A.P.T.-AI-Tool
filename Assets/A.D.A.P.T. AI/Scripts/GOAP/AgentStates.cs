@@ -86,20 +86,4 @@ public class AgentStates : MonoBehaviour
         }
     }
 
-    /*
-    public void GetAllInventoryItems()
-    {
-
-    }
-
-    public void GetAllStatusItem()
-    {
-
-    }
-
-    public X GetActualValueOfIndexItemInList()
-    {
-
-    }
-    */
 }

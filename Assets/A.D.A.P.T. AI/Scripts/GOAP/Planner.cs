@@ -139,7 +139,6 @@ public class Planner //: MonoBehaviour
             if (InState(a.preconditions, parent.state, false))
             {
                 Dictionary<string, object> currentState = new Dictionary<string, object>();
-                // Dictionary<string, object> currentState = applyEffects(parent.state, a.effects);
                 foreach (KeyValuePair<string, Resource> effect in a.effects)
                     currentState.Add(effect.Key, effect.Value.value);
 
@@ -225,48 +224,7 @@ public class Planner //: MonoBehaviour
         return subset;
     }
 
-    //Apply effects to the current preconditions for check if can achieve the goal.
-    private Dictionary<string, object> applyEffects(Dictionary<string, object> currentState, Dictionary<string, Resource> effects)
-    {
-        Dictionary<string, object> local_state = new Dictionary<string, object>(); //For prevent any possible resource delete in original list.
-
-        //Store in the local Dictionary for prevent possible deletes.
-        foreach (KeyValuePair<string, object> c_state in currentState)
-        {
-            local_state.Add(c_state.Key, c_state.Value);
-        }
-
-        //Apply effects to actual states
-        foreach (KeyValuePair<string, Resource> effect in effects)
-        {
-            //Check if the a current state exists, then update the value.
-            bool exists = false;
-
-            foreach (KeyValuePair<string, object> l_state in local_state)
-            {
-                //if (l_state.Equals(effect)) //!!!!!!!!
-                if(l_state.Key.Equals(effect.Key))
-                {
-                    exists = true;
-                    break;
-                }
-            }
-
-            //In case of exists...Update.
-            if (exists)
-            {
-                local_state[effect.Key] = effect.Value.value;
-            }
-            else //If the current State doesn't have the effect. Add it!.
-            {
-                local_state.Add(effect.Key, effect.Value); //!!!!!!!!
-            }
-        }
-
-        return local_state;
-    }
-
-
+    //Print actual tree into console.
     private void PrintTree(Node start_node, List<Action> all_actions, Queue<Action> solution)
     {
       

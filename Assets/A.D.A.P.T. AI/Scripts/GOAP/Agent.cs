@@ -31,11 +31,7 @@ public abstract class Agent : MonoBehaviour
 
     public string agentName; //Name of the Agent
     public List<Goal> goals = new List<Goal>(); //!!!!!!!!!!
-    //public List<Resource> goals_list = new List<Resource>();
     public Dictionary<string, Goal> goals_list = new Dictionary<string, Goal>(); //Set of multiple agent's goals: <Name, Priority>
-    //public List<Goal> goals_list = new List<Goal>(); //!!!!!!!!!!
-    //public Dictionary<string, Goal> goals = new Dictionary<string, Goal>(); //Set of multiple agent's goals: <Name, Priority>
-
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
     [ReadOnly]
     public Action currentAction; //Current running Action

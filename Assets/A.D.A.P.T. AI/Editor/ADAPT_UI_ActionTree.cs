@@ -39,7 +39,6 @@ namespace ADAPT.UI
             Repaint();
         }
 
-
         private static void Initializate() //Helps to initialize the rect sizes for GUI.Windows.
         {
             int increase_x = 0, increase_x_goal = 0;
@@ -108,7 +107,6 @@ namespace ADAPT.UI
                 /**************/
             }
         }
-
 
         void OnGUI()
         {

@@ -195,7 +195,6 @@ namespace ADAPT.UI
             }
         }
 
-
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void ScriptReloaded()
         {
@@ -250,8 +249,6 @@ namespace ADAPT.UI
             }
         }
 
-
-       
         private void WriteFile(int flag, string path, string script_name) //FLAG == 0 : Write Agent file | FLAG == 1 : Write Action file.
         {
             StreamWriter writer = new StreamWriter(path, true);

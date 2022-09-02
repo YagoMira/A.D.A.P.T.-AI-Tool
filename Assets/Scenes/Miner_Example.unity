@@ -598,7 +598,38 @@ MonoBehaviour:
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  preconditions_list: []
+  preconditions_list:
+  - key: 
+    selectedType: 0
+    w_resource:
+      resourceName: ASDADSA
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
   effects_list: []
   totalPriority: 0
   totalCost: 0
@@ -1169,6 +1200,7 @@ MonoBehaviour:
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
   onIdle: 0
   rdmDistance: 100
@@ -1842,6 +1874,7 @@ MonoBehaviour:
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
   onIdle: 0
   rdmDistance: 100
@@ -2195,6 +2228,7 @@ MonoBehaviour:
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
   onIdle: 0
   rdmDistance: 100
