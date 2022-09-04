@@ -130,18 +130,22 @@ namespace ADAPT.UI
                             {
                                 case 0: //WorldResource
                                     EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("w_resource"));
+                                    list.GetArrayElementAtIndex(i).FindPropertyRelative("w_resource").FindPropertyRelative("resourceName").stringValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("key").stringValue;
                                     SetElementsToNull(list.name, a, i, 0);
                                     break;
                                 case 1: //PositionResource
                                     EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("p_resource"));
+                                    list.GetArrayElementAtIndex(i).FindPropertyRelative("p_resource").FindPropertyRelative("resourceName").stringValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("key").stringValue;
                                     SetElementsToNull(list.name, a, i, 1);
                                     break;
                                 case 2: //InventoryResource
                                     EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("i_resource"));
+                                    list.GetArrayElementAtIndex(i).FindPropertyRelative("i_resource").FindPropertyRelative("resourceName").stringValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("key").stringValue;
                                     SetElementsToNull(list.name, a, i, 2);
                                     break;
                                 case 3: //StatusResource
                                     EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i).FindPropertyRelative("s_resource"));
+                                    list.GetArrayElementAtIndex(i).FindPropertyRelative("s_resource").FindPropertyRelative("resourceName").stringValue = list.GetArrayElementAtIndex(i).FindPropertyRelative("key").stringValue;
                                     SetElementsToNull(list.name, a, i, 3);
                                     break;
                             }

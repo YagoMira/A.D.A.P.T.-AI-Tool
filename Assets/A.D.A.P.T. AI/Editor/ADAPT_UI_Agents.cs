@@ -15,7 +15,7 @@ namespace ADAPT.UI
         protected ObjectField selectedObject;
         string custom_scripts_path = "Assets/A.D.A.P.T. AI/Scripts/Custom/"; //DON'T CHANGE!!!
 
-        [MenuItem("Tools/A.D.A.P.T.")]
+        [MenuItem("Tools/A.D.A.P.T./Menu")]
         public static void ShowWindow()
         {
             ADAPT_UI_Agents window = GetWindow<ADAPT_UI_Agents>();
@@ -234,7 +234,7 @@ namespace ADAPT.UI
                 return;
             }
 
-            //Get the new type from the new scripy from reloaded assembly.
+            //Get the new type from the new script from reloaded assembly.z
             Type type = Activator.CreateInstance("Assembly-CSharp", name).Unwrap().GetType();
             agent.AddComponent(type);
 

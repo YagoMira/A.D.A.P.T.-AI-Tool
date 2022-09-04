@@ -29,6 +29,11 @@ namespace ADAPT.UI
         public string action_not_exists_text = "This GameObject is not an Agent! Make it an agent first!";
         public string action_file_exists_text = "The Action already exists! or is being imported by Unity, WAIT!.";
         #endregion
+
+        #region PREDEFINED_ACTIONS_UI
+        public string description_text = "In this window you can add predefined actions to the current selected agent in the hierarchy.\nFor add a specefic action, just press the correct "+" button next to it.";
+        public string action_file_added_text = "The Action is already added to the agent!.";
+        #endregion
     }
 }
 
