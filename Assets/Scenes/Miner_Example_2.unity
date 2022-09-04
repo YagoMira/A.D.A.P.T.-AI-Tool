@@ -121,6 +121,546 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: b93a37717ba20d141a7782c7c5963cea, type: 2}
+--- !u!1 &111946702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111946710}
+  - component: {fileID: 111946709}
+  - component: {fileID: 111946708}
+  - component: {fileID: 111946707}
+  - component: {fileID: 111946706}
+  - component: {fileID: 111946705}
+  - component: {fileID: 111946704}
+  - component: {fileID: 111946703}
+  m_Layer: 0
+  m_Name: EXAPLE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &111946703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9085ec80a3f064daceeef0886c442c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ObtainOre
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 30
+      cost: 0
+      limit: 500
+      resource_value: 100
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &111946704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac38822c748f23e44a34f93dc7f29b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ExampleAction_2
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 1
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &111946705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e280d51f7c0084d854795544edc326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoToMine
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 1
+  target: {fileID: 1235862264}
+  stopDistance: 5
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 50
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  effects_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &111946706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: Miner_1
+  goals: []
+  actions: []
+  currentAction: {fileID: 0}
+  currentGoal: 
+  receivedActions: []
+  agent: {fileID: 0}
+  onIdle: 0
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
+--- !u!136 &111946707
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &111946708
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5548ce08bafb624429d67cbc5a9d4652, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &111946709
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &111946710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111946702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7928467, y: 7.115402, z: 3.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266423669
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +818,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &449777943
 GameObject:
@@ -549,6 +1089,825 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796754964}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1061566989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1061567002}
+  - component: {fileID: 1061567001}
+  - component: {fileID: 1061567000}
+  - component: {fileID: 1061566999}
+  - component: {fileID: 1061566998}
+  - component: {fileID: 1061566997}
+  - component: {fileID: 1061566996}
+  - component: {fileID: 1061566995}
+  - component: {fileID: 1061566994}
+  - component: {fileID: 1061566993}
+  - component: {fileID: 1061566992}
+  - component: {fileID: 1061566991}
+  - component: {fileID: 1061566990}
+  m_Layer: 0
+  m_Name: TESTREE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1061566990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8018103ca76dd79488b357b63e2cdaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 5
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: 
+    selectedType: 0
+    w_resource:
+      resourceName: ASDADSA
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8018103ca76dd79488b357b63e2cdaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 4
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list: []
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8018103ca76dd79488b357b63e2cdaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 3
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list: []
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8018103ca76dd79488b357b63e2cdaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 2
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list: []
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8018103ca76dd79488b357b63e2cdaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 1
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list: []
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9085ec80a3f064daceeef0886c442c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ObtainOre
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 30
+      cost: 0
+      limit: 500
+      resource_value: 100
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac38822c748f23e44a34f93dc7f29b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ExampleAction_2
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  effects_list:
+  - key: onPosition
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: onPosition
+      resourceEnumType: 
+      priority: 5
+      cost: 0
+      limit: 0
+      resource_value: 1
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 1
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e280d51f7c0084d854795544edc326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoToMine
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 1
+  target: {fileID: 1235862264}
+  stopDistance: 5
+  inRange: 0
+  preconditions_list:
+  - key: minedGold
+    selectedType: 2
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: minedGold
+      resourceEnumType: 
+      priority: 50
+      cost: 0
+      limit: 1000
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+  effects_list:
+  - key: Example_1
+    selectedType: 3
+    w_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    p_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: {fileID: 0}
+    i_resource:
+      resourceName: 
+      resourceEnumType: 
+      priority: 0
+      cost: 0
+      limit: 0
+      resource_value: 0
+      isConsumable: 0
+    s_resource:
+      resourceName: Example_1
+      resourceEnumType: 
+      priority: 10
+      cost: 0
+      limit: 0
+      resource_value: 0
+  totalPriority: 0
+  totalCost: 0
+--- !u!114 &1061566998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: Miner_1
+  goals:
+  - goal_precondition:
+      key: GOAL_1
+      selectedType: 0
+      w_resource:
+        resourceName: GOAL_1
+        resourceEnumType: 
+        priority: 1
+        cost: 0
+        limit: 1
+        resource_value: {fileID: 0}
+      p_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: {fileID: 0}
+      i_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: 0
+        isConsumable: 0
+      s_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: 0
+    hasAction: 0
+    goal_Action: {fileID: 0}
+  actions: []
+  currentAction: {fileID: 0}
+  currentGoal: 
+  receivedActions: []
+  agent: {fileID: 0}
+  onIdle: 0
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
+--- !u!136 &1061566999
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1061567000
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5548ce08bafb624429d67cbc5a9d4652, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1061567001
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1061567002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061566989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7928467, y: 7.115402, z: 3.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1077675304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077675308}
+  - component: {fileID: 1077675307}
+  - component: {fileID: 1077675306}
+  - component: {fileID: 1077675305}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1077675305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077675304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a6c74d6695ab647a78541441faa3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1077675306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077675304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c82f1bab5ff40c428c69fcc88cd68c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1077675307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077675304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc928cccf8803ce448913ebf379b33d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: 
+  goals: []
+  actions:
+  - {fileID: 0}
+  currentAction: {fileID: 0}
+  currentGoal: 
+  receivedActions: []
+  agent: {fileID: 0}
+  onIdle: 0
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
+--- !u!4 &1077675308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077675304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1131309459
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,13 +2074,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235862264}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0353768, y: 5.3018813, z: 23.291935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7, y: 8.09, z: 20.9}
   m_LocalScale: {x: 8.170391, y: 4.2448, z: 4.2448}
   m_Children:
   - {fileID: 1302114135}
-  m_Father: {fileID: 1946025499}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1302114134
 GameObject:
@@ -1101,6 +2460,152 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767967270}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1903251069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903251075}
+  - component: {fileID: 1903251074}
+  - component: {fileID: 1903251073}
+  - component: {fileID: 1903251072}
+  - component: {fileID: 1903251071}
+  - component: {fileID: 1903251070}
+  m_Layer: 0
+  m_Name: Cube (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1903251070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4909155d8c5af914c803c3fa66a127e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: 
+  goals: []
+  actions: []
+  currentAction: {fileID: 0}
+  currentGoal: 
+  receivedActions: []
+  agent: {fileID: 0}
+  onIdle: 0
+  rdmDistance: 100
+  agent_states: {fileID: 0}
+  hasAnimations: 0
+  onSiteIdle: {fileID: 0}
+  onWalkingIdle: {fileID: 0}
+  transitionTime: 0.2
+--- !u!114 &1903251071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed041e5769e6d9439427dc37b347fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: 
+  running: 0
+  finished: 0
+  actionAnimation: {fileID: 0}
+  duration: 0
+  hasTarget: 0
+  target: {fileID: 0}
+  stopDistance: 0
+  inRange: 0
+  preconditions_list: []
+  effects_list: []
+  totalPriority: 0
+  totalCost: 0
+--- !u!65 &1903251072
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1903251073
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1903251074
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1903251075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.14, y: 9.3550625, z: 3.4891512}
+  m_LocalScale: {x: 1.05, y: 3.03, z: 1.21}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946025498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +2638,6 @@ Transform:
   - {fileID: 449777944}
   - {fileID: 796754965}
   - {fileID: 1767967271}
-  - {fileID: 1235862268}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1157,7 +2661,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4596032545135695787
 GameObject:
@@ -1181,7 +2685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4596032545135695788
 MonoBehaviour:
   m_ObjectHideFlags: 0
