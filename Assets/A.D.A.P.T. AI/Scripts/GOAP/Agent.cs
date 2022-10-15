@@ -144,6 +144,7 @@ public abstract class Agent : MonoBehaviour
             GetAllStates(worldStates, agent_states);
             GetAllStates(worldStates, global_states);
             runnedActions = 0; //Used for count the actual number of perfomed actions.
+            plannerEnded = false;
 
             //In case of previous planner don't restart the values of the components attached to agent.
             /*if (plannerEnded == true)
@@ -155,14 +156,38 @@ public abstract class Agent : MonoBehaviour
                 }
             }*/
 
+            /*if (goals_list.Count == 0)
+            {
+                Debug.Log("RESTART GOALS!");
+                foreach (Goal g in goals)
+                {
+                    //Add Goal_Actions (as Component) in case of hame some.
+                    if (g.hasAction == true)
+                    {
+                        Type action = g.goal_Action.GetType();
+                        if ((gameObject.GetComponent(action.ToString()) as Action) == null) //In case of Goal-Action is actually attached to Agent
+                        {
+                            gameObject.AddComponent(action);
+                            g.goal_Action = gameObject.GetComponent(action.ToString()) as Action; //In case of inspector bug of action_goal
+                        }
+                    }
+
+                    //Truncate data to dictionary.
+                    goals_list.Add(g.goal_precondition.key, g);
+                }
+
+                foreach (Action a in actions)
+                {
+                    if (a.finished)
+                        a.finished = false;
+                    Debug.Log("ACTION: " + a.actionName + " . " + a.finished);
+                }
+            }*/
+
             planner = new Planner();
             actionsToRun = planner.Plan(actions, worldStates, goals_list);
 
-            foreach(Action a in actionsToRun) //Store Actions into permanent list.
-            {
-                receivedActions.Add(a);
-            }
-            
+         
 
             //maxActions = actionsToRun.Count; //Save maximum number of actions to perform
 
@@ -179,6 +204,13 @@ public abstract class Agent : MonoBehaviour
             else if (actionsToRun == null)
             {
                 IdleState();
+            }
+            else if(actionsToRun != null)
+            {
+                foreach (Action a in actionsToRun) //Store Actions into permanent list.
+                {
+                    receivedActions.Add(a);
+                }
             }
         }
 
@@ -315,6 +347,9 @@ public abstract class Agent : MonoBehaviour
                 {
                     planner = null;
                     currentAction = null;
+                    
+                    if(goals_list.Count > 0)
+                        goals_list.Remove(currentGoal);
                     //if (agentAnimator != null)
                         //RestartAnimator(); //Restart the animator and enter in the first state other time.
                 }

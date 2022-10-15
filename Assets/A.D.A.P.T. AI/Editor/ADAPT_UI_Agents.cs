@@ -299,8 +299,8 @@ namespace ADAPT.UI
                 writer.WriteLine("//HERE YOU CAN ADD YOUR PRECONDITIONS // EFFECTS");
                 writer.WriteLine("/************/");
                 writer.WriteLine("//In case of add preconditions/effects, uncomment the next lines:");
-                writer.WriteLine("//preconditions_list.Add(GoTo_preconditions);");
-                writer.WriteLine("//effects_list.Add(GoTo_effects);\n }");
+                writer.WriteLine("//preconditions_list.Add(ResourceStruct);");
+                writer.WriteLine("//effects_list.Add(ResourceStruct);\n }");
                 writer.WriteLine("");
                 writer.WriteLine("public override void PerformAction() \n{ ");
                 writer.WriteLine("//Uncomment next line if you need some navmesh:");

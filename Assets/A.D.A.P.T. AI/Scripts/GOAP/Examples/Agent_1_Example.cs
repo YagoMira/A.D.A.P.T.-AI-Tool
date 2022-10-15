@@ -16,7 +16,7 @@ public class Agent_1_Example : Agent
 
     public void AddGoals() //Allows to add desired goals via code.
     {
-        StatusResource goal_1_resource = (new StatusResource("onPosition", true, 5));
+        StatusResource goal_1_resource = (new StatusResource("noPosition", true, 5));
         goals.Add(new Goal(goal_1_resource, true, new Action_Goal_1()));
         InventoryResource goal_2_resource = (new InventoryResource("mine", 5.0f, 5, 100, false));
         goals.Add(new Goal(goal_2_resource, false));
