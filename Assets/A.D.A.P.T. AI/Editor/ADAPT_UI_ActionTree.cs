@@ -223,13 +223,17 @@ namespace ADAPT.UI
                                     {
                                         if (agent.receivedActions[i].actionName == action_list[j].actionName)
                                         {
-                                            if ((j + 1) < action_list.Length)
+                                            if (action_list.Length % 2 != 0)
                                             {
-                                                if (i != agent.receivedActions.Count - 1)
+                                                if ((j + 1) < action_list.Length)
                                                 {
-                                                    Handles.DrawBezier(nodeRect[j].center, nodeRect[j + 1].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(nodeRect[j + 1].xMin - 50f, nodeRect[j + 1].center.y), Color.white, null, 5f);
+                                                    if (i != agent.receivedActions.Count - 1)
+                                                    {
+                                                        Handles.DrawBezier(nodeRect[j].center, nodeRect[j + 1].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(nodeRect[j + 1].xMin - 50f, nodeRect[j + 1].center.y), Color.white, null, 5f);
+                                                    }
+
                                                 }
-                                                else
+                                                else if (i == agent.receivedActions.Count - 1)
                                                 {
                                                     for (int z = 0; z < agent.goals.Count; z++)
                                                     {
@@ -243,24 +247,30 @@ namespace ADAPT.UI
                                                     }
                                                 }
                                             }
-
-                                            /*if (j == action_list.Length - 1) //Last iteration
+                                            else
                                             {
-                                                for (int z = 0; z < agent.goals.Count; z++)
+                                                if ((j + 1) < action_list.Length)
                                                 {
-                                                    if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                    if (i != agent.receivedActions.Count - 1)
                                                     {
-                                                        if (z == 0)
-                                                            searchGoal = 0;
-                                                        Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.white, null, 5f);
+                                                        Handles.DrawBezier(nodeRect[j].center, nodeRect[j + 1].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(nodeRect[j + 1].xMin - 50f, nodeRect[j + 1].center.y), Color.white, null, 5f);
                                                     }
-                                                    searchGoal++;
+                                                    else
+                                                    {
+                                                        for (int z = 0; z < agent.goals.Count; z++)
+                                                        {
+                                                            if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                            {
+                                                                if (z == 0)
+                                                                    searchGoal = 0;
+                                                                Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.yellow, null, 5f);
+                                                            }
+                                                            searchGoal++;
+                                                        }
+                                                    }
                                                 }
-                                            }*/
-
+                                            }
                                         }
-
-
                                     }
                                 }
                             }

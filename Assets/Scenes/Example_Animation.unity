@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: eff64ac72599a6d4484b3193b0cb80a0, type: 2}
---- !u!1 &192721483
+--- !u!1 &181706661
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,34 +129,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 192721491}
-  - component: {fileID: 192721490}
-  - component: {fileID: 192721489}
-  - component: {fileID: 192721488}
-  - component: {fileID: 192721487}
-  - component: {fileID: 192721486}
-  - component: {fileID: 192721485}
-  - component: {fileID: 192721484}
+  - component: {fileID: 181706664}
+  - component: {fileID: 181706663}
+  - component: {fileID: 181706662}
+  - component: {fileID: 181706665}
   m_Layer: 0
-  m_Name: Miner_1
+  m_Name: AGENTE_DEMO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &192721484
+--- !u!114 &181706662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
+  m_GameObject: {fileID: 181706661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9085ec80a3f064daceeef0886c442c, type: 3}
+  m_Script: {fileID: 11500000, guid: 926d98167b53f7f469e7f57d0952fe72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: ObtainOre
+  actionName: AccionPrueba1
   running: 0
   finished: 0
   actionAnimation: {fileID: 0}
@@ -165,418 +161,62 @@ MonoBehaviour:
   target: {fileID: 0}
   stopDistance: 0
   inRange: 0
-  preconditions_list:
-  - key: minedGold
-    selectedType: 2
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: minedGold
-      resourceEnumType: 
-      priority: 10
-      cost: 0
-      limit: 1000
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-  - key: onPosition
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: onPosition
-      resourceEnumType: 
-      priority: 5
-      cost: 0
-      limit: 0
-      resource_value: 1
-  - key: Example_1
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: Example_1
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 1
-  effects_list:
-  - key: minedGold
-    selectedType: 2
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: minedGold
-      resourceEnumType: 
-      priority: 30
-      cost: 0
-      limit: 500
-      resource_value: 100
-      isConsumable: 0
-    s_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
+  preconditions_list: []
+  effects_list: []
   totalPriority: 0
   totalCost: 0
---- !u!114 &192721485
+--- !u!114 &181706663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
+  m_GameObject: {fileID: 181706661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac38822c748f23e44a34f93dc7f29b2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: ExampleAction_2
-  running: 0
-  finished: 0
-  actionAnimation: {fileID: 0}
-  duration: 0
-  hasTarget: 0
-  target: {fileID: 0}
-  stopDistance: 0
-  inRange: 0
-  preconditions_list:
-  - key: Example_1
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: Example_1
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-  - key: onPosition
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: onPosition
-      resourceEnumType: 
-      priority: 5
-      cost: 0
-      limit: 0
-      resource_value: 1
-  effects_list:
-  - key: onPosition
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: onPosition
-      resourceEnumType: 
-      priority: 5
-      cost: 0
-      limit: 0
-      resource_value: 1
-  - key: minedGold
-    selectedType: 2
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: minedGold
-      resourceEnumType: 
-      priority: 10
-      cost: 0
-      limit: 1000
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-  - key: Example_1
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: Example_1
-      resourceEnumType: 
-      priority: 10
-      cost: 0
-      limit: 0
-      resource_value: 1
-  totalPriority: 0
-  totalCost: 0
---- !u!114 &192721486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e280d51f7c0084d854795544edc326, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: GoToMine
-  running: 0
-  finished: 0
-  actionAnimation: {fileID: 0}
-  duration: 0
-  hasTarget: 1
-  target: {fileID: 1180510315}
-  stopDistance: 5
-  inRange: 0
-  preconditions_list:
-  - key: minedGold
-    selectedType: 2
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: minedGold
-      resourceEnumType: 
-      priority: 50
-      cost: 0
-      limit: 1000
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-  effects_list:
-  - key: Example_1
-    selectedType: 3
-    w_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-      isConsumable: 0
-    s_resource:
-      resourceName: Example_1
-      resourceEnumType: 
-      priority: 10
-      cost: 0
-      limit: 0
-      resource_value: 0
-  totalPriority: 0
-  totalCost: 0
---- !u!114 &192721487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Script: {fileID: 11500000, guid: 6df7683a874083a439536d0c4478446e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentName: 
-  goals: []
+  goals:
+  - goal_precondition:
+      key: 
+      selectedType: 0
+      w_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: {fileID: 0}
+      p_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: {fileID: 0}
+      i_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: 0
+        isConsumable: 0
+      s_resource:
+        resourceName: 
+        resourceEnumType: 
+        priority: 0
+        cost: 0
+        limit: 0
+        resource_value: 0
+    hasAction: 0
+    goal_Action: {fileID: 0}
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
   onIdle: 0
   rdmDistance: 100
@@ -585,80 +225,64 @@ MonoBehaviour:
   onSiteIdle: {fileID: 0}
   onWalkingIdle: {fileID: 0}
   transitionTime: 0.2
---- !u!136 &192721488
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &192721489
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 5548ce08bafb624429d67cbc5a9d4652, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &192721490
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &192721491
+--- !u!4 &181706664
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192721483}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7928467, y: 7.115402, z: 3.15}
+  m_GameObject: {fileID: 181706661}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.7928467, y: 6.22, z: -14.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 572922203}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &181706665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181706661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c82f1bab5ff40c428c69fcc88cd68c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &195251064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 195251065}
+  m_Layer: 0
+  m_Name: Agentes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &195251065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195251064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.1959696, y: 6.423173, z: -4.9671297}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1694630690}
+  - {fileID: 814773270}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &287584065
 GameObject:
@@ -834,12 +458,109 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290743706}
   m_CullTransparentMesh: 0
+--- !u!4 &572922203 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+    type: 3}
+  m_PrefabInstance: {fileID: 781216664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &702649014
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 814773270}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_Name
+      value: Y Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822821947120931875, guid: 81811d02432ba494d82b188ba2afd487,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 610e1406f86ba8e44b1e36dffa08313f, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+    - {fileID: 2223639932434330405, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
+--- !u!1001 &781216664
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 181706664}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
         type: 3}
@@ -938,7 +659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &814773267
 Animator:
   serializedVersion: 3
@@ -1002,7 +723,7 @@ MonoBehaviour:
       priority: 50
       cost: 0
       limit: 1000
-      resource_value: 0
+      resource_value: 10
       isConsumable: 0
     s_resource:
       resourceName: 
@@ -1054,16 +775,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 814773266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b268d39d8482f346a6439150fe90761, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b0d4dc6b544a5d4b83983b8ffcb7962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentName: 
+  agentName: Miner_2
   goals: []
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
-  onIdle: 1
+  onIdle: 0
   rdmDistance: 100
   agent_states: {fileID: 0}
   hasAnimations: 1
@@ -1077,14 +799,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814773266}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7928467, y: 6.22, z: -14.28}
+  m_LocalRotation: {x: -0, y: 0.980998, z: -0, w: -0.19401835}
+  m_LocalPosition: {x: -10.63551, y: -0.20317316, z: 5.6311812}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922694143}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 195251065}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 202.375, z: 0}
 --- !u!4 &858640519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81811d02432ba494d82b188ba2afd487,
@@ -1183,151 +905,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1142384329
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1142384335}
-  - component: {fileID: 1142384334}
-  - component: {fileID: 1142384333}
-  - component: {fileID: 1142384332}
-  - component: {fileID: 1142384331}
-  - component: {fileID: 1142384330}
-  m_Layer: 0
-  m_Name: Cube (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1142384330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4909155d8c5af914c803c3fa66a127e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentName: 
-  goals: []
-  actions: []
-  currentAction: {fileID: 0}
-  currentGoal: 
-  agent: {fileID: 0}
-  onIdle: 0
-  rdmDistance: 100
-  agent_states: {fileID: 0}
-  hasAnimations: 0
-  onSiteIdle: {fileID: 0}
-  onWalkingIdle: {fileID: 0}
-  transitionTime: 0.2
---- !u!114 &1142384331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ed041e5769e6d9439427dc37b347fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: 
-  running: 0
-  finished: 0
-  actionAnimation: {fileID: 0}
-  duration: 0
-  hasTarget: 0
-  target: {fileID: 0}
-  stopDistance: 0
-  inRange: 0
-  preconditions_list: []
-  effects_list: []
-  totalPriority: 0
-  totalCost: 0
---- !u!65 &1142384332
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1142384333
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1142384334
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1142384335
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142384329}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.14, y: 9.3550625, z: 3.4891512}
-  m_LocalScale: {x: 1.05, y: 3.03, z: 1.21}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1150031905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1096,7 @@ Transform:
   m_Children:
   - {fileID: 1150031906}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238631639
 GameObject:
@@ -1614,89 +1191,6 @@ Transform:
   m_Father: {fileID: 1386232911}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1248418826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1248418828}
-  - component: {fileID: 1248418827}
-  - component: {fileID: 1248418830}
-  - component: {fileID: 1248418829}
-  m_Layer: 0
-  m_Name: AI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!111 &1248418827
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248418826}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 7eb9437b1b65ed14697ca36e2a9fb952, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 7eb9437b1b65ed14697ca36e2a9fb952, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!4 &1248418828
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248418826}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24483424, y: 6.17, z: -0.016602159}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1248418829
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248418826}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 81811d02432ba494d82b188ba2afd487, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8fe5d6cf6f1518c41b2c31b9523c24a6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1248418830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248418826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c09a8b5e3c2d0e41bee9feaf5acbe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 7400000, guid: 618991901e53cc54d9200ef4fb58938e, type: 2}
-  anim_2: {fileID: 7400000, guid: 5f60465a89c89864aa75f09e25adce31, type: 2}
-  animator: {fileID: 0}
 --- !u!1 &1271718404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,13 +1395,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498037539}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -9.4, y: 13.8, z: -24.9}
+  m_LocalRotation: {x: 0.23947056, y: 0.3664471, z: -0.09818919, w: 0.8937166}
+  m_LocalPosition: {x: -17.66, y: 13.8, z: -14.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30.000002, y: 44.590004, z: 0}
 --- !u!1001 &1555205058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2099,7 +1593,7 @@ MonoBehaviour:
       cost: 0
       limit: 0
       resource_value: 1
-  - key: Example_1
+  - key: OnSite
     selectedType: 3
     w_resource:
       resourceName: 
@@ -2124,7 +1618,7 @@ MonoBehaviour:
       resource_value: 0
       isConsumable: 0
     s_resource:
-      resourceName: Example_1
+      resourceName: OnSite
       resourceEnumType: 
       priority: 0
       cost: 0
@@ -2186,7 +1680,7 @@ MonoBehaviour:
   stopDistance: 0
   inRange: 0
   preconditions_list:
-  - key: Example_1
+  - key: OnSite
     selectedType: 3
     w_resource:
       resourceName: 
@@ -2211,7 +1705,7 @@ MonoBehaviour:
       resource_value: 0
       isConsumable: 0
     s_resource:
-      resourceName: Example_1
+      resourceName: OnSite
       resourceEnumType: 
       priority: 0
       cost: 0
@@ -2311,7 +1805,7 @@ MonoBehaviour:
       cost: 0
       limit: 0
       resource_value: 0
-  - key: Example_1
+  - key: OnSite
     selectedType: 3
     w_resource:
       resourceName: 
@@ -2336,7 +1830,7 @@ MonoBehaviour:
       resource_value: 0
       isConsumable: 0
     s_resource:
-      resourceName: Example_1
+      resourceName: OnSite
       resourceEnumType: 
       priority: 10
       cost: 0
@@ -2398,7 +1892,7 @@ MonoBehaviour:
       limit: 0
       resource_value: 0
   effects_list:
-  - key: Example_1
+  - key: OnSite
     selectedType: 3
     w_resource:
       resourceName: 
@@ -2423,7 +1917,7 @@ MonoBehaviour:
       resource_value: 0
       isConsumable: 0
     s_resource:
-      resourceName: Example_1
+      resourceName: OnSite
       resourceEnumType: 
       priority: 10
       cost: 0
@@ -2448,6 +1942,7 @@ MonoBehaviour:
   actions: []
   currentAction: {fileID: 0}
   currentGoal: 
+  receivedActions: []
   agent: {fileID: 0}
   onIdle: 0
   rdmDistance: 100
@@ -2463,13 +1958,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694630685}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7928467, y: 6.22, z: -14.28}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4031229, y: -0.20317316, z: -9.31287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 858640519}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 195251065}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1694630691
 Animator:

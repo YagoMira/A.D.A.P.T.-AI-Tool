@@ -15,7 +15,7 @@ namespace ADAPT.UI
         protected ObjectField selectedObject;
         string custom_scripts_path = "Assets/A.D.A.P.T. AI/Scripts/Custom/"; //DON'T CHANGE!!!
 
-        [MenuItem("Tools/A.D.A.P.T.")]
+        [MenuItem("Tools/A.D.A.P.T./Menu")]
         public static void ShowWindow()
         {
             ADAPT_UI_Agents window = GetWindow<ADAPT_UI_Agents>();
@@ -148,14 +148,14 @@ namespace ADAPT.UI
                 rootVisualElement.Q<Label>("AgentExistsLabel").style.display = DisplayStyle.None;
                 path = custom_scripts_path + script_name + ".cs"; //DON'T CHANGE THE PATH!.
 
-                if(File.Exists(path)) //If the current file exists
+                if (File.Exists(path)) //If the current file exists
                 {
                     rootVisualElement.Q<Label>("AgentScriptExistsLabel").style.display = DisplayStyle.Flex;
                 }
                 else //Create NEW SCRIPT AND ADD IT!.
                 {
                     WriteFile(0, path, script_name);
-            }
+                }
             }
 
         }
@@ -199,7 +199,8 @@ namespace ADAPT.UI
         private static void ScriptReloaded()
         {
             int flag = 0;  //FLAG == 1 : Write Agent file | FLAG == 2 : Write Action file.
-            
+            GameObject agent;
+
             //Check if key exists.
             if (EditorPrefs.HasKey("SavedAgent"))
             {
@@ -227,14 +228,23 @@ namespace ADAPT.UI
                 name = EditorPrefs.GetString("SavedAction");
             }
 
-            GameObject agent = (GameObject)Selection.objects[0];
+            if (flag == 1 || flag == 2)
+            {
+                if (((GameObject)Selection.objects[0]) != null)
+                    agent = (GameObject)Selection.objects[0];
+                else
+                    agent = null;
+            }
+            else
+                agent = null;
+            
 
             if (agent == null)
             {
                 return;
             }
 
-            //Get the new type from the new scripy from reloaded assembly.
+            //Get the new type from the new script from reloaded assembly.z
             Type type = Activator.CreateInstance("Assembly-CSharp", name).Unwrap().GetType();
             agent.AddComponent(type);
 
@@ -289,8 +299,8 @@ namespace ADAPT.UI
                 writer.WriteLine("//HERE YOU CAN ADD YOUR PRECONDITIONS // EFFECTS");
                 writer.WriteLine("/************/");
                 writer.WriteLine("//In case of add preconditions/effects, uncomment the next lines:");
-                writer.WriteLine("//preconditions_list.Add(GoTo_preconditions);");
-                writer.WriteLine("//effects_list.Add(GoTo_effects);\n }");
+                writer.WriteLine("//preconditions_list.Add(ResourceStruct);");
+                writer.WriteLine("//effects_list.Add(ResourceStruct);\n }");
                 writer.WriteLine("");
                 writer.WriteLine("public override void PerformAction() \n{ ");
                 writer.WriteLine("//Uncomment next line if you need some navmesh:");

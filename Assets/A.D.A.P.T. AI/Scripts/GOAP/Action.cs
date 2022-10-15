@@ -499,6 +499,8 @@ public abstract class Action : MonoBehaviour
                 }
 
                 CheckEffectsResources(); //Call this function for check if inventory maximum is surpassed.
+
+                assertPreconditions = true;
             }
             else //For the other resources (Status or Inventory).
             {
