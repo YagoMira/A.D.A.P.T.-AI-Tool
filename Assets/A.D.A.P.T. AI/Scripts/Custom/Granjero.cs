@@ -21,6 +21,7 @@ public class Granjero : Agent
 
     public void ManageStates() {
 
+        agent_states.AddStatusItem("onPosition", false);
         global_states.AddInventoryItem("trigo", 0f); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!
         
         //agent_states.AddWorldItem("trigoCerca"); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!

@@ -15,7 +15,7 @@ public abstract class Resource
 {
 
     //VARIABLES:
-    [ReadOnly]
+    //[ReadOnly]
     public string resourceName; //Name of the resource
     [ReadOnly]
     public string resourceEnumType; //Type of resource (ENUM)

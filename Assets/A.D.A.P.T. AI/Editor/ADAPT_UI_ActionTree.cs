@@ -74,7 +74,6 @@ namespace ADAPT.UI
             {
                 if (agent.goals != null)
                 {
-                    Debug.Log("GOALS: " + agent.goals.Count);
                     increase_x_goal = 0;
                     increase_y_goal = 0;
 

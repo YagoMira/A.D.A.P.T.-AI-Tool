@@ -30,7 +30,12 @@ public abstract class Action : MonoBehaviour
         public ResourceStruct(string key, Resource resource)
         {
             this.key = key;
-            if(resource.resourceEnumType == ResourceType.WorldElement.ToString())
+            setResourceType(resource);
+        }
+
+        public void setResourceType(Resource resource)
+        {
+            if (resource.resourceEnumType == ResourceType.WorldElement.ToString())
             {
                 this.w_resource = (WorldResource)resource;
                 this.selectedType = ResourceType.WorldElement;

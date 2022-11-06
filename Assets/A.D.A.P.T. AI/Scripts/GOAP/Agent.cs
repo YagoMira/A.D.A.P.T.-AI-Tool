@@ -13,6 +13,7 @@ public abstract class Agent : MonoBehaviour
         public Action.ResourceStruct goal_precondition;
         public bool hasAction; //In case of the goal has any action to perform.
         public Action goal_Action; //Action to perfom.
+        public int priority; //Same priority as the precondition of the goal.
 
         public Goal(Resource resource, bool hasAction)
         {
@@ -27,10 +28,39 @@ public abstract class Agent : MonoBehaviour
             this.goal_Action = action;
         }
 
+        public int getGoalPriority()
+        {
+            if (goal_precondition.selectedType == ResourceType.WorldElement)
+                return goal_precondition.w_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.Position)
+                return goal_precondition.p_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.InventoryObject)
+                return goal_precondition.i_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.Status)
+                return goal_precondition.s_resource.priority;
+            else
+                return 0;
+        }
+
+        public object getGoalValue()
+        {
+            if (goal_precondition.selectedType == ResourceType.WorldElement)
+                return goal_precondition.w_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.Position)
+                return goal_precondition.p_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.InventoryObject)
+                return goal_precondition.i_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.Status)
+                return goal_precondition.s_resource.value;
+            else
+                return 0;
+        }
+
+
     }
 
     public string agentName; //Name of the Agent
-    public List<Goal> goals = new List<Goal>(); //!!!!!!!!!!
+    public List<Goal> goals = new List<Goal>(); //List of goals who planner work with
     public Dictionary<string, Goal> goals_list = new Dictionary<string, Goal>(); //Set of multiple agent's goals: <Name, Priority>
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
     [ReadOnly]
@@ -81,8 +111,10 @@ public abstract class Agent : MonoBehaviour
                 }
             }
 
+            Debug.Log("<color=red> GOAL???:::: "+g.goal_precondition.s_resource.resource_value+"</color>");
             //Truncate data to dictionary.
             goals_list.Add(g.goal_precondition.key, g);
+            //g.goal_precondition.setResourceType(g.goal_precondition);
         }
 
         //Add Agent States
@@ -104,8 +136,23 @@ public abstract class Agent : MonoBehaviour
 
     public void LateUpdate()
     {
+        
+        //In case of some goal has beend added previously via code.
+        foreach (Goal g in goals)
+        {
+            //Truncate data to dictionary.
+            if(!goals_list.ContainsKey(g.goal_precondition.key))
+            {
+                goals_list.Add(g.goal_precondition.key, g);
+                Debug.Log("<color=red> GOAL_LIST???:::: " + g.goal_precondition.s_resource.value + "</color>");
+                g.getGoalPriority();
+            }
+                
+        }
+
         //if(plannerEnded != true)
         PerformPlanner();
+        
     }
 
     public void PlayAnimation(AnimationClip anim) //Play the action animation
@@ -184,7 +231,10 @@ public abstract class Agent : MonoBehaviour
                 }
             }*/
 
+
+            goals_list = goals_list.OrderBy(x => x.Value.getGoalPriority()).ToDictionary(x => x.Key, x => x.Value); //Order Goals by priority
             planner = new Planner();
+            //Debug.Log("ACTION [" + actions[0].name + "] - Effect: " + actions[0].effects.Count); 
             actionsToRun = planner.Plan(actions, worldStates, goals_list);
 
          
@@ -341,7 +391,7 @@ public abstract class Agent : MonoBehaviour
             /******************************************************/
             if (actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVE THE GOAL
             {
-                Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color>");
+                Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color> -" + currentGoal);
                 plannerEnded = true;
                 if (plannerEnded == true) //Restart planner when achieve goal
                 {

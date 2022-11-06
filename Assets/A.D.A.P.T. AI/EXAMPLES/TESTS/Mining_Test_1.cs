@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
-public class VenderPan : Action
+public class Mining_Test_1 : Action
 {
     string a_name = "ActionName";
     Agent agent;
     NavMeshAgent actual_agent;
+    float minedQuantity = 10f;
 
     void Awake()
     {
@@ -28,9 +29,11 @@ public class VenderPan : Action
         //Uncomment next line if you need some navmesh:
         //actual_agent = gameObject.GetComponent<NavMeshAgent>();
         //Use 'finished = true;' when finish the action.
-        Instantiate(GameObject.FindGameObjectWithTag("Pan"), new Vector3(gameObject.transform.localPosition.x - 2, gameObject.transform.localPosition.y, gameObject.transform.localPosition.z), gameObject.transform.rotation);
+        agent.agent_states.IncreaseInventoryItem("minedGold", minedQuantity);
+        Debug.Log("MINED ORE:" + agent.agent_states.inventory["minedGold"]);
+        agent.agent_states.IncreaseInventoryItem("minedGold2", minedQuantity);
+        Debug.Log("MINED ORE - 2:" + agent.agent_states.inventory["minedGold2"]);
         finished = true;
-
     }
 
 }

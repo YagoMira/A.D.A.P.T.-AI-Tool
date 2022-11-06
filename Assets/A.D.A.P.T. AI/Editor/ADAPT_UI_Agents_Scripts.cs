@@ -13,6 +13,8 @@ namespace ADAPT.UI
         protected Texture2D adapt_logo;
         protected ADAPT_UI_Resources adapt_resources;
 
+        static string goals_list_string = "goals";
+
         private void OnPlayModeStateChanged(PlayModeStateChange state)
         {
             Agent a = target as Agent;
@@ -63,7 +65,8 @@ namespace ADAPT.UI
             GUILayout.Space(25);
             //DrawDefaultInspector(); //Default selector
             //Exclude the Animation variables and draw the rest:
-            DrawPropertiesExcluding(serializedObject, new string[] { "hasAnimations", "onSiteIdle", "onWalkingIdle", "transitionTime"});
+            DrawPropertiesExcluding(serializedObject, new string[] {"hasAnimations", "onSiteIdle", "onWalkingIdle", "transitionTime"});
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("hasAnimations"));
             if (a.hasAnimations) //In case of have some animation...
             {
@@ -92,6 +95,7 @@ namespace ADAPT.UI
             GUILayout.EndHorizontal();
             /******ACTION TREE UI******/
         }
+        
     }
 
 }
