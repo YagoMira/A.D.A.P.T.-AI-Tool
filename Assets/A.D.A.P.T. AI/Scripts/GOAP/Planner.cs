@@ -142,15 +142,8 @@ public class Planner //: MonoBehaviour
                 foreach (KeyValuePair<string, Resource> effect in a.effects)
                 {
                     currentState.Add(effect.Key, effect.Value.value);
-                    Debug.Log("EFFECT: " + effect.Key + effect.Value.value);
                 }
 
-                foreach(KeyValuePair<string, Agent.Goal> g in goal)
-                {
-                    Debug.Log("GOAL: " + g.Key + " . " + g.Value.goal_precondition.s_resource.value);
-                    //Debug.Log("GOAL: " + g.Key + " . " + g.Value.getGoalValue().ToString());
-                }
-                Debug.Log("EFFECTSSSSS: " + currentState.Count);
                 //Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
                 Node node = new Node(parent, ((a.totalPriority - a.totalCost) <= 0) ? 1 : a.totalPriority - a.totalCost, currentState, a); //Total Priority less TotalCost of Actions (get individual ones of preconditions and effects)
 
@@ -162,7 +155,6 @@ public class Planner //: MonoBehaviour
 
                 if (InState(received_goals, currentState, true))
                 {
-                    Debug.Log("<color=red>ENTRAS?</color> ");
                     //In case of find a solution...
                     leaves.Add(node);
                     foundPath = true;
@@ -185,22 +177,11 @@ public class Planner //: MonoBehaviour
     private bool InState(Dictionary<string, Resource> resources, Dictionary<string, object> states, bool receiveGoal) //ReceiveGoal: in case of receive goals as parameter.
     {
         bool match = false, allMatch = true;
-        object state_value;
-        Resource goal_value;
 
         foreach (KeyValuePair<string, Resource> resource in resources)
         {
             foreach (KeyValuePair<string, object> state in states)
-            {
-
-                if(receiveGoal == true)
-                {
-                   // goal_value = state.Value;
-
-                }
-                //Debug.Log("<color=yellow>RECURSO? : </color> " + resource.Key + " - " + resource.Value.value + " - G0AL?" + receiveGoal);
-                //Debug.Log("<color=orange>STATE? : </color> " + state.Key + " - " + state.Value + " - G0AL?" + receiveGoal);
-
+            {    
                 if ((state.Key).Equals(resource.Key))
                 {
                    // Debug.Log("<color=yellow>RECURSO? : </color> " + resource.Key + " - " + resource.Value.value);
@@ -234,11 +215,6 @@ public class Planner //: MonoBehaviour
                         }
                     }
                 }
-
-
-                Debug.Log("<color=yellow>RECURSO? : </color> " + resource.Key + " - " + resource.Value.value + " - G0AL?" + receiveGoal + "ALLMATCH??? : " + match);
-                Debug.Log("<color=orange>STATE? : </color> " + state.Key + " - " + state.Value + " - G0AL?" + receiveGoal + "ALLMATCH??? : " + match);
-
             }
         }
 

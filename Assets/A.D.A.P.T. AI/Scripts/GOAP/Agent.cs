@@ -56,6 +56,46 @@ public abstract class Agent : MonoBehaviour
                 return 0;
         }
 
+        public void setResourceEnumType(Action.ResourceStruct precondition)
+        {
+            if(precondition.selectedType == ResourceType.WorldElement)
+            {
+                precondition.w_resource.resourceEnumType = ResourceType.WorldElement.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.Position)
+            {
+                precondition.p_resource.resourceEnumType = ResourceType.Position.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.InventoryObject)
+            {
+                precondition.i_resource.resourceEnumType = ResourceType.InventoryObject.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.Status)
+            {
+                precondition.s_resource.resourceEnumType = ResourceType.Status.ToString();
+            }
+        }
+
+        public void setResourceValue(Action.ResourceStruct precondition)
+        {
+            if (precondition.selectedType == ResourceType.WorldElement)
+            {
+                precondition.w_resource.value = precondition.w_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.Position)
+            {
+                precondition.p_resource.value = precondition.p_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.InventoryObject)
+            {
+                precondition.i_resource.value = precondition.i_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.Status)
+            {
+                precondition.s_resource.value = precondition.s_resource.resource_value;
+            }
+        }
+
 
     }
 
@@ -111,8 +151,10 @@ public abstract class Agent : MonoBehaviour
                 }
             }
 
-            Debug.Log("<color=red> GOAL???:::: "+g.goal_precondition.s_resource.resource_value+"</color>");
+
             //Truncate data to dictionary.
+            g.setResourceEnumType(g.goal_precondition);
+            g.setResourceValue(g.goal_precondition);
             goals_list.Add(g.goal_precondition.key, g);
             //g.goal_precondition.setResourceType(g.goal_precondition);
         }
@@ -136,15 +178,15 @@ public abstract class Agent : MonoBehaviour
 
     public void LateUpdate()
     {
-        
         //In case of some goal has beend added previously via code.
         foreach (Goal g in goals)
         {
             //Truncate data to dictionary.
             if(!goals_list.ContainsKey(g.goal_precondition.key))
             {
+                g.setResourceEnumType(g.goal_precondition);
+                g.setResourceValue(g.goal_precondition);
                 goals_list.Add(g.goal_precondition.key, g);
-                Debug.Log("<color=red> GOAL_LIST???:::: " + g.goal_precondition.s_resource.value + "</color>");
                 g.getGoalPriority();
             }
                 
