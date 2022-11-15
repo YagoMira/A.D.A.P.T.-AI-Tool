@@ -8,6 +8,8 @@ public class Granjero : Agent
         base.Start(); //DON'T DELETE THIS LINE!!!
         /************/
         ManageStates();
+
+        agent.speed = 10;
     }
 
     public void AddGoals() {
@@ -23,7 +25,7 @@ public class Granjero : Agent
 
         agent_states.AddStatusItem("onPosition", false);
         global_states.AddInventoryItem("trigo", 0f); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!
-        
+        agent_states.AddStatusItem("onMolino", false);
         //agent_states.AddWorldItem("trigoCerca"); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!
         //agent_states.AddStatusItem("enTrigo", false); //DON'T ADD LOCAL AND GLOBAL STATE WITH SAME NAME!!!!!!!!!!!!!!!
     }

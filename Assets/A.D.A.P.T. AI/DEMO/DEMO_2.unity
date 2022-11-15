@@ -719,7 +719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &120982828
 Animator:
   serializedVersion: 3
@@ -780,40 +780,9 @@ MonoBehaviour:
     i_resource:
       resourceName: trigo
       resourceEnumType: 
-      priority: 5
+      priority: 30
       cost: 0
       limit: 101
-      resource_value: 100
-      isConsumable: 0
-    s_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: 0
-  - key: isNear
-    selectedType: 0
-    w_resource:
-      resourceName: isNear
-      resourceEnumType: 
-      priority: 25
-      cost: 0
-      limit: 50
-      resource_value: {fileID: 1800420439}
-    p_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
-      resource_value: {fileID: 0}
-    i_resource:
-      resourceName: 
-      resourceEnumType: 
-      priority: 0
-      cost: 0
-      limit: 0
       resource_value: 0
       isConsumable: 0
     s_resource:
@@ -5247,7 +5216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &2135062921
 Animator:
   serializedVersion: 3

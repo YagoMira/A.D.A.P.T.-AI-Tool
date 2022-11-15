@@ -55,7 +55,6 @@ public class Planner //: MonoBehaviour
         }
 
         sucess = BuildGraph(start, leaves, usableActions, goal); //This line should be there becase usableActions foreach!!!.
-
         //If a plan is not found. ||| Else el camino no existe
         if (!sucess)
         {
@@ -155,9 +154,14 @@ public class Planner //: MonoBehaviour
 
                 if (InState(received_goals, currentState, true))
                 {
-                    //In case of find a solution...
-                    leaves.Add(node);
-                    foundPath = true;
+                    //In case of find a solution..
+                    if(node.action.finished != true)
+                    {
+                        leaves.Add(node);
+                        foundPath = true;
+                    }
+                    
+                    
                 }
                 else
                 {
@@ -181,7 +185,20 @@ public class Planner //: MonoBehaviour
         foreach (KeyValuePair<string, Resource> resource in resources)
         {
             foreach (KeyValuePair<string, object> state in states)
-            {    
+            {
+
+                if (receiveGoal == true)
+                {
+                    Debug.Log("<color=blue>GOAL</color> " + resource.Key + " - " + resource.Value.value);
+                    Debug.Log("<color=yellow>Effects</color> " + state.Key + " - " + state.Value);
+                }
+                else
+                {
+                    /*Debug.Log("<color=red>PRECONDITION</color> " + resource.Key + " - " + resource.Value.value);
+                    Debug.Log("<color=green>STATE</color> " + state.Key + " - " + state.Value);*/
+                }
+
+
                 if ((state.Key).Equals(resource.Key))
                 {
                    // Debug.Log("<color=yellow>RECURSO? : </color> " + resource.Key + " - " + resource.Value.value);
@@ -209,14 +226,12 @@ public class Planner //: MonoBehaviour
 
                             break;
                         }
-                        else
-                        {
-                            match = false;
-                        }
                     }
                 }
+
             }
         }
+
 
         if (!match)
             allMatch = false;

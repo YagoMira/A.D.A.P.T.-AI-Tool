@@ -13,8 +13,6 @@ namespace ADAPT.UI
         protected Texture2D adapt_logo;
         protected ADAPT_UI_Resources adapt_resources;
 
-        static string goals_list_string = "goals";
-
         private void OnPlayModeStateChanged(PlayModeStateChange state)
         {
             Agent a = target as Agent;

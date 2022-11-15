@@ -46,11 +46,13 @@ public class IraMolino : Action
                     //Debug.Log("COMPLETED\n");
                     //running = false;"
                     //Debug.Log("<color=red>LLAMA!-1 </color> D1: " + actual_agent.remainingDistance + " D2: " + actual_agent.stoppingDistance);
-                    global_states.DecreaseInventoryItem("trigo", 100);
-                    global_states.IncreaseInventoryItem("trigoDepositado", 100);
-                    Debug.Log("CANTIDAD DE TRIGO RECOGIDA:" + global_states.inventory["trigo"]);
-                    Debug.Log("TRIGO DEPOSITADO! - CANTIDAD FINAL:" + global_states.inventory["trigoDepositado"]);
-                    
+                    //Debug.Log("TRIGO? : " + global_states.inventory["trigo"]);
+                    //global_states.DecreaseInventoryItem("trigo", 100);
+                    //global_states.IncreaseInventoryItem("trigoDepositado", 100);
+                    //Debug.Log("CANTIDAD DE TRIGO DEPOSITADA:" + global_states.inventory["trigo"]);
+                    //Debug.Log("TRIGO DEPOSITADO! - CANTIDAD FINAL:" + global_states.inventory["trigoDepositado"]);
+                    agent.agent_states.ModifyStatusItem("onMolino", true);
+                    Debug.Log("MOLINO? " + agent.agent_states.status["onMolino"]);
                     finished = true;
 
                 }
