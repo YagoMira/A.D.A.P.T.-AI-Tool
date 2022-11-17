@@ -52,7 +52,7 @@ public class IraMolino : Action
                     //Debug.Log("CANTIDAD DE TRIGO DEPOSITADA:" + global_states.inventory["trigo"]);
                     //Debug.Log("TRIGO DEPOSITADO! - CANTIDAD FINAL:" + global_states.inventory["trigoDepositado"]);
                     agent.agent_states.ModifyStatusItem("onMolino", true);
-                    Debug.Log("MOLINO? " + agent.agent_states.status["onMolino"]);
+                    global_states.IncreaseInventoryItem("trigoDepositado", 100);
                     finished = true;
 
                 }

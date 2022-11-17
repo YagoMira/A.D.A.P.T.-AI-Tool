@@ -160,8 +160,6 @@ public class Planner //: MonoBehaviour
                         leaves.Add(node);
                         foundPath = true;
                     }
-                    
-                    
                 }
                 else
                 {
@@ -186,23 +184,8 @@ public class Planner //: MonoBehaviour
         {
             foreach (KeyValuePair<string, object> state in states)
             {
-
-                if (receiveGoal == true)
-                {
-                    Debug.Log("<color=blue>GOAL</color> " + resource.Key + " - " + resource.Value.value);
-                    Debug.Log("<color=yellow>Effects</color> " + state.Key + " - " + state.Value);
-                }
-                else
-                {
-                    /*Debug.Log("<color=red>PRECONDITION</color> " + resource.Key + " - " + resource.Value.value);
-                    Debug.Log("<color=green>STATE</color> " + state.Key + " - " + state.Value);*/
-                }
-
-
                 if ((state.Key).Equals(resource.Key))
                 {
-                   // Debug.Log("<color=yellow>RECURSO? : </color> " + resource.Key + " - " + resource.Value.value);
-                    //Debug.Log("RECURSO.... : " + resource.Key);
 
                     if ((resource.Value.resourceEnumType == ResourceType.WorldElement.ToString()) || (resource.Value.resourceEnumType == ResourceType.Position.ToString()))
                     {

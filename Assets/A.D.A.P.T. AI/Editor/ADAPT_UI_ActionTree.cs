@@ -224,6 +224,7 @@ namespace ADAPT.UI
                                         {
                                             if (action_list.Length % 2 != 0)
                                             {
+                                                Debug.Log("AGENT.GOALS.COUNT.A: " + agent.goals.Count);
                                                 if ((j + 1) < action_list.Length)
                                                 {
                                                     if (i != agent.receivedActions.Count - 1)
@@ -233,6 +234,20 @@ namespace ADAPT.UI
 
                                                 }
                                                 else if (i == agent.receivedActions.Count - 1)
+                                                {
+                                                    
+                                                    for (int z = 0; z < agent.goals.Count; z++)
+                                                    {
+                                                        if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                        {
+                                                            if (z == 0)
+                                                                searchGoal = 0;
+                                                            Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.yellow, null, 5f);
+                                                        }
+                                                        searchGoal++;
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     for (int z = 0; z < agent.goals.Count; z++)
                                                     {
@@ -248,6 +263,7 @@ namespace ADAPT.UI
                                             }
                                             else
                                             {
+                                                
                                                 if ((j + 1) < action_list.Length)
                                                 {
                                                     if (i != agent.receivedActions.Count - 1)
@@ -266,6 +282,19 @@ namespace ADAPT.UI
                                                             }
                                                             searchGoal++;
                                                         }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for (int z = 0; z < agent.goals.Count; z++)
+                                                    {
+                                                        if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                        {
+                                                            if (z == 0)
+                                                                searchGoal = 0;
+                                                            Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.yellow, null, 5f);
+                                                        }
+                                                        searchGoal++;
                                                     }
                                                 }
                                             }
