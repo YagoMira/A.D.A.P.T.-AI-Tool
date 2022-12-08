@@ -11,7 +11,7 @@ public class InventoryResource : Resource
     public float resource_value;
 
     [SerializeField]
-    public bool isConsumable;
+    public bool isConsumable; //Property for items which can be consumable. For example: food, water, wood, ...
 
     public InventoryResource() { }
 

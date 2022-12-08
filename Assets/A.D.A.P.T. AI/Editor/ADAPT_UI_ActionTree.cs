@@ -28,14 +28,12 @@ namespace ADAPT.UI
 
         public static void SetAgent(ADAPT_UI_ActionTree window, Agent a)
         {
-            //window.agent = a;
             agent = a;
             Initializate();
         }
 
         void OnInspectorUpdate()
         {
-            //this.window.agent = a;
             Repaint();
         }
 
@@ -103,7 +101,7 @@ namespace ADAPT.UI
                     }
                     
                 }
-                /**************/
+            /**************/
             }
         }
 
@@ -224,7 +222,6 @@ namespace ADAPT.UI
                                         {
                                             if (action_list.Length % 2 != 0)
                                             {
-                                                Debug.Log("AGENT.GOALS.COUNT.A: " + agent.goals.Count);
                                                 if ((j + 1) < action_list.Length)
                                                 {
                                                     if (i != agent.receivedActions.Count - 1)
@@ -316,7 +313,6 @@ namespace ADAPT.UI
         {
             if (a != null)
                 action_list = a.gameObject.GetComponents<Action>();
-            //return null;
         }
 
         void WindowFunction(int windowID)

@@ -4,9 +4,9 @@ using UnityEngine.AI;
 
 //Allows Agent move to determinate position.
 //***Target = Assign target with Unity Inspector.***
-public class GoTo_Action : Action
+public class GoTo_Player : Action
 {
-    string a_name = "GoTo";
+    string a_name = "GoTo_Player";
     Agent agent;
     NavMeshAgent actual_agent;
 
@@ -27,7 +27,6 @@ public class GoTo_Action : Action
         */
 
         //Assign values across Inspector and not appears in it.
-        //ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, 5, 50.0f));
         ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, 5));
 
         actionName = a_name;
@@ -48,7 +47,6 @@ public class GoTo_Action : Action
     public override void PerformAction()
     {
         agent.agent_states.ModifyStatusItem("onPosition", false); //Initialices the state in case of enter in a loop.
-        agent.agent_states.ModifyStatusItem("inWMill", false); //Initialices the state in case of enter in a loop.
 
         actual_agent = gameObject.GetComponent<NavMeshAgent>();
 

@@ -24,7 +24,6 @@ namespace ADAPT.UI
                     ADAPT_UI_ActionTree window_actionTree = (ADAPT_UI_ActionTree)EditorWindow.GetWindow(typeof(ADAPT_UI_ActionTree), false);
                     ADAPT_UI_ActionTree.SetAgent(window_actionTree, a);
                     ADAPT_UI_ActionTree.SetAllAgentActions(a);
-                    //window_actionTree.Repaint()
                 }
             }
         }

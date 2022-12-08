@@ -10,7 +10,6 @@
   <engine:VisualElement name="MainContainer">
     <engine:VisualElement name="SubContainer">
       <engine:VisualElement name="ImageHolder">
-          <!-- 1 -->
       </engine:VisualElement>
       <engine:VisualElement name="SubContainer_Agents">
         <engine:VisualElement name="TitlePanel">

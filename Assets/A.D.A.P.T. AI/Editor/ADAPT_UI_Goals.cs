@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 public class ADAPT_UI_Goals : PropertyDrawer
 {
     SerializedProperty hasAction, selectedType, precondition, w_resource, p_resource, i_resource, s_resource;
-    //SerializedProperty resourceName, resourceEnumType, priority, limit, resource_value;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {

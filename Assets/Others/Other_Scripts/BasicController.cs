@@ -17,16 +17,16 @@ public class BasicController : MonoBehaviour
     {
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.W))
             transform.position += new Vector3(0, 0, -speed) * Time.deltaTime;
         
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.S))
             transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.D))
             transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.A))
             transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
 
     }

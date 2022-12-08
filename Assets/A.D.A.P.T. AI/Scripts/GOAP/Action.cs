@@ -93,8 +93,6 @@ public abstract class Action : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable() //Start.
     {
-        //preconditions_list = new List<ResourceStruct>();
-        //effects_list = new List<ResourceStruct>();
         preconditions = new Dictionary<string, Resource>();
         effects = new Dictionary<string, Resource>();
         PerformData();

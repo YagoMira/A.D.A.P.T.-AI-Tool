@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planner //: MonoBehaviour
+public class Planner
 {
     //CONSIDER: Action - NODE. Preconditions - EDGE.
 
@@ -55,7 +55,7 @@ public class Planner //: MonoBehaviour
         }
 
         sucess = BuildGraph(start, leaves, usableActions, goal); //This line should be there becase usableActions foreach!!!.
-        //If a plan is not found. ||| Else el camino no existe
+        //If a plan is not found. ||| Else the path doesn't exists.
         if (!sucess)
         {
             Debug.Log("NO PLAN\n"); 
@@ -71,8 +71,8 @@ public class Planner //: MonoBehaviour
             }
             else
             {
-                if (leaf.priority > highest.priority) //If leaf has more priority than actual highest priority node... ||| If vecino.G > (nodo.G + coste(nodo, vecino))
-                    highest = leaf; // ||| Vecino.padre = nodo
+                if (leaf.priority > highest.priority) //If leaf has more priority than actual highest priority node...
+                    highest = leaf;
             }
         }
 
@@ -91,8 +91,6 @@ public class Planner //: MonoBehaviour
             queue.Enqueue(a); //In the end of queue...
         }
 
-        //Add Goals as Actions in case of have some.
-        //...
 
         Debug.Log("PLAN ::: " + " | Number of actions: " + queue.Count);
         foreach(Action a in queue)
@@ -100,16 +98,16 @@ public class Planner //: MonoBehaviour
             Debug.Log("(PLANNER) Actions: " + a.actionName);
         }
 
-        //PrintTree(start, actions, queue);
+        //PrintTree(start, actions, queue); //Use it if you want to print the action/goal tree in the debug console.
 
-        return queue; //Agent with the plan. // ||| If encontrado retornar el camino
+        return queue; //Agent with the plan.
     }
 
     //Check if any path can assert some solution.
     private bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Dictionary<string, Agent.Goal> goal)
     {
         bool foundPath = false; //Bool equals true in case of find some solution.
-        //Dictionary<string, object> currentState = new Dictionary<string, object>(parent.state);
+        
         Dictionary<string, Resource> received_goals = new Dictionary<string, Resource>();
 
         foreach(KeyValuePair<string, Agent.Goal> g in goal)
@@ -132,7 +130,7 @@ public class Planner //: MonoBehaviour
             }
         }
 
-        foreach (Action a in usableActions) // ||| While not encontrado NODO_FINAL or lista_abiertos.isEmpty()
+        foreach (Action a in usableActions)
         {
             //Compare the preconditions of actions with parent conditions.
             if (InState(a.preconditions, parent.state, false))
@@ -143,7 +141,6 @@ public class Planner //: MonoBehaviour
                     currentState.Add(effect.Key, effect.Value.value);
                 }
 
-                //Node node = new Node(parent, parent.priority + a.CalculateTotalPriority(), currentState, a); //CHECK TOTALPRIORITY OF NODES!!!
                 Node node = new Node(parent, ((a.totalPriority - a.totalCost) <= 0) ? 1 : a.totalPriority - a.totalCost, currentState, a); //Total Priority less TotalCost of Actions (get individual ones of preconditions and effects)
 
                 if (node.priority > MAX_PRIORITY) //In case of some node has more priority than the maximum, set this.
@@ -164,7 +161,7 @@ public class Planner //: MonoBehaviour
                 else
                 {
                     //Iterate over the rest of list element in case of not find a solution.
-                    List<Action> subset = IterateOver(usableActions, a); // ||| nodo = lista_abiertos.getNodoMinValue() #elimina el nodo de la lista
+                    List<Action> subset = IterateOver(usableActions, a); 
                     bool found = BuildGraph(node, leaves, subset, goal); 
                     if (found)
                         foundPath = true;
@@ -191,22 +188,25 @@ public class Planner //: MonoBehaviour
                     {
                         match = true;
 
-                        if(receiveGoal == true)
+                        if (receiveGoal == true)
                             goal_to_achieve = resource.Key;
 
                         break;
                     }
                     else
                     {
-                       
                         if (state.Value.Equals(resource.Value.value) || ((resource.Value.resourceEnumType == ResourceType.InventoryObject.ToString()) && ((float)state.Value >= (float)resource.Value.value)))
                         {
-    
                             match = true;
 
                             if (receiveGoal == true)
                                 goal_to_achieve = resource.Key;
 
+                            break;
+                        }
+                        else
+                        {
+                            match = false;
                             break;
                         }
                     }
@@ -215,10 +215,8 @@ public class Planner //: MonoBehaviour
             }
         }
 
-
         if (!match)
             allMatch = false;
-
 
         return allMatch;
     }
