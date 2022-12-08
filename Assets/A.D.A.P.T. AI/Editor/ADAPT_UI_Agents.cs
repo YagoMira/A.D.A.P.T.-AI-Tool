@@ -274,8 +274,15 @@ namespace ADAPT.UI
                 writer.WriteLine("base.Start(); //DON'T DELETE THIS LINE!!!");
                 writer.WriteLine("/************/");
                 writer.WriteLine(" ManageStates();\n }");
-                writer.WriteLine("\n public void AddGoals() {}");
-                writer.WriteLine("\n public void ManageStates() {}\n}");
+                writer.WriteLine("\n public void AddGoals() \n{ ");
+                writer.WriteLine("//If you want to add some goals can use the next lines (an change the ResourceType):");
+                writer.WriteLine("//InventoryResource goal_1 = (new InventoryResource(\"minedGold\", 105.0f, 15, 106, false));");
+                writer.WriteLine("//goals.Add(new Goal(goal_1, false));\n}");
+                writer.WriteLine("\n public void ManageStates() \n{ ");
+                writer.WriteLine("//If you want to add some states can use the next lines:");
+                writer.WriteLine("//agent_states.AddInventoryItem(\"Name\", 0); /*For local agent states*/");
+                writer.WriteLine("//global_states.AddInventoryItem(\"Name\", 0); /*For global agent states*/\n}");
+                writer.WriteLine("\n}");
                 writer.Close();
 
                 to_save = "SavedAgent";
@@ -285,15 +292,13 @@ namespace ADAPT.UI
                 writer.WriteLine("using UnityEngine;");
                 writer.WriteLine("using UnityEngine.AI;");
                 writer.WriteLine("public class " + script_name + " : Action \n{");
-                writer.WriteLine("string a_name = \"ActionName\";");
                 writer.WriteLine("Agent agent;");
                 writer.WriteLine("NavMeshAgent actual_agent;\n");
                 writer.WriteLine("void Awake() \n{ ");
                 writer.WriteLine("/******DON'T DELETE THIS LINES!!!******/");
-                writer.WriteLine("actionName = a_name;");
                 writer.WriteLine("agent = gameObject.GetComponent<Agent>();");
                 writer.WriteLine("//WARNING MESSAGE!");
-                writer.WriteLine("Debug.Log(\" <color=blue> Action: </color> \" + actionName + \" <color=blue> has preconditions / effects added by code,</ color > <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>\");");
+                writer.WriteLine("Debug.Log(\" <color=blue> Action: </color> \" + actionName + \" <color=blue> has preconditions / effects added by code,</color> <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>\");");
                 writer.WriteLine("/************/");
                 writer.WriteLine("\n/************/");
                 writer.WriteLine("//HERE YOU CAN ADD YOUR PRECONDITIONS // EFFECTS");

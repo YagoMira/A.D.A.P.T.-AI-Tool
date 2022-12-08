@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 public class ADAPT_UI_Goals : PropertyDrawer
 {
     SerializedProperty hasAction, selectedType, precondition, w_resource, p_resource, i_resource, s_resource;
-    //SerializedProperty resourceName, resourceEnumType, priority, limit, resource_value;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -49,6 +48,7 @@ public class ADAPT_UI_Goals : PropertyDrawer
                 {
                     case 0: //WorldResource
                         EditorGUI.PropertyField(contentPosition, w_resource.FindPropertyRelative("resourceName"), new GUIContent("resourceName"));
+                        w_resource.FindPropertyRelative("resourceName").stringValue = precondition.FindPropertyRelative("key").stringValue;
                         contentPosition.y += 21;
                         EditorGUI.PropertyField(contentPosition, w_resource.FindPropertyRelative("resourceEnumType"), new GUIContent("resourceEnumType"));
                         contentPosition.y += 21;
@@ -60,6 +60,7 @@ public class ADAPT_UI_Goals : PropertyDrawer
                         break;
                     case 1: //PositionResource
                         EditorGUI.PropertyField(contentPosition, p_resource.FindPropertyRelative("resourceName"), new GUIContent("resourceName"));
+                        p_resource.FindPropertyRelative("resourceName").stringValue = precondition.FindPropertyRelative("key").stringValue;
                         contentPosition.y += 21;
                         EditorGUI.PropertyField(contentPosition, p_resource.FindPropertyRelative("resourceEnumType"), new GUIContent("resourceEnumType"));
                         contentPosition.y += 21;
@@ -71,6 +72,7 @@ public class ADAPT_UI_Goals : PropertyDrawer
                         break;
                     case 2: //InventoryResource
                         EditorGUI.PropertyField(contentPosition, i_resource.FindPropertyRelative("resourceName"), new GUIContent("resourceName"));
+                        i_resource.FindPropertyRelative("resourceName").stringValue = precondition.FindPropertyRelative("key").stringValue;
                         contentPosition.y += 21;
                         EditorGUI.PropertyField(contentPosition, i_resource.FindPropertyRelative("resourceEnumType"), new GUIContent("resourceEnumType"));
                         contentPosition.y += 21;
@@ -84,6 +86,7 @@ public class ADAPT_UI_Goals : PropertyDrawer
                         break;
                     case 3: //StatusResource
                         EditorGUI.PropertyField(contentPosition, s_resource.FindPropertyRelative("resourceName"), new GUIContent("resourceName"));
+                        s_resource.FindPropertyRelative("resourceName").stringValue = precondition.FindPropertyRelative("key").stringValue;
                         contentPosition.y += 21;
                         EditorGUI.PropertyField(contentPosition, s_resource.FindPropertyRelative("resourceEnumType"), new GUIContent("resourceEnumType"));
                         contentPosition.y += 21;

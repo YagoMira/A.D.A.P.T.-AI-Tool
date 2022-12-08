@@ -24,7 +24,6 @@ namespace ADAPT.UI
                     ADAPT_UI_ActionTree window_actionTree = (ADAPT_UI_ActionTree)EditorWindow.GetWindow(typeof(ADAPT_UI_ActionTree), false);
                     ADAPT_UI_ActionTree.SetAgent(window_actionTree, a);
                     ADAPT_UI_ActionTree.SetAllAgentActions(a);
-                    //window_actionTree.Repaint()
                 }
             }
         }
@@ -63,7 +62,8 @@ namespace ADAPT.UI
             GUILayout.Space(25);
             //DrawDefaultInspector(); //Default selector
             //Exclude the Animation variables and draw the rest:
-            DrawPropertiesExcluding(serializedObject, new string[] { "hasAnimations", "onSiteIdle", "onWalkingIdle", "transitionTime"});
+            DrawPropertiesExcluding(serializedObject, new string[] {"hasAnimations", "onSiteIdle", "onWalkingIdle", "transitionTime"});
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("hasAnimations"));
             if (a.hasAnimations) //In case of have some animation...
             {
@@ -92,6 +92,7 @@ namespace ADAPT.UI
             GUILayout.EndHorizontal();
             /******ACTION TREE UI******/
         }
+        
     }
 
 }

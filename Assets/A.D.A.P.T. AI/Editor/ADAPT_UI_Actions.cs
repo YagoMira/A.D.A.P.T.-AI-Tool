@@ -161,8 +161,6 @@ namespace ADAPT.UI
                     GUI.skin.button.fontSize = 7;
                     if (GUILayout.Button("Delete", GUILayout.MaxWidth(45), GUILayout.MaxHeight(12)))
                     {
-                        //Debug.Log(i.ToString());
-                        //Debug.Log(list.displayName);
                         int oldSize = list.arraySize;
                         list.DeleteArrayElementAtIndex(i);
                         if (list.arraySize == oldSize)

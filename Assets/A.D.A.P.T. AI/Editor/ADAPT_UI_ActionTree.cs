@@ -28,14 +28,12 @@ namespace ADAPT.UI
 
         public static void SetAgent(ADAPT_UI_ActionTree window, Agent a)
         {
-            //window.agent = a;
             agent = a;
             Initializate();
         }
 
         void OnInspectorUpdate()
         {
-            //this.window.agent = a;
             Repaint();
         }
 
@@ -74,7 +72,6 @@ namespace ADAPT.UI
             {
                 if (agent.goals != null)
                 {
-                    Debug.Log("GOALS: " + agent.goals.Count);
                     increase_x_goal = 0;
                     increase_y_goal = 0;
 
@@ -104,7 +101,7 @@ namespace ADAPT.UI
                     }
                     
                 }
-                /**************/
+            /**************/
             }
         }
 
@@ -235,6 +232,20 @@ namespace ADAPT.UI
                                                 }
                                                 else if (i == agent.receivedActions.Count - 1)
                                                 {
+                                                    
+                                                    for (int z = 0; z < agent.goals.Count; z++)
+                                                    {
+                                                        if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                        {
+                                                            if (z == 0)
+                                                                searchGoal = 0;
+                                                            Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.yellow, null, 5f);
+                                                        }
+                                                        searchGoal++;
+                                                    }
+                                                }
+                                                else
+                                                {
                                                     for (int z = 0; z < agent.goals.Count; z++)
                                                     {
                                                         if (agent.goals[z].goal_precondition.key == agent.currentGoal)
@@ -249,6 +260,7 @@ namespace ADAPT.UI
                                             }
                                             else
                                             {
+                                                
                                                 if ((j + 1) < action_list.Length)
                                                 {
                                                     if (i != agent.receivedActions.Count - 1)
@@ -267,6 +279,19 @@ namespace ADAPT.UI
                                                             }
                                                             searchGoal++;
                                                         }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for (int z = 0; z < agent.goals.Count; z++)
+                                                    {
+                                                        if (agent.goals[z].goal_precondition.key == agent.currentGoal)
+                                                        {
+                                                            if (z == 0)
+                                                                searchGoal = 0;
+                                                            Handles.DrawBezier(nodeRect[j].center, goalRect[searchGoal].center, new Vector2(nodeRect[j].xMax + 50f, nodeRect[j].center.y), new Vector2(goalRect[searchGoal].xMin - 50f, goalRect[searchGoal].center.y), Color.yellow, null, 5f);
+                                                        }
+                                                        searchGoal++;
                                                     }
                                                 }
                                             }
@@ -288,7 +313,6 @@ namespace ADAPT.UI
         {
             if (a != null)
                 action_list = a.gameObject.GetComponents<Action>();
-            //return null;
         }
 
         void WindowFunction(int windowID)

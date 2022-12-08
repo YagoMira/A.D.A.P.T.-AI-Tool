@@ -30,7 +30,12 @@ public abstract class Action : MonoBehaviour
         public ResourceStruct(string key, Resource resource)
         {
             this.key = key;
-            if(resource.resourceEnumType == ResourceType.WorldElement.ToString())
+            setResourceType(resource);
+        }
+
+        public void setResourceType(Resource resource)
+        {
+            if (resource.resourceEnumType == ResourceType.WorldElement.ToString())
             {
                 this.w_resource = (WorldResource)resource;
                 this.selectedType = ResourceType.WorldElement;
@@ -88,8 +93,6 @@ public abstract class Action : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable() //Start.
     {
-        //preconditions_list = new List<ResourceStruct>();
-        //effects_list = new List<ResourceStruct>();
         preconditions = new Dictionary<string, Resource>();
         effects = new Dictionary<string, Resource>();
         PerformData();

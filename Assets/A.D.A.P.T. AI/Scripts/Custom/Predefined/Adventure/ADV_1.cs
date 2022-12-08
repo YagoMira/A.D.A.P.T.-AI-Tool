@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ADV_1 : MonoBehaviour
 {
+    //THIS IS AN ADVENTURE ACTION EXAMPLE
+
     // Start is called before the first frame update
     void Start()
     {

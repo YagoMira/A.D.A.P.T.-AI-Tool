@@ -27,13 +27,13 @@ public class GoTo_Action : Action
         */
 
         //Assign values across Inspector and not appears in it.
-        ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, 5, 50.0f));
+        //ResourceStruct GoTo_preconditions = new ResourceStruct("isNear", new WorldResource("isNear", target, 5, 50.0f));
         ResourceStruct GoTo_effects = new ResourceStruct("onPosition", new StatusResource("onPosition", true, 5));
 
         actionName = a_name;
 
         //Add preconditions and effects and appears in inspector
-        preconditions_list.Add(GoTo_preconditions);
+        //preconditions_list.Add(GoTo_preconditions);
         effects_list.Add(GoTo_effects);
 
         //GetComponents
@@ -43,23 +43,14 @@ public class GoTo_Action : Action
         Debug.Log("<color=blue> Action: </color>" + actionName + "<color=blue> has preconditions/effects added by code,</color> <color=red> DON'T ADD MORE VIA INSPECTOR!.</color>");
     }
 
-    private void Update()
-    {
-        /*
-            agent.onIdle = false;
-            if(finished != true) //While the Action is not finished
-            {
-                PerformAction();
-            }
-        */
-    }
+    private void Update() { }
 
     public override void PerformAction()
     {
-        //CHECK UPDATE-LATEUPDATE WITH AGENT CLASS
+        agent.agent_states.ModifyStatusItem("onPosition", false); //Initialices the state in case of enter in a loop.
+        agent.agent_states.ModifyStatusItem("inWMill", false); //Initialices the state in case of enter in a loop.
 
         actual_agent = gameObject.GetComponent<NavMeshAgent>();
-        //Debug.Log("<color=red>LLAMA!</color>");
 
         if (target != null && hasTarget) //TARGET EXISTS
         {
@@ -74,18 +65,12 @@ public class GoTo_Action : Action
             {
                 if (!actual_agent.hasPath || actual_agent.velocity.sqrMagnitude == 0f)
                 {
-                    //Debug.Log("COMPLETED\n");
-                    //running = false;"
-                    //Debug.Log("<color=red>LLAMA!-1 </color> D1: " + actual_agent.remainingDistance + " D2: " + actual_agent.stoppingDistance);
                     finished = true;
-
+                    agent.agent_states.ModifyStatusItem("onPosition", true);
                 }
             }
             else
             {
-                //Debug.Log("NO COMPLETED\n");
-                //running = true;
-                //Debug.Log("<color=red>LLAMA!-2</color>");
                 finished = false;
             }
         }

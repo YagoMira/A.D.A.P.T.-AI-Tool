@@ -10,9 +10,10 @@ public abstract class Agent : MonoBehaviour
     [Serializable]
     public class Goal
     {
-        public Action.ResourceStruct goal_precondition;
+        public Action.ResourceStruct goal_precondition; //Precondition resource to achieve the goal (basically the goal).
         public bool hasAction; //In case of the goal has any action to perform.
         public Action goal_Action; //Action to perfom.
+        public int priority; //Same priority as the precondition of the goal.
 
         public Goal(Resource resource, bool hasAction)
         {
@@ -27,10 +28,79 @@ public abstract class Agent : MonoBehaviour
             this.goal_Action = action;
         }
 
+        public int getGoalPriority()
+        {
+            if (goal_precondition.selectedType == ResourceType.WorldElement)
+                return goal_precondition.w_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.Position)
+                return goal_precondition.p_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.InventoryObject)
+                return goal_precondition.i_resource.priority;
+            else if (goal_precondition.selectedType == ResourceType.Status)
+                return goal_precondition.s_resource.priority;
+            else
+                return 0;
+        }
+
+        public object getGoalValue()
+        {
+            if (goal_precondition.selectedType == ResourceType.WorldElement)
+                return goal_precondition.w_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.Position)
+                return goal_precondition.p_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.InventoryObject)
+                return goal_precondition.i_resource.value;
+            else if (goal_precondition.selectedType == ResourceType.Status)
+                return goal_precondition.s_resource.value;
+            else
+                return 0;
+        }
+
+        public void setResourceEnumType(Action.ResourceStruct precondition)
+        {
+            if(precondition.selectedType == ResourceType.WorldElement)
+            {
+                precondition.w_resource.resourceEnumType = ResourceType.WorldElement.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.Position)
+            {
+                precondition.p_resource.resourceEnumType = ResourceType.Position.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.InventoryObject)
+            {
+                precondition.i_resource.resourceEnumType = ResourceType.InventoryObject.ToString();
+            }
+            else if(precondition.selectedType == ResourceType.Status)
+            {
+                precondition.s_resource.resourceEnumType = ResourceType.Status.ToString();
+            }
+        }
+
+        public void setResourceValue(Action.ResourceStruct precondition)
+        {
+            if (precondition.selectedType == ResourceType.WorldElement)
+            {
+                precondition.w_resource.value = precondition.w_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.Position)
+            {
+                precondition.p_resource.value = precondition.p_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.InventoryObject)
+            {
+                precondition.i_resource.value = precondition.i_resource.resource_value;
+            }
+            else if (precondition.selectedType == ResourceType.Status)
+            {
+                precondition.s_resource.value = precondition.s_resource.resource_value;
+            }
+        }
+
+
     }
 
     public string agentName; //Name of the Agent
-    public List<Goal> goals = new List<Goal>(); //!!!!!!!!!!
+    public List<Goal> goals = new List<Goal>(); //List of goals who planner work with
     public Dictionary<string, Goal> goals_list = new Dictionary<string, Goal>(); //Set of multiple agent's goals: <Name, Priority>
     public List<Action> actions = new List<Action>(); //List of agent's actions to achieve a goal
     [ReadOnly]
@@ -81,7 +151,10 @@ public abstract class Agent : MonoBehaviour
                 }
             }
 
+
             //Truncate data to dictionary.
+            g.setResourceEnumType(g.goal_precondition);
+            g.setResourceValue(g.goal_precondition);
             goals_list.Add(g.goal_precondition.key, g);
         }
 
@@ -104,8 +177,21 @@ public abstract class Agent : MonoBehaviour
 
     public void LateUpdate()
     {
-        //if(plannerEnded != true)
-        PerformPlanner();
+        //In case of some goal has beend added previously via code.
+        foreach (Goal g in goals)
+        {
+            //Truncate data to dictionary.
+            if(!goals_list.ContainsKey(g.goal_precondition.key))
+            {
+                g.setResourceEnumType(g.goal_precondition);
+                g.setResourceValue(g.goal_precondition);
+                goals_list.Add(g.goal_precondition.key, g);
+                g.getGoalPriority();
+            }
+                
+        }
+
+        PerformPlanner(); 
     }
 
     public void PlayAnimation(AnimationClip anim) //Play the action animation
@@ -118,7 +204,7 @@ public abstract class Agent : MonoBehaviour
                 animatorOverrided["T-Pose"] = anim; //DON'T CHANGE T-Pose on Animator!.
         }
         
-        //agentAnimator.CrossFade("runnableaction", 0.1f, 0); //Maybe need it (¿?).
+        //agentAnimator.CrossFade("runnableaction", 0.1f, 0); //Used for smooth animation transitions.
     }
 
     public void RestartAnimator() //Restart animator when finish and achieve some goal.
@@ -132,11 +218,11 @@ public abstract class Agent : MonoBehaviour
         Dictionary<string, object> worldStates; //Initialice and ADD all states to the current dictionary.
 
         //**LIMITED ACTIONS TO RUN BEFORE RESTART THE PLANNER** (Can change the value if you want).
-        int runneableActions = 2; //Change this value to set the number of actions to run before restart the planner.
+        int runneableActions = 3; //Change this value to set the number of actions to run before restart the planner.
         bool planFinished = false;  //In case of finish all actions to run.
 
         //RUN PLANNER.
-        if (planner == null || actionsToRun == null) //Acciones posibles | Estado ACTUAL del agente (es decir los recursos que posee AHORA MISMO el agente) | Metas
+        if (planner == null || actionsToRun == null)
         {
             worldStates = new Dictionary<string, object>();
             receivedActions = new List<Action>();
@@ -146,17 +232,18 @@ public abstract class Agent : MonoBehaviour
             runnedActions = 0; //Used for count the actual number of perfomed actions.
             plannerEnded = false;
 
+
             //In case of previous planner don't restart the values of the components attached to agent.
-            /*if (plannerEnded == true)
+            if (plannerEnded == true)
             {
                 foreach (Action a in actionsToRun)
                 {
                     a.finished = false;
                     plannerEnded = false; //Restart planner.
                 }
-            }*/
+            }
 
-            /*if (goals_list.Count == 0)
+            if (goals_list.Count == 0)
             {
                 Debug.Log("RESTART GOALS!");
                 foreach (Goal g in goals)
@@ -180,21 +267,25 @@ public abstract class Agent : MonoBehaviour
                 {
                     if (a.finished)
                         a.finished = false;
-                    Debug.Log("ACTION: " + a.actionName + " . " + a.finished);
                 }
-            }*/
+            }
 
+            goals_list = goals_list.OrderBy(x => x.Value.getGoalPriority()).ToDictionary(x => x.Key, x => x.Value); //Order Goals by priority
             planner = new Planner();
             actionsToRun = planner.Plan(actions, worldStates, goals_list);
 
-         
-
-            //maxActions = actionsToRun.Count; //Save maximum number of actions to perform
-
-            /*foreach(KeyValuePair<string, object> s in worldStates)
+            if(actionsToRun == null)
             {
-                Debug.Log("AGENT: " + agentName + " STATE: " + s.Key + " -/V: " + s.Value);
-            }*/
+                Component[] agent_Actions = null;
+
+                agent_Actions = GetComponents(typeof(Action));
+
+                foreach (Action a in agent_Actions) //Restart all finish condition of the actions.
+                {
+                    a.finished = false;
+                }
+            }
+
 
             if (agent.pathPending && actionsToRun != null) //Reset all navigation paths for prevent any destination bug.
             {
@@ -216,43 +307,45 @@ public abstract class Agent : MonoBehaviour
 
         if (actionsToRun != null) //Set the actual Action running.
         {
-            //if (actionsToRun.Count <= 1 && currentAction.finished == true) //Check if actual currentAction is finished for prevent any early Dequeue
-            if (actionsToRun.Count <= 1) //If last action
+            if(currentAction != null)
             {
-                if(actionsToRun.Count != 0)
-                    currentAction = actionsToRun.Peek(); //Get last action has current one.
-               
-                if(currentAction.finished == true) //In case of last action is finished
+                if (actionsToRun.Count <= 1 && currentAction.finished == true) //If last action
                 {
-                    //If last action is an action_goal
-                    if(goals_list[currentGoal].hasAction == true)
+                    if (actionsToRun.Count != 0)
+                        currentAction = actionsToRun.Peek(); //Get last action has current one.
+
+                    if (currentAction.finished == true) //In case of last action is finished
                     {
-                        if(currentAction.name == goals_list[currentGoal].goal_Action.name)
+                        //If last action is an action_goal
+                        if (goals_list[currentGoal].hasAction == true)
+                        {
+                            if (currentAction.name == goals_list[currentGoal].goal_Action.name)
+                            {
+                                if (actionsToRun.Count != 0)
+                                    actionsToRun.Dequeue();
+                                currentAction = gameObject.GetComponent(goals_list[currentGoal].goal_Action.GetType().ToString()) as Action;
+                                planFinished = true;
+                            }
+                            else //Last action is not an action_goal but have one, add it!.
+                            {
+                                Type goal_action = goals_list[currentGoal].goal_Action.GetType(); //Get the actual goal-action from Agent to perform
+                                Action finish_action = gameObject.GetComponent(goal_action.ToString()) as Action;
+                                if (actionsToRun.Count != 0)
+                                    actionsToRun.Dequeue();
+                                actionsToRun.Enqueue(finish_action); //Add goal action to the queue.
+                            }
+                        }
+                        else //Other case, is normal action and planner is finished.
                         {
                             if (actionsToRun.Count != 0)
                                 actionsToRun.Dequeue();
-                            currentAction = gameObject.GetComponent(goals_list[currentGoal].goal_Action.GetType().ToString()) as Action;
-                            //Debug.Log("<color=red>FINISHED PLANNER-ByGoal!!</color>");
+                            //FINISHED PLAN!!
                             planFinished = true;
                         }
-                        else //Last action is not an action_goal but have one, add it!.
-                        {
-                            Type goal_action = goals_list[currentGoal].goal_Action.GetType(); //Get the actual goal-action from Agent to perform
-                            Action finish_action = gameObject.GetComponent(goal_action.ToString()) as Action;
-                            if (actionsToRun.Count != 0)
-                                actionsToRun.Dequeue();
-                            actionsToRun.Enqueue(finish_action); //Add goal action to the queue.
-                        }
-                    }
-                    else //Other case, is normal action and planner is finished.
-                    {
-                        if (actionsToRun.Count != 0)
-                            actionsToRun.Dequeue();
-                        //Debug.Log("<color=red>FINISHED PLANNER!!</color>");
-                        planFinished = true;
                     }
                 }
-                /*if(currentAction.finished == true) //In case of last action is finished, perform GOAL ACTION.
+            
+                if(currentAction.finished == true) //In case of last action is finished, perform GOAL ACTION.
                 {
                     if(currentGoal != null || !currentGoal.Equals("")) //In case of not empty goal
                     {
@@ -263,8 +356,8 @@ public abstract class Agent : MonoBehaviour
                                 if(g.Value.hasAction == true) //In case of have some Action to perform
                                 {
                                     Type goal_action = g.Value.goal_Action.GetType(); //Get the actual goal-action from Agent to perform
-                                    //currentAction = gameObject.GetComponent(goal_action.ToString()) as Action;
                                     Action finish_action = gameObject.GetComponent(goal_action.ToString()) as Action;
+
                                     actionsToRun.Dequeue();
                                     actionsToRun.Enqueue(finish_action); //Add goal action to the queue.
                                 }  
@@ -272,12 +365,13 @@ public abstract class Agent : MonoBehaviour
                         }     
                     }
                     runnedActions++;
-                }*/
+                }
 
            }
-           else if(actionsToRun.Count > 1)
+
+           if(actionsToRun.Count >= 1)
            {
-               //Check if action is finished or not.!!!!
+               //Check if action is finished or not!.
                if(currentAction == null)
                { 
                    currentAction = actionsToRun.Dequeue();
@@ -286,62 +380,99 @@ public abstract class Agent : MonoBehaviour
                {
                    if(currentAction == currentAction.finished)
                    {
+                        currentAction.running = false;
                         currentAction = actionsToRun.Dequeue();
                    }
                }
-                
-               //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
            }
 
-            if (currentAction.finished != true) //Run the actual Action
+            if (currentAction != null)
             {
-                currentAction.running = true;
-                if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states
-                    agentAnimator.SetBool("running", currentAction.running);
-            }
-            /*****************CHECK***********************/
-            else //In case of the actual action is finished but the effects are not achieved...Restart planner.
-            {
-                runnedActions++;
-                currentAction.running = false; //Set running to false only if action is finished.
-                 if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states
-                    agentAnimator.SetBool("running", currentAction.running);
-
-                foreach (KeyValuePair<string, Resource> eff in currentAction.effects)
+                if (currentAction.finished != true) //Run the actual Action.
                 {
-                    if(RestartPlanner(eff) == true)
-                    {
-                        planFinished = false;
-                    }
-                    else //In case of achieve the states-effects, check if should restar.
-                    {
-                        if (actionsToRun.Count != 0)
-                        {
-                            if (runnedActions >= runneableActions) //Check if actually the limit of actions is achieve
-                            {
+                    currentAction.running = true;
+                    if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states.
+                        agentAnimator.SetBool("running", currentAction.running);
+                }
+                else //In case of the actual action is finished but the effects are not achieved...Restart planner.
+                {
 
-                                //Restart the planner.
-                                Debug.Log("<color=yellow>RESTART...</color>");
-                                StartCoroutine(RestartPlanner_Wait());
-                                //currentAction.finished = false;
-                                //planner = null;
+                    currentAction.running = false; //Set running to false only if action is finished.
+
+                    if (currentAction.actionAnimation != null && agentAnimator != null) //Set running bool into the states.
+                        agentAnimator.SetBool("running", currentAction.running);
+
+                    if (runnedActions > runneableActions) //Check if actually the limit of actions is achieve
+                    {
+                        //Restart the planner.
+                        Debug.Log("<color=yellow>RESTART...</color>");
+                        StartCoroutine(RestartPlanner_Wait());
+                    }
+                    else
+                    {
+                        foreach (KeyValuePair<string, Resource> eff in currentAction.effects)
+                        {
+                            if (RestartPlanner(eff, false) == true)
+                            {
+                                planFinished = false;
+                            }
+                            else //In case of achieve the states-effects, check if should restar.
+                            {
+                                planFinished = true;
+
+                                if (actionsToRun.Count != 0)
+                                {
+                                    //Restart the planner.
+                                    Debug.Log("<color=yellow>RESTART...</color>");
+                                    StartCoroutine(RestartPlanner_Wait());
+                                }
                             }
                         }
                     }
                 }
             }
+
             /******************************************************/
 
-            if(planner != null)
+            if (planner != null)
             {
                 //Current Goal to achieve
                 currentGoal = planner.goal_to_achieve;
             }
 
             /******************************************************/
-            if (actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVE THE GOAL
+
+            if (actionsToRun.Count == 0 && actionsToRun != null && planFinished == true) //PLANNER ACHIEVED THE GOAL
             {
-                Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color>");
+                bool goalAchieved = false;
+
+                if (goals_list[currentGoal].goal_precondition.selectedType == ResourceType.WorldElement)
+                {
+                    KeyValuePair<string, Resource> goal_resource = new KeyValuePair<string, Resource>(goals_list[currentGoal].goal_precondition.key, goals_list[currentGoal].goal_precondition.w_resource);
+                    goalAchieved = RestartPlanner(goal_resource, true);
+                }
+                else if (goals_list[currentGoal].goal_precondition.selectedType == ResourceType.Position)
+                {
+                    KeyValuePair<string, Resource> goal_resource = new KeyValuePair<string, Resource>(goals_list[currentGoal].goal_precondition.key, goals_list[currentGoal].goal_precondition.p_resource);
+                    goalAchieved = RestartPlanner(goal_resource, true);
+                }
+                else if (goals_list[currentGoal].goal_precondition.selectedType == ResourceType.InventoryObject)
+                {
+                    KeyValuePair<string, Resource> goal_resource = new KeyValuePair<string, Resource>(goals_list[currentGoal].goal_precondition.key, goals_list[currentGoal].goal_precondition.i_resource);
+                    goalAchieved = RestartPlanner(goal_resource, true);
+                }
+                else if (goals_list[currentGoal].goal_precondition.selectedType == ResourceType.Status)
+                {
+                    KeyValuePair<string, Resource> goal_resource = new KeyValuePair<string, Resource>(goals_list[currentGoal].goal_precondition.key, goals_list[currentGoal].goal_precondition.s_resource);
+                    goalAchieved = RestartPlanner(goal_resource, true);
+                }
+
+                if(goalAchieved != true)
+                    Debug.Log("<color=red>GOAL ACHIEVED!!!!!!!!</color> -" + currentGoal);
+                else
+                    Debug.Log("<color=orange>GOAL NOT ACHIEVED!!!!!!!!</color> -" + currentGoal);
+
+
                 plannerEnded = true;
                 if (plannerEnded == true) //Restart planner when achieve goal
                 {
@@ -350,8 +481,6 @@ public abstract class Agent : MonoBehaviour
                     
                     if(goals_list.Count > 0)
                         goals_list.Remove(currentGoal);
-                    //if (agentAnimator != null)
-                        //RestartAnimator(); //Restart the animator and enter in the first state other time.
                 }
             }
             /******************************************************/
@@ -373,10 +502,6 @@ public abstract class Agent : MonoBehaviour
                 }
             }
         }
-
-        //Debug.Log("NAME / ISFINISHED:" + currentAction.actionName + " - " + currentAction.finished);
-        //Debug.Log("RUNNEDACTIONS: " + runnedActions + " - " + " ACTUAL ACTIONS: " + actionsToRun.Count);
-
     }
 
     IEnumerator RestartPlanner_Wait() //Use this function for programmatically restart the planner when achieve an amount of runned actions.
@@ -385,8 +510,10 @@ public abstract class Agent : MonoBehaviour
         planner = null;
     }
 
-    public bool RestartPlanner(KeyValuePair<string, Resource> e) //In case of actual state dont achieve any of the effects, restart planner until some of state's value is equals some effect's value.
+    public bool RestartPlanner(KeyValuePair<string, Resource> e, bool receivedGoal) //In case of actual state dont achieve any of the effects, restart planner until some of state's value is equals some effect's value.
     {
+        //*receivedGoal -> //In case of goal has been accomplished, then indicate into the console. Other ways, do the same.
+
         //World and Position states are setter finished by the user.!!!
         if (global_states.inventory.ContainsKey(e.Key) || global_states.status.ContainsKey(e.Key))
         {
@@ -394,8 +521,12 @@ public abstract class Agent : MonoBehaviour
             {
                 if (global_states.inventory[e.Key] < (float)e.Value.value)
                 {
-                    planner = null;
-                    currentAction.finished = false;
+                    if(receivedGoal == false)
+                    {
+                        planner = null;
+                        currentAction.finished = false;
+                    }
+                    
                     return true;
                 }
             }
@@ -403,8 +534,12 @@ public abstract class Agent : MonoBehaviour
             {
                 if (global_states.status[e.Key] != (bool)e.Value.value)
                 {
-                    planner = null;
-                    currentAction.finished = false;
+                    if (receivedGoal == false)
+                    {
+                        planner = null;
+                        currentAction.finished = false;
+                    }
+
                     return true;
                 }
             }
@@ -415,8 +550,12 @@ public abstract class Agent : MonoBehaviour
             {
                 if (agent_states.inventory[e.Key] < (float)e.Value.value)
                 {
-                    planner = null;
-                    currentAction.finished = false;
+                    if (receivedGoal == false)
+                    {
+                        planner = null;
+                        currentAction.finished = false;
+                    }
+
                     return true;
                 }
             }
@@ -424,8 +563,12 @@ public abstract class Agent : MonoBehaviour
             {
                 if (agent_states.status[e.Key] != (bool)e.Value.value)
                 {
-                    planner = null;
-                    currentAction.finished = false;
+                    if (receivedGoal == false)
+                    {
+                        planner = null;
+                        currentAction.finished = false;
+                    }
+
                     return true;
                 }
             }
