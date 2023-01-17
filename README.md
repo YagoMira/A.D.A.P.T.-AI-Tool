@@ -18,6 +18,8 @@ creation of AI in video games, known as Goal-Oriented Action Planning (GOAP). Th
 allow endow Non-Playable Characters(NPC) to be provided with a set of actions, and depends
 on the situation one or other will be executed, with the target of achieve a predetermined goal.
 
+#### LINK TO THE ASSET STORE: https://assetstore.unity.com/packages/tools/ai/a-d-a-p-t-ai-241029
+
 HERE IS THE USER GUIDE - CHECK IT!:
 [A.D.A.P.T. User Guide (In English)](https://github.com/YagoMira/A.D.A.P.T.-AI-Tool/blob/main/Assets/A.D.A.P.T.%20AI/User_Guide.pdf)
 
